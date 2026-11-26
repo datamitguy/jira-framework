@@ -127,11 +127,17 @@ Meeting rules: start from the board or dashboard, not from slides. Walk exceptio
 
 ## 8. Dependencies and risks
 
-- If one piece of work must finish before another, link them: the first **blocks** the second. Do this when the dependency is found, not when it bites.
-- A dependency inside one sub value stream is just the link. One that crosses sub value streams, involves an outside party, or is at risk also gets a Delivery RAID ticket naming who gives and who receives.
-- The giver's work must be planned to finish before the receiver's starts. If it cannot be, that is settled at planning.
+The full method is section 12 of the white paper. The working rules:
+
+- **Nobody creates work in another team's project.** If you need something from another team, raise an ask: a Delivery RAID ticket of type Dependency in the portfolio project, addressed to the supplier's product owner, with the date you need it. The supplier creates its own ticket in its own backlog.
+- **An ask is answered within five working days:** accepted with a promised date, another date proposed, or declined with a reason.
+- **Accepting means linking.** The supplier links its own Epic or Story to the dependency ticket, adds a **blocks** link to the waiting Epic, writes the promised date in Baseline End Date, and moves the ticket to In Progress.
+- **Work inside one Feature needs no RAID ticket.** Each application's share is an Epic under the Feature, with a blocks link if one must finish first. Raise a RAID ticket only if it is not agreed or is at risk.
+- **Blocked today means flagged today.** A flag that has been on for two working days becomes a Delivery RAID ticket, linked to the Epic.
+- **No commitment on an unagreed dependency.** At PI planning, an Epic that waits on an ask with no promised date, or a promised date after the need-by date, is stretch, not committed.
+- **Only the receiver closes a dependency,** when what was delivered is usable.
 - A risk is raised when something might move a date. It has an owner, a response, and a review date. An accepted risk stays open and visible, with the name of the person who accepted it.
-- Raise a RAID ticket when a team cannot settle the matter alone. Everything else stays with the team.
+- **Who does what:** product owners own asks and promises; the delivery lead owns the register and the process and triages every new RAID ticket within two working days; product leads decide what gives; the value stream lead settles conflicts between sub value streams.
 
 ## 9. Done means done
 

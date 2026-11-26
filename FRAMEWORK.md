@@ -2,6 +2,14 @@
 
 As of 26 November 2026. All names and figures in examples are placeholders.
 
+> **Changes of 27 November 2026.** Three things changed after this document was written. Where the text below differs, the white paper ([whitepaper/WHITE_PAPER.md](whitepaper/WHITE_PAPER.md)) is the current version.
+>
+> 1. **Dependencies and RAID** (white paper section 12). Nobody creates work in another team's project: the team that is waiting raises a Delivery RAID Dependency in the portfolio project, and the supplier creates and links its own ticket. A RAID ticket may be linked to an Epic, and is linked upward when the impact grows. An Epic that waits on an unagreed dependency is stretch, not committed. The delivery lead owns the register and the process; product owners own asks and promises. There is a sixth dashboard, Dependencies.
+> 2. **Plans is used for the L0 roadmap only** (white paper sections 9 and 14). The PI plan, load against capacity, the dependency board and progress roll-ups are Confluence pages. Wherever the text below says "the plan", read "the PI plan page in Confluence" unless it is about the roadmap.
+> 3. **A page for each role** (white paper section 14): delivery lead, platform owner and product owner views in Confluence.
+>
+> Two queries below use `issueLinkType`, which may not exist on this Jira version; test it before relying on "VS: open blockers" and "Team: Epics blocked by others".
+
 One portfolio project holds every VS Epic, Feature, Milestone and Delivery RAID; each application keeps its own project for Epics and below; and fields you already have (sub value stream, Target PI, Actual PI, RAG Status) connect the two, so any initiative can be followed across applications.
 
 ## At a glance

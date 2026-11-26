@@ -15,7 +15,8 @@ All names in examples are placeholders. [WAYS_OF_WORKING.md](WAYS_OF_WORKING.md)
 | You are no longer stopped | Remove the flag the same day. |
 | You finish | Move it to Done. Check it meets the definition of done first. |
 | You find a defect | Raise a Bug under the right Epic, with Severity, Testing Phase and Environment. |
-| You discover your work needs another team | Tell your product owner the same day, so the two Epics can be linked. |
+| You discover your work needs another team | Tell your product owner the same day, so the ask can be raised. Do not create a ticket in the other team's project. |
+| A flag has been on for two working days | Ask your scrum master or product owner to raise a Delivery RAID ticket linked to the Epic. |
 | You realise it will not finish this sprint | Say so at stand-up. Do not wait for the last day. |
 | Scope or estimate changes a lot | Update the estimate and add a comment saying why. |
 
@@ -123,6 +124,26 @@ You own the Epics. Your Epics are how your application shows up in the portfolio
 | Links | **blocks** or **is blocked by**, to any Epic in another application it depends on |
 
 After planning is locked, do not change Target PI or the commitment label. If the plan has to change, talk to your product lead and delivery lead; they record the decision.
+
+**When you need something from another team (an ask)**
+
+| Step | What to do |
+| --- | --- |
+| Raise | Create a Delivery RAID ticket in the portfolio project: RAID Type Dependency; a summary saying who needs what by when; Due date = the date you need it; the supplier's sub value stream; Assignee = the supplier's product owner. Link it to your waiting Epic with **relates to**. |
+| Chase | It is yours to chase. No answer after five working days: raise it at the delivery sync. |
+| Keep true | The need-by date and the RAG Status are your judgement. |
+| Close | When what was delivered is usable, move the ticket to Done. Only the receiver closes it. |
+
+If the work is another application's share of the same Feature, there is no ask to raise: that product owner creates an Epic under the Feature, and you link the two Epics with **blocks** if one must finish first.
+
+**When another team asks something of you**
+
+| Step | What to do |
+| --- | --- |
+| Answer within five working days | Accept, propose another date, or decline with a reason, as a comment |
+| Accept | Create or pick your own Epic or Story in your own project. Link it to the dependency ticket (**relates to**) and to the waiting Epic (**blocks**). Put the date you promise in Baseline End Date. Move the ticket to In Progress. |
+| Plan | Give your ticket a Target PI and an end date before the need-by date |
+| Deliver | Comment on the dependency ticket when it is ready |
 
 **Every week, before the delivery sync (about ten minutes)**
 

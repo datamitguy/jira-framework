@@ -577,4 +577,237 @@ for i, (n, vals) in enumerate([("Risk", [6, 4, 1]), ("Assumption", [4, 1, 0]), (
 save(f, "27_dashboard_mockup", "Dashboard 1, Value stream portfolio: a mock-up of the finished page",
      "Illustrative layout and data. Built only from standard gadgets on saved filters.")
 
+
+# ---------------------------------------------------------------- 28 escalation ladder
+f, ax = canvas(12.5, 5.4, 125, 50)
+steps = [("1  FLAG", "A story or Epic is stopped\nright now", "The person who is stopped", "The same day", NEUT, T),
+         ("2  BLOCKS LINK", "The cause is known work in\nanother team's Epic", "Product owner of the\nwaiting Epic", "When it is found; at PI\nplanning at the latest", B250, T),
+         ("3  DELIVERY RAID", "It needs managing above the team:\nno agreement, another sub value\nstream or outside party, a date at\nrisk, or stuck for two working days", "Raised by whoever sees it;\ntriaged by the delivery lead", "Within two working days", B500, "white"),
+         ("4  LINK UPWARD", "A Feature commitment or a\nMilestone is now threatened", "Delivery lead adds the link;\nproduct lead decides", "At the weekly delivery sync,\nor sooner if Red", B700, "white")]
+for i, (t, when, who, by, col, tc) in enumerate(steps):
+    x = 3 + i * 30.5; y = 27 + i * 3.2
+    box(ax, x, y, 27, 7, t, col, tc=tc, fs=10.5, weight="bold")
+    if i < 3:
+        ax.annotate("", xy=(x + 30.3, y + 6.8), xytext=(x + 27.2, y + 3.5), arrowprops=dict(arrowstyle="-|>", color=T2, lw=1.4))
+    ax.text(x, 22, "Use it when", fontsize=8, color=T2, weight="bold"); ax.text(x, 20.2, when, fontsize=8.4, va="top", linespacing=1.3)
+    ax.text(x, 8.6, "Who", fontsize=8, color=T2, weight="bold"); ax.text(x, 6.8, who, fontsize=8.4, va="top", linespacing=1.3)
+    ax.text(x, -0.4, "By when", fontsize=8, color=T2, weight="bold"); ax.text(x, -2.2, by, fontsize=8.4, va="top", linespacing=1.3)
+ax.set_ylim(-8, 48)
+ax.text(3, 45, "Each step up adds visibility; none replaces the one below. A flag says it is stopped. A link says what it waits for. A RAID ticket says who owns fixing it.", fontsize=9, color=T2)
+save(f, "28_escalation_ladder", "From a blocked story to a managed dependency: the four steps", "The same ladder for every team. Most blocks stop at step 1 or 2.")
+
+# ---------------------------------------------------------------- 29 PI plan page with dependency board
+f, ax = canvas(12.5, 8.6, 125, 86)
+teams = ["Credit Application", "Drawdowns", "Facility Letter", "Governance and\nConditions", "Watch and Worry\nMonitor"]
+x0, cw, y0, rh = 22, 19.5, 38, 8.2
+ax.text(1, 84.5, "PI plan, part 1: committed and stretch Epics by application and sprint (from each Epic's End Date)", fontsize=9, weight="bold")
+for c in range(5):
+    ax.add_patch(Rectangle((x0 + c * cw, y0 + 5 * rh), cw, 3, fc="#dce6f5", ec=S, lw=1.5)); ax.text(x0 + c * cw + cw / 2, y0 + 5 * rh + 1.5, f"Sprint {c + 1}", ha="center", va="center", fontsize=8.6, weight="bold")
+for r, tname in enumerate(teams):
+    yy = y0 + (4 - r) * rh
+    ax.text(x0 - 1.5, yy + rh / 2, tname, ha="right", va="center", fontsize=8.6, linespacing=1.2)
+    for c in range(5):
+        ax.add_patch(Rectangle((x0 + c * cw, yy), cw, rh, fc=S, ec=NEUT, lw=0.8))
+cards = {"A": (0, 1, "Role model for M&P", "owes D1", GOOD), "B": (1, 3, "M&P for Drawdowns", "waits for D1, D4", CRIT), "C": (3, 2, "Conditions API v2", "owes D2 (not agreed)", WARN),
+         "D": (1, 2, "Drawdown condition checks", "waits for D2", WARN), "E": (2, 2, "Letter from approved terms", "waits for D3", GOOD), "F": (0, 0, "Approved terms feed", "owes D3", GOOD),
+         "G": (4, 2, "Covenant triggers", "", None), "H": (3, 4, "Evidence pack export", "owes D4", CRIT), "I": (4, 3, "Watch-list screen", "", None)}
+for k, (r, c, lab, tag, col) in cards.items():
+    cx = x0 + c * cw + 1; cy = y0 + (4 - r) * rh
+    ax.text(cx, cy + rh - 2.4, lab, fontsize=7.9, va="center")
+    if tag:
+        ax.scatter([cx + 0.8], [cy + 2.6], s=28, color=col); ax.text(cx + 2.4, cy + 2.6, tag, fontsize=7.4, va="center", color=T2)
+ty = 31
+ax.text(1, ty, "PI plan, part 2: dependency board (one row per dependency ticket)", fontsize=9, weight="bold")
+cols = [(1, "ID"), (7, "What is needed"), (44, "Waiting"), (58, "Supplier"), (78, "Need-by"), (89, "Promised"), (100, "Margin"), (111, "State")]
+ax.add_patch(Rectangle((0.5, ty - 5.2), 124, 3.2, fc="#dce6f5", ec="none"))
+for x, t in cols:
+    ax.text(x, ty - 3.6, t, fontsize=8, weight="bold", va="center")
+rows = [("D1", "Role model for M&P", "Drawdowns", "Credit Application", "Sprint 3", "Sprint 2", "+1 sprint", "Agreed", GOOD),
+        ("D2", "Conditions API v2", "Drawdowns", "Governance and Conditions", "Sprint 2", "none yet", "unknown", "Asked, not agreed", WARN),
+        ("D3", "Approved terms feed", "Facility Letter", "Credit Application", "Sprint 2", "Sprint 1", "+1 sprint", "Agreed", GOOD),
+        ("D4", "Evidence pack export", "Drawdowns", "Governance and Conditions", "Sprint 3", "Sprint 5", "-2 sprints", "Agreed, date conflict", CRIT),
+        ("D5", "Covenant feed test environment", "Watch and Worry Monitor", "Outside the value stream", "Sprint 2", "none yet", "unknown", "Asked, not agreed", WARN)]
+for i, rw in enumerate(rows):
+    yy = ty - 7.6 - i * 3.6
+    ax.plot([0.5, 124.5], [yy - 1.8, yy - 1.8], color=G, lw=0.7)
+    for (x, _), v in zip(cols, rw[:8]):
+        bad = (v.startswith("-") or v == "unknown")
+        ax.text(x + (2.2 if x == 111 else 0), yy, v, fontsize=8, va="center", weight="bold" if bad else "normal", color=CRIT if v.startswith("-") else T)
+    ax.scatter([111.6], [yy], s=30, color=rw[8])
+ax.text(1, 3.2, "Margin = need-by date minus promised date, worked out by the page. A negative or unknown margin is settled in the room before the lock.", fontsize=8.4, color=T2)
+ax.set_ylim(0, 86)
+save(f, "29_pi_dependency_board", "Dependencies made visible in the PI plan: a mock-up of the Confluence page",
+     "Illustrative data for PI 2027.2. Two macros on one page: a pivot of Epics, and the list of dependency tickets.")
+
+# ---------------------------------------------------------------- 30 dependencies by supplier and state
+f, ax = new(10, 4)
+ser = {"Agreed, on track": [3, 5, 2, 2, 1, 1], "Agreed, at risk": [0, 2, 1, 0, 1, 0], "Asked, not agreed": [1, 3, 0, 1, 1, 0], "Past its need-by date": [0, 1, 0, 0, 1, 0]}
+tot = hstack(ax, svs, ser, [B500, WARN, NEUT, CRIT], textcols=["white", T, T, "white"])
+for i, t in enumerate(tot):
+    ax.text(t + 0.2, i, f"{t:.0f} owed", va="center", fontsize=9, color=T2)
+ax.set_xlim(0, 13.5); clean(ax); ax.set_xlabel("Open dependencies this sub value stream owes to others"); legend(ax, y=-0.2)
+save(f, "30_dependencies_by_supplier", "What we owe: open dependencies by supplier and state",
+     "Illustrative data. The same tickets, grouped by receiver, give the list of what each sub value stream is waiting for.")
+
+# ---------------------------------------------------------------- 31 dependency dashboard mock-up
+f, ax = canvas(12.5, 6.4, 125, 62)
+ax.add_patch(Rectangle((0, 0), 125, 62, fc="#f3f2ee", ec="none"))
+def panel(x, y, w, h, title):
+    ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=0.8", fc="white", ec=G, lw=1))
+    ax.text(x + 1.5, y + h - 2.6, title, fontsize=9, weight="bold")
+def rowlist(x, y, rows, dy=5.6):
+    for i, (c, a, b) in enumerate(rows):
+        yy = y - i * dy
+        ax.scatter([x], [yy], s=42, color=c); ax.text(x + 2, yy + 0.2, a, fontsize=8.1, va="center"); ax.text(x + 2, yy - 2.3, b, fontsize=7.3, va="center", color=T2)
+panel(2, 33, 59, 27, "1  Asked, not yet agreed (oldest need-by date first)")
+rowlist(4.5, 53.5, [(WARN, "Conditions API v2 needed by Drawdowns before sprint 3", "Receiver: Drawdown · Supplier: Governance and Conditions · need-by 14 Feb · raised 9 days ago"),
+                    (WARN, "Covenant feed test environment", "Receiver: Monitoring · Supplier: outside the value stream · need-by 1 Mar · raised 6 days ago"),
+                    (NEUT2, "Approved terms in the facility letter template", "Receiver: Facility Letter · Supplier: Underwriting · need-by 15 Mar · raised 2 days ago"),
+                    (NEUT2, "Exposure identifiers shared with Forbearance", "Receiver: Forbearance · Supplier: Monitoring · need-by 29 Mar · raised 1 day ago")])
+panel(63, 33, 60, 27, "2  What we owe and what we wait for (open, by sub value stream)")
+ax.text(98, 53.5, "Owes", fontsize=7.8, color=T2, ha="center"); ax.text(108, 53.5, "Waits for", fontsize=7.8, color=T2, ha="center"); ax.text(118, 53.5, "Late", fontsize=7.8, color=T2, ha="center")
+for i, (n, a, b, c) in enumerate([("Underwriting", 4, 1, 0), ("Governance and Conditions", 11, 3, 1), ("Facility Letter", 3, 3, 0), ("Drawdown", 3, 7, 0), ("Monitoring", 4, 3, 1), ("Forbearance", 1, 4, 0)]):
+    yy = 50 - i * 3.1
+    ax.text(65, yy, n, fontsize=8.1, va="center")
+    for xx, v in zip([98, 108, 118], [a, b, c]):
+        ax.text(xx, yy, str(v), fontsize=8.8, ha="center", va="center", weight="bold" if (xx == 118 and v) or v >= 7 else "normal", color=CRIT if (xx == 118 and v) else T)
+panel(2, 2, 38, 29, "3  Past the need-by date, or due in two sprints")
+rowlist(4.5, 24.5, [(CRIT, "Evidence pack export for Drawdowns", "Overdue 5 days · supplier Epic GC-212, Amber"), (CRIT, "Covenant data owner named", "Overdue 12 days · outside party"),
+                    (WARN, "Role model for M&P", "Due in 9 days · supplier Epic CA-140, Green"), (WARN, "Approved terms feed", "Due in 13 days · supplier Epic CA-151, Green")], dy=5.5)
+panel(42, 2, 39, 29, "4  Stopped right now (flagged)")
+rowlist(44.5, 24.5, [(CRIT, "DRAW-388 Drawdown condition checks", "Flagged 3 days · waiting for Conditions API v2"), (CRIT, "WWM-97 Covenant trigger rules", "Flagged 2 days · test environment down"),
+                     (WARN, "FL-203 Letter template merge", "Flagged today · waiting for legal wording")], dy=5.5)
+panel(83, 2, 40, 29, "5  Agreed, but at risk (Amber or Red)")
+rowlist(85.5, 24.5, [(CRIT, "Evidence pack export for Drawdowns", "Red · planned for sprint 5, needed in sprint 4"), (WARN, "Shared event stream for Forbearance", "Amber · supplier lost a week to a production defect"),
+                     (WARN, "Legal wording for the letter template", "Amber · outside party, answer promised 20 Feb")], dy=5.5)
+save(f, "31_dependency_dashboard_mockup", "The dependency dashboard: a mock-up of the finished page",
+     "Illustrative layout and data. Lists come from saved filters; ticket keys are placeholders.")
+
+
+# ---------------------------------------------------------------- 32 dependency linking
+f, ax = canvas(12.5, 5.6, 125, 56)
+lanes = [(1, "DRAWDOWNS PROJECT\nthe receiver: the team that is waiting", "#f6f5f1"), (43, "PORTFOLIO PROJECT\nneutral ground", "#f1f5fb"), (85, "GOVERNANCE AND CONDITIONS PROJECT\nthe supplier: the team that will do the work", "#f6f5f1")]
+for x, t, c in lanes:
+    ax.add_patch(Rectangle((x, 14), 39, 38, fc=c, ec="none")); ax.text(x + 1.5, 50, t, fontsize=8.3, color=T2, weight="bold", va="top", linespacing=1.3)
+box(ax, 5, 30, 31, 9, "EPIC\nDrawdown condition checks", B250, fs=9)
+box(ax, 47, 27, 31, 15, "DELIVERY RAID  ·  Dependency\nDrawdowns needs Conditions API v2\nbefore sprint 3\n\nReporter: Drawdowns product owner\nAssignee: G&C product owner\nDue date: the need-by date", "white", ec=ORANGE, fs=8.2)
+box(ax, 89, 30, 31, 9, "EPIC\nConditions API v2", B250, fs=9)
+dl = dict(color=ORANGE, lw=1.5, ls=(0, (3, 2)))
+ax.plot([36, 47], [34.5, 34.5], **dl); ax.plot([78, 89], [34.5, 34.5], **dl)
+ax.text(41.5, 36.2, "relates to", ha="center", fontsize=8, color=T2, style="italic"); ax.text(83.5, 36.2, "relates to", ha="center", fontsize=8, color=T2, style="italic")
+ax.annotate("", xy=(20.5, 30), xytext=(104.5, 30), arrowprops=dict(arrowstyle="-|>", color=T, lw=1.8, connectionstyle="arc3,rad=-0.16"))
+ax.text(62.5, 19.5, "blocks  (shows on both Epics, and on the roadmap)", ha="center", fontsize=8.6, weight="bold", bbox=dict(fc=S, ec="none", pad=2))
+for x, n, t in [(5, "1", "ASK. The receiver's product owner creates\nthe dependency ticket and links it to\ntheir own Epic."),
+                (47, "2", "ANSWER. The supplier's product owner\naccepts, proposes another date, or\ndeclines, within five working days."),
+                (89, "3", "ACCEPT. The supplier's product owner creates\ntheir own Epic, links it to the dependency\nticket and adds the blocks link.")]:
+    ax.text(x, 11, n, fontsize=13, weight="bold", color=B500, va="top"); ax.text(x + 3, 11, t, fontsize=8.3, va="top", linespacing=1.3)
+ax.set_ylim(0, 54)
+save(f, "32_dependency_linking", "One dependency, three tickets: who creates what, and where",
+     "Nobody creates a ticket in another team's project. Names are placeholders.")
+
+
+# ================================================================ role views
+def page(h=6.6, ymax=64):
+    f, ax = canvas(12.5, h, 125, ymax)
+    ax.add_patch(Rectangle((0, 0), 125, ymax, fc="#f3f2ee", ec="none"))
+    return f, ax
+def pnl(ax, x, y, w, h, title):
+    ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=0.8", fc="white", ec=G, lw=1))
+    ax.text(x + 1.5, y + h - 2.6, title, fontsize=8.8, weight="bold")
+def rows2(ax, x, y, rows, dy=5.4):
+    for i, (c, a, b) in enumerate(rows):
+        yy = y - i * dy
+        ax.scatter([x], [yy], s=40, color=c); ax.text(x + 2, yy + 0.2, a, fontsize=8, va="center"); ax.text(x + 2, yy - 2.2, b, fontsize=7.2, va="center", color=T2)
+def tiles(ax, x, y, w, items):
+    tw = w / len(items)
+    for i, (v, lab, col) in enumerate(items):
+        ax.text(x + i * tw + 1.5, y, str(v), fontsize=17, weight="bold", color=col, va="center")
+        ax.text(x + i * tw + 1.5, y - 4.2, lab, fontsize=7.4, color=T2, va="center", linespacing=1.2)
+def bars(ax, x, y, w, items, colors, labels, rowh=3.3, lab_w=16):
+    mx = max(sum(v) for _, v in items)
+    for i, (n, vals) in enumerate(items):
+        yy = y - i * rowh; ax.text(x, yy, n, fontsize=7.8, va="center"); left = x + lab_w
+        for v, c in zip(vals, colors):
+            ww = (w - lab_w) * v / mx
+            if v:
+                ax.add_patch(Rectangle((left, yy - 1.05), ww - 0.3, 2.1, fc=c, ec="none"))
+                ax.text(left + ww / 2 - 0.15, yy, str(v), fontsize=7.2, ha="center", va="center", color="white" if c in (B500, B700, CRIT, GOOD, ORANGE) else T)
+            left += ww
+    for i, (c, l) in enumerate(zip(colors, labels)):
+        ax.add_patch(Rectangle((x + i * (w / len(labels)), y - len(items) * rowh - 0.6), 1.6, 1.6, fc=c, ec="none")); ax.text(x + i * (w / len(labels)) + 2.4, y - len(items) * rowh + 0.2, l, fontsize=7.2, va="center", color=T2)
+
+# ---------------------------------------------------------------- 33 delivery lead view
+f, ax = page()
+pnl(ax, 2, 50, 121, 12, "This PI at a glance (PI 2027.2, week 6 of 12)")
+tiles(ax, 4, 55.5, 118, [(46, "committed Epics", T), (11, "released", B500), (27, "in progress", B500), (8, "not started", WARN), (5, "flagged now", CRIT), (6, "asks not agreed", WARN), (3, "dependencies late", CRIT), (4, "spilled from last PI", ORANGE)])
+pnl(ax, 2, 23, 40, 25, "What is blocked (flagged now, longest first)")
+rows2(ax, 4.5, 41.5, [(CRIT, "DRAW-388 Drawdown condition checks", "Flagged 3 days · waiting for Conditions API v2"), (CRIT, "WWM-97 Covenant trigger rules", "Flagged 2 days · test environment down"),
+                      (WARN, "FL-203 Letter template merge", "Flagged today · waiting for legal wording"), (WARN, "PEM-61 Exposure roll-up job", "Flagged today · data fix in progress")], dy=4.8)
+pnl(ax, 44, 23, 40, 25, "What is progressing (Epics by application)")
+bars(ax, 46, 42, 36, [("CA", [3, 4, 1]), ("DRAW", [1, 5, 3]), ("FL", [2, 3, 1]), ("GC", [3, 4, 0]), ("WWM", [1, 5, 2]), ("PEM", [1, 3, 1])], [B500, B250, NEUT], ["Released", "In progress", "Not started"], lab_w=7, rowh=3.0)
+pnl(ax, 86, 23, 37, 25, "Dependencies needing action")
+rows2(ax, 88.5, 41.5, [(CRIT, "Evidence pack export", "Agreed · promised 2 sprints after need-by"), (WARN, "Conditions API v2", "Asked 9 days ago · no answer"),
+                       (WARN, "Covenant feed test environment", "Outside party · no owner named"), (CRIT, "Covenant data owner named", "Past need-by date by 12 days")], dy=4.8)
+pnl(ax, 2, 2, 40, 19, "Off track without a recovery plan")
+rows2(ax, 4.5, 14.5, [(CRIT, "Watch-list triggers from covenant breaches", "Red · Path to Green empty · product lead: Monitoring"), (WARN, "M&P for Drawdowns", "Amber · no 'Path to green:' comment")], dy=5.4)
+pnl(ax, 44, 2, 40, 19, "Committed but not started (from week 5)")
+rows2(ax, 46.5, 14.5, [(WARN, "PEM-70 Forbearance link to exposures", "Committed · Ready · end date sprint 5"), (WARN, "DRAW-401 Checklist pre-fill", "Committed · Ready · end date sprint 4")], dy=5.4)
+pnl(ax, 86, 2, 37, 19, "Next release and next dates")
+rows2(ax, 88.5, 14.5, [(GOOD, "CLP 2027.03 · go-live 20 Mar", "43 of 59 done · 2 severity 2 bugs open"), (WARN, "M&P live in all origination apps", "10 Apr · moved +21 days")], dy=5.4)
+save(f, "33_view_delivery_lead", "Delivery lead view: what is blocked, what is progressing", "Mock-up of one Confluence page. Illustrative data; ticket keys are placeholders.")
+
+# ---------------------------------------------------------------- 34 platform owner view
+f, ax = page()
+pnl(ax, 2, 50, 121, 12, "Intake and flow at a glance (last 30 days)")
+tiles(ax, 4, 56.6, 118, [(14, "new demands\nagreed in the DDT", T), (9, "triaged into\nAnalysis", B500), (3, "closed as duplicate\nor Won't Do", T2), (7, "waiting in Idea\nover a week", WARN), (6, "Features\nreleased", B500), (5, "stuck in Analysis\nover 30 days", CRIT), (96, "% of Epics with\na parent Feature", GOOD), (88, "% RAG refreshed\nin two weeks", GOOD)])
+pnl(ax, 2, 23, 50, 25, "The pipeline: Features by status, whole value stream")
+stg = [("Idea", 12), ("Analysis", 15), ("Ready", 9), ("Implementing", 24), ("Testing", 5), ("Validation", 3), ("Released", 11)]
+for i, (n, v) in enumerate(stg):
+    yy = 42.5 - i * 2.75; ax.text(4, yy, n, fontsize=7.8, va="center")
+    ax.add_patch(Rectangle((17, yy - 0.95), 31 * v / 24, 1.9, fc=[NEUT, B100, B250, B400, B400, B500, B700][i], ec="none")); ax.text(17 + 31 * v / 24 + 0.8, yy, str(v), fontsize=7.8, va="center")
+pnl(ax, 54, 23, 34, 25, "What came in: new Features by kind")
+bars(ax, 56, 42.5, 30, [("Business", [8]), ("Regulatory", [3]), ("Enabler", [2]), ("Resilience", [1])], [BLUE], ["New Features in the last 30 days"], rowh=3.6, lab_w=12)
+pnl(ax, 90, 23, 33, 25, "In and out, by month")
+mo = ["Oct", "Nov", "Dec", "Jan", "Feb"]; cin = [9, 12, 7, 15, 14]; cout = [6, 8, 9, 7, 6]
+for i, m_ in enumerate(mo):
+    xx = 93 + i * 5.8
+    ax.add_patch(Rectangle((xx, 28), 2, cin[i] * 0.85, fc=ORANGE, ec="none")); ax.add_patch(Rectangle((xx + 2.3, 28), 2, cout[i] * 0.85, fc=BLUE, ec="none"))
+    ax.text(xx + 2.1, 26.3, m_, fontsize=7.4, ha="center", color=T2)
+ax.add_patch(Rectangle((92.5, 43.3), 1.5, 1.5, fc=ORANGE, ec="none")); ax.text(94.6, 44, "Created", fontsize=7.2, va="center", color=T2)
+ax.add_patch(Rectangle((103, 43.3), 1.5, 1.5, fc=BLUE, ec="none")); ax.text(105.1, 44, "Released", fontsize=7.2, va="center", color=T2)
+pnl(ax, 2, 2, 50, 19, "Where things are stuck")
+rows2(ax, 4.5, 14.5, [(CRIT, "Exposure roll-up by client group", "In Analysis 47 days · no design linked · Monitoring"), (WARN, "Single sign-on for facility letter review", "In Idea 16 days · not triaged · Facility Letter")], dy=5.4)
+pnl(ax, 54, 2, 34, 19, "Ready for the next PI, by score")
+rows2(ax, 56.5, 14.5, [(BLUE, "Conditions change history for auditors", "Score 13.0 · job size 5"), (BLUE, "Covenant breach alerts by email", "Score 10.5 · job size 3")], dy=5.4)
+pnl(ax, 90, 2, 33, 19, "Is the framework being used?")
+rows2(ax, 92.5, 14.5, [(GOOD, "3 Epics without a parent Feature", "down from 64 at the start"), (WARN, "4 tickets without a sub value stream", "2 in Drawdowns, 2 in Forbearance")], dy=5.4)
+save(f, "34_view_platform_owner", "Platform owner view: what came in, and how things are moving", "Mock-up of one Confluence page. Illustrative data.")
+
+# ---------------------------------------------------------------- 35 product owner view
+f, ax = page()
+pnl(ax, 2, 50, 121, 12, "Drawdowns: my Epics this PI (PI 2027.2, week 6 of 12)")
+tiles(ax, 4, 56.6, 118, [(7, "Epics this PI", T), (2, "done (released)", B500), (4, "in progress", B500), (1, "not started", WARN), (6, "committed", T), (1, "flagged", CRIT), (2, "waiting on\nother teams", WARN), (1, "we owe\nother teams", T)])
+pnl(ax, 2, 15, 70, 33, "My Epics, by Feature")
+hd = [(4, "Epic"), (34, "Feature"), (52, "Status"), (62, "RAG"), (67, "End")]
+for x, t in hd:
+    ax.text(x, 41.6, t, fontsize=7.6, color=T2, weight="bold")
+er = [("Drawdown condition checks", "Conditions into drawdown", "In progress", "Amber", "S3"), ("M&P for Drawdowns", "M&P across the platform", "In progress", "Amber", "S4"),
+      ("Checklist pre-fill", "Conditions into drawdown", "Not started", "Green", "S4"), ("Drawdown audit trail", "Access review evidence", "In progress", "Green", "S5"),
+      ("Limit check rewrite", "Run and improve", "In progress", "Green", "S3"), ("Notice of drawdown PDF", "Facility letter terms", "Done", "Green", "S1"), ("Fee calculation fix", "Run and improve", "Done", "Green", "S2")]
+for i, r in enumerate(er):
+    yy = 38.4 - i * 3.1; ax.plot([3, 71], [yy + 1.6, yy + 1.6], color=G, lw=0.6)
+    ax.text(4, yy, r[0], fontsize=7.8, va="center"); ax.text(34, yy, r[1], fontsize=7.4, va="center", color=T2); ax.text(52, yy, r[2], fontsize=7.8, va="center", weight="bold" if r[2] == "Done" else "normal")
+    ax.scatter([63], [yy], s=34, color=RAG[r[3]]); ax.text(67, yy, r[4], fontsize=7.8, va="center")
+pnl(ax, 74, 31, 49, 17, "We are waiting on")
+rows2(ax, 76.5, 41.5, [(WARN, "Conditions API v2 (Governance and Conditions)", "Asked 9 days ago · no answer · need-by sprint 2"), (CRIT, "Evidence pack export (Governance and Conditions)", "Agreed · promised sprint 5, needed sprint 3")], dy=5.2)
+pnl(ax, 74, 15, 49, 14, "We owe")
+rows2(ax, 76.5, 22.5, [(GOOD, "Drawdown status feed (to Monitoring)", "Agreed · promised sprint 4 · need-by sprint 5")], dy=5.2)
+pnl(ax, 2, 2, 38, 11, "Stories and bugs this sprint")
+ax.text(4, 5.2, "21 done  ·  9 in progress  ·  4 not started  ·  1 flagged  ·  3 carried over", fontsize=7.8, va="center")
+pnl(ax, 42, 2, 38, 11, "Open bugs")
+ax.text(44, 5.2, "Severity 1: 0   ·   Severity 2: 1   ·   Severity 3: 4   ·   Severity 4: 6", fontsize=7.8, va="center")
+pnl(ax, 82, 2, 41, 11, "To tidy up")
+ax.text(84, 5.2, "1 Epic without a Feature  ·  3 stories without an Epic", fontsize=7.8, va="center")
+save(f, "35_view_product_owner", "Product owner view: my application's Epics, in progress and done", "Mock-up of one Confluence page, copied per application. Illustrative data.")
+
 print("charts:", len([x for x in os.listdir(OUT) if x.endswith(".png")]))

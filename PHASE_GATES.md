@@ -109,7 +109,8 @@ You create it once. At each PI you change only the name inside part 1. Parts 2 a
 | --- | --- | --- |
 | 7 | Features proposed for the next PI are at least in Analysis; new demand for that PI has closed | |
 | 9 | Proposed Features are Ready | Delivery lead creates the two per-PI filters. Product leads set **Target PI** on proposed Features (the draft). |
-| 10 | Each team's capacity is known; dependencies are linked | Capacity entered in the plan; sprints created and named |
+| 8 | Every ask to another team for the next PI has been raised | Delivery RAID Dependency tickets, status Backlog |
+| 10 | Each team's capacity is known; every ask has an answer; dependencies are linked | Capacity typed into the capacity table on the PI plan page in Confluence; sprints created and named; agreed dependency tickets In Progress with a promised date |
 
 A Feature that is not Ready by week 9 does not enter planning.
 
@@ -126,8 +127,9 @@ A Feature that is not Ready by week 9 does not enter planning.
 | Must be true | In Jira |
 | --- | --- |
 | Every committed Feature has all its Epics committed | Label and Target PI on each |
-| Every team's load is within capacity | Capacity view in the plan |
-| Every dependency has both ends planned, giver before receiver | Dependencies view in the plan |
+| Every team's load is within capacity | Capacity table on the PI plan page in Confluence |
+| Every dependency has both ends planned, giver before receiver | Dependency board on the PI plan page: no negative or unknown margin |
+| No committed Epic waits on an unagreed dependency | The dependency board, read at the lock. Such an Epic is stretch, not committed. |
 | Risks raised in the room have an owner and a response | Delivery RAID tickets |
 | Confidence vote taken | Comment on the planning Milestone |
 | The delivery lead announces the lock | Committed list pasted into the PI scorecard page as the baseline |

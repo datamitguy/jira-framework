@@ -1,6 +1,6 @@
 # Jira framework for a value stream portfolio
 
-A working set of documents for running product and delivery operations across many applications in Jira Data Center with Plans, with portfolio reporting in Confluence.
+A working set of documents for running product and delivery operations across many applications in Jira Data Center, with the PI plan, dependencies and portfolio reporting in Confluence. Plans is used for the roadmap only.
 
 The line everything follows is top-down: **VS Epic > Feature > Epic > Story**. Views start at the value stream, then show Features across the whole value stream, then Epics across applications. There are no separate views per sub value stream.
 
@@ -10,7 +10,7 @@ All project keys, names, dates and numbers in these files are placeholders or mo
 
 | File | What it is for | Read it when |
 | --- | --- | --- |
-| [whitepaper/WHITE_PAPER.md](whitepaper/WHITE_PAPER.md) | The white paper: the whole proposal in one structured document for every audience, from the value stream lead and heads of product and technology to teams and Jira administrators. 20 sections, 27 example charts (mock data), a reading guide by role, the decisions requested, and the implementation path. The chart images are in [whitepaper/charts/](whitepaper/charts/). A Word copy is at [whitepaper/One_Jira_White_Paper.docx](whitepaper/One_Jira_White_Paper.docx). | To circulate for review. Start here if you are new to the proposal. |
+| [whitepaper/WHITE_PAPER.md](whitepaper/WHITE_PAPER.md) | The white paper: the whole proposal in one structured document for every audience, from the value stream lead and heads of product and technology to teams and Jira administrators. 20 sections, 35 example charts and mock-ups (mock data), a reading guide by role, the decisions requested, and the implementation path. The chart images are in [whitepaper/charts/](whitepaper/charts/). A Word copy is at [whitepaper/One_Jira_White_Paper.docx](whitepaper/One_Jira_White_Paper.docx). | To circulate for review. Start here if you are new to the proposal. |
 | [FRAMEWORK.md](FRAMEWORK.md) | The framework itself: structure, fields, workflows, RAID and milestones, portfolio practices, governance, operating rhythm, intake, PI planning, delivery control, release planning, dashboards, filter library, automation rules. | For the full detail behind the white paper. |
 | [WAYS_OF_WORKING.md](WAYS_OF_WORKING.md) | What people do day to day: principles, who owns what, the weekly and PI rhythm, how work flows from demand to done, RAG rules, decisions, a weekly hygiene check and a 30-day start list. | To share with teams. It is the short companion to the framework. |
 | [JIRA_UPDATE_GUIDE.md](JIRA_UPDATE_GUIDE.md) | For working-level people: what to update in Jira and when, by role, with a one-minute card, a field-by-field owner table and common mistakes. | To hand to engineers, testers, scrum masters and product owners. |

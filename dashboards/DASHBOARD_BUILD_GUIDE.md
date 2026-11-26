@@ -234,6 +234,35 @@ Build each from its table. "2D" means Two Dimensional Filter Statistics.
 
 To make the team dashboard for a second team: **Dashboards > Manage dashboards**, find the first one, **...** > **Copy dashboard**, then point each gadget at that team's filters.
 
+## Step 6b: Dashboard 6, Dependencies
+
+Added on 27 November 2026. For delivery leads and product owners; it opens the weekly delivery sync. The method behind it is section 12 of the white paper.
+
+Create these filters first (they build on `VS: open RAID`):
+
+| Save as | Query |
+| --- | --- |
+| VS: open dependencies | `filter = "VS: open RAID" AND "RAID Type" = Dependency ORDER BY duedate` |
+| VS: dependencies not agreed | `filter = "VS: open dependencies" AND status = Backlog ORDER BY duedate` |
+| VS: dependencies agreed | `filter = "VS: open dependencies" AND status = "In Progress"` |
+| VS: dependencies late or due soon | `filter = "VS: open dependencies" AND duedate <= endOfDay("+28d") ORDER BY duedate` |
+| VS: dependencies at risk | `filter = "VS: open dependencies" AND "RAG Status" in (Amber, Red)` |
+| VS: dependencies without an owner or date | `filter = "VS: open dependencies" AND (assignee is EMPTY OR duedate is EMPTY)` |
+
+| Gadget | Filter | Settings |
+| --- | --- | --- |
+| Filter Results | VS: dependencies not agreed | Columns: Key, Summary, Linked Issues, Supplier Value Stream and Sub Value Stream, Assignee, Due date, Created |
+| Two Dimensional Filter Statistics | VS: open dependencies | X axis Status, Y axis Supplier Value Stream and Sub Value Stream |
+| Two Dimensional Filter Statistics | VS: open dependencies | X axis RAG Status, Y axis Value Stream and Sub-Value Stream |
+| Filter Results | VS: dependencies late or due soon | Columns: Key, Summary, Due date, Baseline End Date, RAG Status, Assignee |
+| Filter Results | VS: flagged | Columns: Key, Summary, Project, Assignee, Updated |
+| Filter Results | VS: dependencies at risk | Columns: Key, Summary, RAG Status, Path to Green, Due date |
+| Filter Results | VS: dependencies without an owner or date | Columns: Key, Summary, Reporter |
+
+If a two-step dropdown is refused as a gadget axis, use recipe 4.16 in the Confluence guide for those two panels.
+
+**A change to how Plans is used.** Plans is now used for the L0 roadmap only. The PI plan, capacity and the dependency board are Confluence pages (recipes 4.14 to 4.16 in the Confluence guide), and there is a Confluence page for each role (recipe 4.17). Where this guide mentions a plan view other than the roadmap, use those pages.
+
 ## Step 7: Two boards for the meetings
 
 **Feature board** (one for the whole value stream)
