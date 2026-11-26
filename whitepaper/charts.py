@@ -399,7 +399,7 @@ save(f, "18_hygiene_trend", "Data quality: hygiene exceptions month by month", "
 # ---------------------------------------------------------------- 19 fields per issue type
 f, ax = new(9.5, 4.4)
 it = ["VS Epic", "Feature", "Epic", "Story", "Task", "Sub-task", "Bug", "Test", "Milestone", "Delivery RAID"]
-off = [60, 55, 30, 25, 22, 18, 35, 28, 22, 32]; core = [16, 17, 14, 8, 6, 3, 11, 7, 9, 9]; when = [6, 13, 4, 3, 2, 1, 4, 1, 5, 10]
+off = [60, 55, 30, 25, 22, 18, 35, 28, 22, 32]; core = [16, 17, 14, 8, 6, 3, 11, 7, 9, 10]; when = [6, 13, 4, 3, 2, 1, 4, 1, 5, 10]
 y = np.arange(len(it))
 ax.barh(y, off, color="#eeede8", height=0.74, label="Offered on the screen (approximate)")
 ax.barh(y, core, color=B500, height=0.5, edgecolor=S, lw=1.2, label="Core: always filled in")

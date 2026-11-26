@@ -4,7 +4,7 @@
 
 | | |
 | --- | --- |
-| Status | Draft 0.3 for review and comment |
+| Status | Draft 0.4 for review and comment |
 | Date | 27 November 2026 |
 | Applies to | Jira Data Center, and Confluence with Table Transformer and Chart from Table. Plans is used for the roadmap only. A Cloud edition follows the migration. |
 | Audience | Value stream lead, head of product, head of technology, product leads, delivery leads, product owners, business analysts, scrum masters, engineers, testers, Jira administrators |
@@ -283,7 +283,7 @@ What this produces is the candidate backlog for the year: every Epic reachable f
 | Which production release? | Fix versions | Epic, Story, Bug | One version per release in each application project |
 | Which team? | Team | Epic, Story, Task, Bug | One value per application team |
 | What kind of work? | Enabler Type; Regulatory or Control Change Type | Feature | Set at triage. Drives the investment mix. |
-| How is it going? | RAG Status, Path to Green, Date to Green, Executive Summary | VS Epic, Feature, Epic, Milestone, Delivery RAID | Reviewed weekly by the owner |
+| How is it going? | RAG Status, Path to Green, Date to Green, Executive Summary | VS Epic, Feature, Milestone, Delivery RAID. Epic: RAG Status only (see the open point below) | Reviewed weekly by the owner |
 | What comes first? | The four scoring fields and Weighted Shortest Job First Score, then Rank | VS Epic, Feature | Scored in Analysis |
 | When is it due? | Due date; Start date and End Date for the roadmap and the PI plan page | All | Due date is the date people outside the team are told |
 
@@ -333,7 +333,7 @@ Each issue type offers between about 18 and 60 fields on its screen. The framewo
 | **Bug** (11) | Summary, Description, Epic Link, Severity, Priority, Testing Phase, Environment, Affects versions, Assignee, Sprint, Components | Fix versions, Root cause category, Root cause analysis, Flagged | Status, Resolution |
 | **Test** (7) | Summary, Description, Epic Link, Testing Phase, Environments, Assignee, Sprint | Fix versions | Status, Resolution |
 | **Milestone** (9) | Summary, Description, Assignee, Value Stream and Sub-Value Stream, Due date, Baseline End Date, RAG Status, Labels, Linked work items | Path to Green, Date to Green, Executive Summary, Regulatory or Control ID, Fix versions | |
-| **Delivery RAID** (9) | Summary, Description, RAID Type, Assignee, Value Stream and Sub-Value Stream, RAG Status, Due date, Impact, Linked work items | Risk: Probability, Risk Trigger Event, ROAM Response. Dependency: Dependency Type, Supplier Value Stream and Sub Value Stream, Baseline End Date. Issue: Impact Details, Path to Green, Date to Green. | |
+| **Delivery RAID** (10) | Summary, Description, RAID Type, Assignee, Value Stream and Sub-Value Stream, Components, RAG Status, Due date, Impact, Linked work items | Risk: Probability, Risk Trigger Event, ROAM Response. Dependency: Dependency Type, Supplier Value Stream and Sub Value Stream, Baseline End Date. Issue: Impact Details, Path to Green, Date to Green. | |
 
 **An open point on Epic.** From the standards page, Epic does not appear to carry Path to Green, Date to Green or Due date. Until that is confirmed or the fields are added, an Epic's expected go-live date is its End Date, and the recovery plan for an Amber or Red Epic is a comment starting "Path to green:". This is decision 7 in section 20.
 
@@ -661,7 +661,7 @@ How dependencies are raised, agreed, linked, shown in the PI plan and chased is 
 
 ![Figure 13: Dependency matrix](charts/15_dependency_matrix.png)
 
-*Figure 13. Open cross-stream dependencies. Each side sees the same ticket from its own end: "what we are waiting for" and "what we owe".*
+*Figure 13. Open dependencies, by receiver and supplier. Each side sees the same ticket from its own end: "what we are waiting for" and "what we owe".*
 
 ## 11. Release planning
 
@@ -799,7 +799,7 @@ A ticket first linked to an Epic is linked upward by the delivery lead when the 
 
 **Two dates on one ticket make a dependency checkable.** On every dependency ticket, **Due date** is the date the receiver needs it, and **Baseline End Date** is the date the supplier has promised. The page subtracts one from the other. A positive margin is safe; a negative margin is a conflict; no promised date means the ask is not yet agreed. Because both dates sit on the dependency ticket, the board needs no join across projects and works for dependencies on outside parties too.
 
-**What the blocks link adds.** The blocks link between the two Epics makes each Epic show, on its own screen, what it waits for and what waits for it. It also appears on the roadmap in Plans for anyone who opens it. The dependency board does not rely on it.
+**What the blocks link adds.** The blocks link between the two Epics makes each Epic show, on its own screen, what it waits for and what waits for it. The dependency board does not rely on it.
 
 **The dependency sweep, on the PI calendar**
 
@@ -907,7 +907,7 @@ Delivery RAID tickets live only in the portfolio project and are always linked t
 | Risk | Something may go wrong and would move an Epic date, a Feature date or a Milestone | Probability, Impact, Impact Details, Risk Trigger Event, ROAM Response, Due date as the next review date | The response is Resolved or Accepted, or the event has passed |
 | Assumption | A plan depends on something not yet confirmed | The assumption, who can confirm it, Due date as the confirm-by date | Confirmed, or converted to a risk or issue |
 | Issue | Something has gone wrong and needs help from outside the team | Impact, Impact Details, Path to Green, Date to Green, RAG Status | Resolved |
-| Dependency | Work or a decision is needed from a team outside the Feature, another value stream, or an outside party; or a dependency inside a Feature is not agreed or is at risk | Supplier Value Stream and Sub Value Stream, Dependency Type, Assignee (the supplier), Due date as the need-by date, Baseline End Date as the date first agreed | Delivered and accepted by the receiver |
+| Dependency | Work or a decision is needed from a team outside the Feature, another value stream, or an outside party; or a dependency inside a Feature is not agreed or is at risk | Supplier Value Stream and Sub Value Stream, Dependency Type, Assignee (the supplier), Due date as the need-by date, Baseline End Date as the date the supplier promised | Delivered and accepted by the receiver |
 
 Every Delivery RAID ticket has an assignee, a Due date, a RAG Status, and a link to at least one Epic, Feature, VS Epic or Milestone.
 
@@ -1024,8 +1024,8 @@ For each application under a VS Epic: remaining points divided by that team's PI
 
 Reporting runs top-down in one line: VS Epics, then Features across the whole value stream, then Epics across applications, then the team. **There is no separate set of views per sub value stream.** The sub value stream is a column to sort or group by, never a filter that hides the rest.
 
-Three places hold the views, each for what it does best.
 Three places hold the views. Two of them are where people look every week; the third is kept for the roadmap.
+
 | Place | Best for | Cannot do |
 | --- | --- | --- |
 | **Jira dashboards** (standard gadgets on saved filters) | Live lists and counts: what is Red, what is flagged, what is overdue, status by application | Roll up the hierarchy; compare today with what was planned; show trends across PIs |
@@ -1145,7 +1145,8 @@ The figures in this paper were drawn for the paper. Thirty of the 35 can be buil
 | Figure | Live source | Notes |
 | --- | --- | --- |
 | 1 Success measures | Confluence: a small table of counts from the hygiene filters, charted | Counts are typed in monthly; Jira keeps no history of them |
-| 2 Hierarchy, 3 Field shortlist, 4 Lifecycle, 7 PI calendar, 15 Escalation ladder, 16 Dependency linking, 35 Rollout | Explanatory diagrams | Not built from data |
+| 2 Hierarchy, 4 Lifecycle, 7 PI calendar, 15 Escalation ladder, 16 Dependency linking | Explanatory diagrams | Not built from data; used as images |
+| 3 Field shortlist, 35 Rollout | Confluence: a typed table, charted (stacked bar; Gantt) | Not live data |
 | 5 L0 roadmap | Plans: saved view "L0 roadmap" | Fallback: Confluence Gantt with Chart from Table |
 | 6 WSJF ranking | Jira: Filter Results sorted by score | As a bar chart: Confluence Chart from Table |
 | 8 Capacity against demand | Confluence: PI plan page; Epic story points summed by application against a typed capacity table | Sprint-by-sprint load stays on each team board |
@@ -1327,8 +1328,8 @@ This section is for the head of technology, architecture, and the Jira and Confl
 | New statuses | 0 | One optional status, "In Review" for stories, only if teams ask |
 | New link types | 0 | blocks, relates to, duplicates |
 | New add-ons | 0 | Plans, Table Transformer and Chart from Table are already installed |
-| Labels | 9 | In four groups; no others |
-| Saved filters | About 52, plus 7 per application team | All hang off five base filters |
+| Labels | 8, plus an optional shadow label `svs-*` | In four groups; no others |
+| Saved filters | 47, plus 7 per application team | All hang off five base filters. The complete library is in FRAMEWORK.md; the dashboard guide builds the ones the dashboards need. |
 | Dashboards | 5 for the value stream, 1 per team | Standard gadgets only |
 | Boards | 2 in the portfolio project | Team boards unchanged |
 | Plans | 1 plan | Roadmap only: one saved view |
@@ -1436,7 +1437,7 @@ The migration date is set by the central Jira team. The framework treats it as a
 | PI scorecards pasted as tables | Dashboards (re-pointed at the rewritten filters) |
 | People's habits | |
 
-Two consequences for sequencing. Before the migration, the full set of rules and habits is put in place but only the minimum of Jira and Confluence machinery is built: the base filters, three dashboards and three Confluence pages. The rest is built once, on Cloud.
+Two consequences for sequencing. Before the migration, the full set of rules and habits is put in place but only the minimum of Jira and Confluence machinery is built: the base filters, dashboards 1 to 3 and 6, and five Confluence pages. The rest is built once, on Cloud.
 
 **One question for the migration team, to settle early:** on Jira Cloud, levels above Epic and Plans need the Premium plan. If the Cloud site is on a lower plan, VS Epic and Feature lose their place in the hierarchy and this design needs a different join. This is open question 3 in section 20.
 
@@ -1616,7 +1617,7 @@ Comment against a decision number or a section number. Say whether the point blo
 | Milestone | A ticket for a date that people outside the teams care about |
 | DDT | The tool where new demand is raised and agreed before it enters Jira |
 | WSJF | Weighted Shortest Job First: a score that puts high-value, small jobs first |
-| L0 roadmap | The year view of VS Epics and Milestones |
+| L0 roadmap | The 12 to 18 month view of VS Epics, their Features and Milestones |
 | Plans | Jira's planning tool (formerly Advanced Roadmaps). Used here for the roadmap only; it also provides the Parent Link field |
 | PI plan page | The Confluence page that shows one PI: Epics by application and sprint, load against capacity, and the dependency board |
 | Margin | On a dependency: the need-by date minus the promised date. Negative means a conflict. |
@@ -1637,7 +1638,7 @@ Comment against a decision number or a section number. Say whether the point blo
 | 6 | Will my team be compared with others on story points or predictability? | No. Each group is measured against its own past. |
 | 7 | What happens if we miss a committed Epic? | It shows as spilled, gets a reason and a decision at the PI review, and is planned first in the next PI. Around 80% delivered is a healthy level. |
 | 8 | Is RAG going to be used against me? | The rule works the other way: an early Amber with a plan is the right behaviour, and a late Red is the failure. |
-| 9 | We have our own board and labels. Do we lose them? | Team boards stay. Team labels stay, but the nine framework labels are reserved and no filter reads any other. |
+| 9 | We have our own board and labels. Do we lose them? | Team boards stay. Team labels stay, but the eight framework labels are reserved and no filter reads any other. |
 | 10 | How does this relate to the DDT? | The DDT is where new demand is agreed. Jira is where agreed work is planned and delivered. |
 | 11 | What changes when we move to Cloud? Will we do this twice? | The structure, rules and habits carry over. Filters, dashboards and the roadmap are rebuilt once, which is why only the minimum is built before the move. |
 | 12 | Who do I tell if a rule does not work for my team? | The framework owner. Proposals are decided monthly, and what changed is published. |
@@ -1686,7 +1687,7 @@ This paper is the overview. The working detail is in the companion documents in 
 
 | Document | What it adds |
 | --- | --- |
-| [FRAMEWORK.md](../FRAMEWORK.md) | The full framework, including the complete filter library and every dashboard's gadget list |
+| [FRAMEWORK.md](../FRAMEWORK.md) | The technical reference: the set-up assumed, the complete filter library, every dashboard's gadget list, the automation rules and the administrator requests |
 | [WAYS_OF_WORKING.md](../WAYS_OF_WORKING.md) | Day-to-day practice: principles, roles, rhythm, a weekly hygiene check and a 30-day start list |
 | [JIRA_UPDATE_GUIDE.md](../JIRA_UPDATE_GUIDE.md) | What to update and when, by role, with common mistakes |
 | [FIELDS.md](../FIELDS.md) | The field shortlist, field by field: who fills each in, and when |

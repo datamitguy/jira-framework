@@ -12,17 +12,25 @@ One parent page per value stream, top-down, same order as the Jira dashboards.
 
 ```text
 Credit and Lending portfolio                 (landing page: roadmap + exceptions)
-├── 1 VS Epics: outcomes and health          (portfolio tree, level 1 to 2)
-├── 2 Features across the value stream       (level 2 to 3, by application)
-├── 3 Epics across applications              (pivot by application and status)
-├── 4 PI scorecards
-│     ├── PI 2027.1 scorecard                (one page per PI, never edited after PI end)
+├── 1 VS Epics: outcomes and health          (portfolio tree, level 1 to 2; recipe 4.1)
+├── 2 Features across the value stream       (level 2 to 3, by application; recipes 4.2, 4.3)
+├── 3 Epics across applications              (pivot by application and status; recipe 4.4)
+├── 4 PI plans
+│     ├── PI 2027.1 plan                     (one page per PI: Epics by sprint, capacity,
+│     └── PI 2027.2 plan                      dependency board; recipes 4.14 to 4.16)
+├── 5 PI scorecards
+│     ├── PI 2027.1 scorecard                (one page per PI, never edited after PI end; 4.7)
 │     └── PI 2027.2 scorecard
-├── 5 Investment mix
-├── 6 Predictability trend
-├── 7 Milestones and slippage
-├── 8 Size and forecast by VS Epic
-├── 9 Weekly status (Red and Amber)
+├── 6 Dependencies                           (who waits on whom, and the trend; recipe 4.13)
+├── 7 Investment mix                         (recipe 4.9)
+├── 8 Predictability trend                   (recipe 4.8)
+├── 9 Milestones and slippage                (recipe 4.10)
+├── 10 Size and forecast by VS Epic          (recipes 4.5, 4.6)
+├── 11 Weekly status (Red and Amber)         (recipe 4.11)
+├── Role pages                               (recipe 4.17)
+│     ├── Delivery lead
+│     ├── Platform owner
+│     └── Product owner: one page per application
 └── Reference: objectives, label list, framework change log
 ```
 
@@ -280,7 +288,7 @@ Where sharing a plan view is allowed, prefer the plan's own "L0 roadmap" view: i
 
 ### 4.13 Dependencies across applications
 
-T1 = Jira Issues macro on `VS: cross-stream dependencies`, columns Key, Summary, Value Stream and Sub-Value Stream, Supplier Value Stream and Sub Value Stream, Due date, RAG Status. A **Pivot Table** with Row labels = the receiver field, Column labels = the supplier field, Operation = Count, shows who is waiting on whom at a glance.
+T1 = Jira Issues macro on `VS: open dependencies`, columns Key, Summary, Value Stream and Sub-Value Stream, Supplier Value Stream and Sub Value Stream, Due date, RAG Status. A **Pivot Table** with Row labels = the receiver field, Column labels = the supplier field, Operation = Count, shows who is waiting on whom at a glance.
 
 ### 4.14 PI plan page, part 1: Epics by application and sprint
 
@@ -424,7 +432,7 @@ The white paper has 35 figures. With the Jira Issues macro, Table Transformer, P
 - **5 are explanatory diagrams** (figures 2, 4, 7, 15, 16). They are not data. Use the image files in `whitepaper/charts/`: attach the PNG to the page.
 - **1 detail is not possible:** arrows drawn between cards (a program board). Figure 17 was designed as a table with a margin column for that reason.
 
-None of this has been run on your Confluence yet. Build the first three pages in the proof of concept before promising the rest.
+None of this has been run on your Confluence yet. Build the Feature progress page and the PI plan page with its dependency board in the proof of concept before promising the rest.
 
 ### The same six steps for every chart
 
@@ -445,7 +453,7 @@ Always look at the table before the chart. If the table is wrong, the chart will
 | 2 | Hierarchy | Image | `01_hierarchy.png` | Attach the image | |
 | 3 | Field shortlist | Yes, typed | A typed table: Issue type, Core, When it applies, Offered | No SQL | Stacked Bar; Labels = Issue type; Values = Core, When it applies |
 | 4 | Feature lifecycle | Image | `23_feature_lifecycle.png` | Attach the image | |
-| 5 | L0 roadmap | Yes | `VS: open VS Epics` and `VS: open Features` with Start Date, End Date, RAG Status | Recipe 4.12. Or share the Plans roadmap view on the page. | Gantt; Labels = Summary; start and end = the two dates |
+| 5 | L0 roadmap | Yes | `VS: open VS Epics` and `VS: all Features` (not Done) with Start Date, End Date, RAG Status | Recipe 4.12. Or share the Plans roadmap view on the page. | Gantt; Labels = Summary; start and end = the two dates |
 | 6 | WSJF ranking | Yes | `VS: Ready, no Target PI` with Summary and Weighted Shortest Job First Score | No SQL; the filter is already sorted | Bar; Labels = Summary; Values = the score |
 | 7 | PI calendar | Image | `24_pi_calendar.png` | Attach the image | |
 | 8 | Load against capacity | Yes | `VS: PI Epics` with Story Points and Labels; typed capacity table | Recipe 4.15 | Stacked Bar; Labels = Application; Values = Committed, Stretch. Show Capacity as a column beside the chart. |

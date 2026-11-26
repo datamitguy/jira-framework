@@ -9,7 +9,7 @@ It applies to everyone who raises, plans, builds, tests, releases or reports on 
 1. **One line of work.** Everything sits on the line VS Epic > Feature > Epic > Story. Work that is not on the line is not planned.
 2. **Top-down view, bottom-up truth.** We read the portfolio from the VS Epic down. The facts come from the teams' tickets, never from a separate slide.
 3. **Jira is the only record of delivery.** If it is not in Jira, it is not happening. Status is updated in the meeting, on the screen, not afterwards.
-4. **A commitment is made once, in the open.** It is made at PI planning, written down on the day, and measured against that record.
+4. **A commitment is recorded once, in the open.** It is made at PI planning (the Epic first, then the Feature), written down on the day, and measured against that record.
 5. **Bad news early.** Amber with a plan is good practice. Green that turns Red overnight is the failure.
 6. **Finish before starting.** Carried-over work is planned first. We limit how much is in progress.
 7. **Few rules, kept.** We add a field, status or label only by an agreed change, and we remove what nobody uses.
@@ -66,10 +66,10 @@ Summaries are written so a stranger understands them: VS Epics as outcomes ("Avo
 | Daily | Team stand-up | Team | Team board | Stories moved; blockers flagged |
 | Weekly | Backlog refinement | Product owner, team | Team backlog | Epics made Ready; stories estimated |
 | Weekly | Backlog triage, 30 minutes | Product lead, delivery lead | Feature board, Idea column | Features moved to Analysis or closed |
-| Weekly | Delivery sync | Product leads, delivery leads, product owners | Dashboards 2 and 3 | RAG, Path to Green and Date to Green refreshed; blockers and flags dealt with |
+| Weekly | Delivery sync | Product leads, delivery leads, product owners | Dashboard 6 first, then 2 and 3 (or the delivery lead page in Confluence) | RAG, Path to Green and Date to Green refreshed; blockers and flags dealt with |
 | Fortnightly | Portfolio sync | Value stream lead, product and delivery leads | Dashboard 1 and the Confluence landing page | VS Epics moved; Red and Amber decided; Milestones confirmed; limit on work in progress checked |
 | Monthly | RAID review and hygiene check | Delivery leads, framework owner | Dashboard 4 and the hygiene filters | Every open RAID ticket reviewed; hygiene count per application published |
-| Every 12 weeks | PI review, then PI planning | Everyone | PI scorecard, then the plan | Last PI scored; next PI committed and locked |
+| Every 12 weeks | PI review, then PI planning | Everyone | PI scorecard, then the PI plan page in Confluence | Last PI scored; next PI committed and locked |
 
 **The 12 weeks of a PI**
 
@@ -78,8 +78,9 @@ Summaries are written so a stranger understands them: VS Epics as outcomes ("Avo
 | 1 to 10 | Five two-week sprints |
 | 5 | Check committed Epics that have not started |
 | 7 | Features for the next PI are in Analysis; new demand for the next PI closes |
+| 8 | Every ask to another team for the next PI has been raised |
 | 9 | Features for the next PI are Ready; draft Target PI set |
-| 10 | Team capacity confirmed; dependencies linked |
+| 10 | Team capacity confirmed; every ask answered; dependencies linked |
 | 11 | PI review: scorecard, spillover decisions, improvement actions |
 | 11 to 12 | PI planning and lock; planning and improvement sprint |
 
@@ -116,8 +117,8 @@ Meeting rules: start from the board or dashboard, not from slides. Walk exceptio
 
 | RAG | Means | The owner must |
 | --- | --- | --- |
-| Green | On track for its Due date; no help needed | Be able to say why, if asked |
-| Amber | The date is at risk and there is a recovery plan | Fill in Path to Green and Date to Green |
+| Green | On track for its date (Due date; End Date on an Epic); no help needed | Be able to say why, if asked |
+| Amber | The date is at risk and there is a recovery plan | Fill in Path to Green and Date to Green (on an Epic: a comment starting "Path to green:") |
 | Red | The date will be missed unless someone outside the team acts | Say what is needed and from whom; set Management Attention on a Feature |
 
 - A parent is never greener than what sits beneath it.
@@ -211,7 +212,7 @@ Each role runs its own short check before the weekly sync.
 | Spillover by application and by reason | Where plans break, and why | Blame |
 | Features released per PI | How much reaches users | A target to maximise |
 | Red and Amber with a plan | Whether problems are raised early | Counting "bad" tickets |
-| Open blockers and RAID past their date | Whether risks are being managed | |
+| Asks not agreed and their age; dependencies met by the need-by date; RAID past its date | Whether dependencies and risks are being managed | |
 | Hygiene count per application | Whether the data can be trusted | |
 | Benefits reviewed against promised | Whether the work was worth doing | |
 
@@ -221,13 +222,16 @@ Around 80% of commitments delivered is healthy. A steady 100% usually means too 
 
 Anyone can propose a change. The framework owner collects proposals, the leads decide monthly, and the change is written in the change log with its date and reason. Each PI review ends with no more than five improvement actions, each with an owner and a date, tracked like any other work.
 
-## 15. Starting out: the first 30 days
+## 15. Starting out
 
+The path is set out in section 18 of the white paper. In short:
+
+- [ ] Agree who approves the proposal, and brief the Jira administrator and the sponsor before anything is circulated
+- [ ] Run the two-week proof of concept on one slice (one VS Epic, two or three Features, two or three applications) while the white paper is reviewed
+- [ ] Hold the decision meeting: go, go with changes, or stop
 - [ ] Name the framework owner, and the product lead and delivery lead for each sub value stream
-- [ ] Stitch existing Epics up to Features and VS Epics until no Epic is without a parent
-- [ ] Agree the RAG meanings and the label list, and tell every team
-- [ ] Put the weekly delivery sync and the fortnightly portfolio sync in the diary, each tied to its dashboard
-- [ ] Build the base filters and the first three dashboards
-- [ ] Run one weekly sync from the dashboard, with tickets updated in the room
-- [ ] Fix the date of the first PI planning and work back the week 7, 9 and 10 checkpoints
-- [ ] After the first PI: score it, hold the review, and change what did not work
+- [ ] Stitch in waves, top-down: VS Epics and Features first, then each group of applications, until no Epic is without a parent
+- [ ] Build the base filters, dashboards 1 to 3 and 6, and the five minimum Confluence pages (portfolio tree, Feature progress, PI plan with dependency board, PI scorecard, delivery lead view)
+- [ ] Brief every role, and tell every team the RAG meanings and the label list
+- [ ] Put the weekly delivery sync and the fortnightly portfolio sync in the diary, each tied to its dashboard, and run one with tickets updated in the room
+- [ ] Fix the date of the first PI planning and work back the week 7, 8, 9 and 10 checkpoints. That planning is the first baseline.

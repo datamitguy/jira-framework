@@ -2,7 +2,7 @@
 
 For each stage of the life of a piece of work, this page says what must be true to enter it, what you do in Jira while you are in it, what must be true to leave it, and how anyone can see that in Jira.
 
-It also answers a practical question: when are the filters created, and what has to be touched at each PI? The short answer is that filters are built once and are live. You do not rebuild anything when tickets change. Four small edits are made at each PI, on set days (section 2).
+It also answers a practical question: when are the filters created, and what has to be touched at each PI? The short answer is that filters are built once and are live. You do not rebuild anything when tickets change. A few small edits are made at each PI, on three set days (section 2).
 
 All names are placeholders.
 
@@ -33,15 +33,15 @@ A ticket's status is the evidence of which stage it is in. Nobody keeps a separa
 
 | When | What | Who | Why then |
 | --- | --- | --- | --- |
-| Week 9 of the current PI, when drafting the next PI begins | Create two new filters: `PI <next> planned Features` and `PI <next> planned Epics` | Delivery lead | The draft plan can be watched filling up before and during planning |
-| The day planning closes (the lock) | Paste the committed list from those two filters into the new PI scorecard page | Delivery lead | This is the baseline. It is taken once and never edited. |
+| Week 9 of the current PI, when drafting the next PI begins | Create two new filters: `PI <next> planned Features` and `PI <next> planned Epics`. Copy the PI plan page in Confluence for the next PI and change its filter and start date. | Delivery lead | The draft plan can be watched filling up before and during planning |
+| The day planning closes (the lock) | Paste the committed list from those two filters, and the dependency board, into the new PI scorecard page | Delivery lead | This is the baseline. It is taken once and never edited. |
 | Day 1 of the new PI | Repoint `VS: PI planned Features` and the first part of `VS: PI Epics` to the new PI's filters | Delivery lead | Until day 1 the dashboards should still show the PI that is finishing |
 | Day 1 of the new PI | Add the PI that has just ended to the list in `VS: spillover` | Delivery lead | From this day its unfinished committed work counts as spillover |
 | Day 1 of the new PI | Change the PI value in automation rule 4 and in the board quick filter | Delivery lead | So Actual PI is stamped with the right PI |
 
 Old per-PI filters are kept and never edited, because old scorecards read them.
 
-**The filter you asked about**
+**The filter `VS: PI Epics`**
 
 ```text
 VS: PI Epics =
@@ -87,7 +87,7 @@ You create it once. At each PI you change only the name inside part 1. Parts 2 a
 | | |
 | --- | --- |
 | **Enter when** | Feature is in **Analysis** with parent, sub value stream and Enabler Type set. |
-| **What you do in Jira** | On the Feature: fill in Acceptance Criteria and Business Benefits; link the design page; raise sign-off tasks (architecture, risk, control) assigned to the approvers; fill in T-Shirt Size and the four scores. For each application that must change: its product owner creates an **Epic** with Parent Link to the Feature and a Story Points estimate. Link dependencies with **blocks**. Raise a Delivery RAID ticket for anything needed from another sub value stream or from outside. For a fixed regulatory date: create the Milestone and link it. |
+| **What you do in Jira** | On the Feature: fill in Acceptance Criteria and Business Benefits; link the design page; raise sign-off tasks (architecture, risk, control) assigned to the approvers; fill in T-Shirt Size and the four scores. For each application that must change: its product owner creates an **Epic** with Parent Link to the Feature and a Story Points estimate. Link dependencies with **blocks**. Work from another application inside the same Feature is an Epic under the Feature, with a blocks link. For work from a team outside the Feature, or from outside Jira, the waiting product owner raises a Delivery RAID Dependency (white paper, section 12). For a fixed regulatory date: create the Milestone and link it. |
 | **Exit when** | The definition of ready is met: parent, sub value stream and Enabler Type set; Acceptance Criteria and Business Benefits agreed with the sponsor; every application has an Epic with an estimate; design linked and sign-off tasks raised; dependencies linked; scores filled in (or Milestone for a regulatory date); fits one PI or is an agreed two-PI Feature. |
 | **On exit, in Jira** | Product lead moves the Feature to **Ready** and places it in order on the board. Product owners move their Epics to **Ready** when the first two sprints of stories are written and estimated. |
 | **How to see it** | `VS: Analysis over 30 days` shows Features stuck in design. `VS: Features with gaps` shows what is missing. |
@@ -108,8 +108,8 @@ You create it once. At each PI you change only the name inside part 1. Parts 2 a
 | Week | Must be true | In Jira |
 | --- | --- | --- |
 | 7 | Features proposed for the next PI are at least in Analysis; new demand for that PI has closed | |
-| 9 | Proposed Features are Ready | Delivery lead creates the two per-PI filters. Product leads set **Target PI** on proposed Features (the draft). |
 | 8 | Every ask to another team for the next PI has been raised | Delivery RAID Dependency tickets, status Backlog |
+| 9 | Proposed Features are Ready | Delivery lead creates the two per-PI filters. Product leads set **Target PI** on proposed Features (the draft). |
 | 10 | Each team's capacity is known; every ask has an answer; dependencies are linked | Capacity typed into the capacity table on the PI plan page in Confluence; sprints created and named; agreed dependency tickets In Progress with a promised date |
 
 A Feature that is not Ready by week 9 does not enter planning.
@@ -117,7 +117,7 @@ A Feature that is not Ready by week 9 does not enter planning.
 **During planning**
 
 1. Carried-over work is placed first.
-2. Each product owner sets **Target PI** on the Epics they can take, and drags stories into sprints up to capacity.
+2. Each product owner sets **Target PI** on the Epics they can take, and places stories into sprints on the team board, up to capacity.
 3. For each Feature, the product lead checks every Epic has the Target PI. If one application cannot take its share: move the Feature, cut it down, or plan it over two PIs on purpose.
 4. New dependencies are linked in the room. Unresolved ones become Delivery RAID tickets with an owner.
 5. Each Epic that stays, then each Feature, gets `pi-committed` or `pi-stretch`, a date (End Date on an Epic, Due date on a Feature), and RAG Status Green.
@@ -145,7 +145,7 @@ After the lock, Target PI and the commitment labels change only by decision.
 | **What you do in Jira** | Teams: story status daily, flags when stopped. Product owners weekly: Epic status, RAG, End Date, Fix versions, and a recovery plan if Amber or Red. Product leads weekly: Feature RAG. Delivery lead: blockers, RAID, Milestones. |
 | **Changes to the plan** | Only by decision of the product lead and delivery lead. In: Target PI plus `unplanned`. Out: `pi-descoped` plus a reason. |
 | **Exit when** | Every story in the Epic is Done and deployed to the test environment. |
-| **How to see it** | Dashboards 2 and 3. `VS: PI Epics not started` from week 5. `VS: open blockers`. `VS: Red and Amber`. |
+| **How to see it** | Dashboards 6, 2 and 3. `VS: PI Epics not started` from week 5. `VS: open blockers`. `VS: Red and Amber`. |
 
 ### Stage 7: Testing and acceptance
 
@@ -169,7 +169,7 @@ After the lock, Target PI and the commitment labels change only by decision.
 | Two sprints before go-live | Release gadgets reviewed weekly: open work, open bugs, flags, linked RAID |
 | One sprint before go-live: scope cut-off | Anything not Done is moved to the next version; the product lead is told |
 | Features in scope have passed Validation | Feature status |
-| Go or no-go decided through the bank's change process | Decision recorded as a comment on the go-live Milestone; change record number in Change Request ID on the Epics |
+| Go or no-go decided through the change process | Decision recorded as a comment on the go-live Milestone; change record number in Change Request ID on the Epics |
 
 **Exit**
 
@@ -207,7 +207,7 @@ The stage tables above say what must be true to move on. This section says what 
 
 | How often | Epic (product owner) | Feature (product lead) | VS Epic (value stream lead) | Milestone and Delivery RAID (delivery lead) |
 | --- | --- | --- | --- | --- |
-| **The same day** | Flag on or off when actually stopped or freed. Status when it changes. A new dependency: tell the other product owner and link the Epics. | Flag. Management Attention when a decision is needed now. | Flag. | A new risk, issue or outside dependency raised as a ticket with an owner. |
+| **The same day** | Flag on or off when actually stopped or freed. Status when it changes. A new dependency: link the two Epics with blocks if they are under the same Feature; otherwise raise an ask as a Delivery RAID Dependency. An ask addressed to you: answer within five working days. | Flag. Management Attention when a decision is needed now. | Flag. | A new risk, issue or outside dependency raised as a ticket with an owner. |
 | **Weekly, before the delivery sync** | Status. RAG Status. End Date still true. Fix versions. Recovery plan if Amber or Red. Links to other Epics. | Status against its Epics. RAG Status. Path to Green and Date to Green if Amber or Red. Due date still true. Executive Summary if Amber, Red or on the watch list. | | Blockers past their date chased. Flags reviewed. |
 | **Fortnightly, before the portfolio sync** | | | Status. RAG Status. Executive Summary. Path to Green and Date to Green if Amber or Red. Rank order. | Every Red and Amber RAID ticket: RAG, Due date, a comment. Milestones: Due date, RAG. |
 | **Monthly** | Hygiene check: no Epic without Parent Link; nothing open with a resolution. | Hygiene check: no Feature without parent, sub value stream or Enabler Type. | Work in progress against the limit. | Every open RAID ticket reviewed or closed. Risks: Probability, Impact, ROAM Response. |

@@ -29,7 +29,7 @@ Parent Link needs the parent's key, and a key exists only after the parent has b
 | Import issues from CSV | **Issues > Import issues from CSV** | Any user with create permission | Simple lists. Atlassian's guidance says not to use it for the hierarchy import. |
 | External System Import | **Administration > System > External system import > CSV** | Jira admin | The hierarchy. This is the route Atlassian documents for Parent Link. |
 
-If you are not an admin, you have two choices: ask the admin to run the files you prepare, or import the tickets with the user route without Parent Link and then set the parents in the plan by dragging each ticket under its parent (changes in a plan are saved to Jira with **Review changes**).
+If you are not an admin, you have two choices: ask the admin to run the files you prepare, or import the tickets with the user route without Parent Link and then set Parent Link on each ticket's edit screen, or by bulk edit (to be tested). As a fallback, the framework owner can set the parents in Plans by dragging each ticket under its parent and saving with **Review changes**.
 
 ## Step by step
 
@@ -108,5 +108,6 @@ Text encoding is UTF-8 by default.
 ## After the import
 
 1. Run `"Parent Link" is EMPTY` for Features and Epics in the projects you loaded. It should return nothing.
-2. Open the plan. Each VS Epic should open to its Features, and each Feature to its Epics across applications.
-3. Open the dashboards. With the mock data, two Features are Amber and one is Red, and several Epics are Released while their Features are still open, so the spillover and partial-delivery views have something to show once you set an older Target PI on one of them.
+2. Build the portfolio tree and Feature progress pages in Confluence (recipes 4.1 and 4.2). Each VS Epic should list its Features, and each Feature its Epics across applications.
+3. Look at the Delivery_RAID sheet: it carries Status and, for dependencies, two dates. Due Date is the date the receiver needs it; Baseline End Date is the date the supplier promised. One mock dependency is promised two weeks after its need-by date, so the dependency board (Confluence recipe 4.16) has a conflict to show.
+4. Open the dashboards. With the mock data, two Features are Amber and one is Red, and several Epics are Released while their Features are still open, so the spillover and partial-delivery views have something to show once you set an older Target PI on one of them.

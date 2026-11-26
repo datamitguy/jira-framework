@@ -8,7 +8,7 @@ Three groups per issue type:
 - **When it applies**: filled in only in the situation described.
 - **Set by Jira or automation**: nobody types these.
 
-Any other field on the screen is not used by the framework. Fill it in only if the bank's own standards require it (for example Region, Country, Legal Entity, Reporting Level, Billable Product ID, funding and order book fields).
+Any other field on the screen is not used by the framework. Fill it in only if the organisation's own standards require it (for example Region, Country, Legal Entity, Reporting Level, Billable Product ID, funding and order book fields).
 
 The field names were read from a photo of the standards page. Check each against your Jira, letter for letter, before relying on this page.
 
@@ -25,7 +25,7 @@ The field names were read from a photo of the standards page. Check each against
 | Bug | 11 | 4 | 1 | 35 |
 | Test | 7 | 1 | 1 | 28 |
 | Milestone | 9 | 5 | 0 | 22 |
-| Delivery RAID | 9 | 10, mostly by RAID Type | 0 | 32 |
+| Delivery RAID | 10 | 10, mostly by RAID Type | 0 | 32 |
 
 ## VS Epic
 
@@ -106,7 +106,7 @@ The field names were read from a photo of the standards page. Check each against
 | RAG Status | Core | Product owner | Implementing | Weekly |
 | Fix versions | Core | Product owner | Sprint planning, once the release is known | When the release changes |
 | Linked work items (blocks, is blocked by) | Core | Product owner | When a dependency is found | |
-| Start date | When it applies | Product owner | The Epic is scheduled in the plan | |
+| Start date | When it applies | Product owner | The Epic is shown on the PI plan page | |
 | Change Request ID | When it applies | Product owner | At release | |
 | Regulatory or Control Change Type | When it applies | Product owner | Inherited from a regulatory Feature | |
 | Flagged | When it applies | Product owner | Actually stopped | Same day |
@@ -221,25 +221,27 @@ Sign-off tasks on a Feature use the same fields: the summary names the approval,
 | Summary | Core | Whoever raises it | Creation | |
 | Description | Core | Whoever raises it | Creation | |
 | RAID Type | Core | Whoever raises it | Creation | |
-| Assignee (the owner) | Core | Delivery lead | Within a week | |
+| Assignee (the owner; for a Dependency, the supplier's product owner) | Core | Whoever raises it | Creation | Delivery lead confirms at triage, within two working days |
 | Value Stream and Sub-Value Stream (who is affected) | Core | Whoever raises it | Creation | |
-| RAG Status | Core | Owner | Creation | At each review |
-| Due date (next review, or need-by date) | Core | Owner | Creation | At each review |
+| RAG Status (on a Dependency: the receiver's judgement of whether the need-by date will be met) | Core | Owner; the receiver on a Dependency | Creation | At each review |
+| Due date (next review date; on a Dependency, the date the receiver needs it) | Core | Whoever raises it | Creation | At each review |
 | Impact | Core | Owner | Creation | At each review |
-| Linked work items (what it affects) | Core | Owner | Creation | |
+| Linked work items (the Epic, Feature, VS Epic or Milestone it affects; on a Dependency, the waiting Epic and later the supplier's ticket) | Core | Whoever raises it; the supplier adds theirs on accepting | Creation | When the impact grows, the delivery lead links upward |
+| Components (the application affected) | Core | Whoever raises it | Creation | |
 | Probability | Risk only | Owner | Creation | At each review |
 | Risk Trigger Event | Risk only | Owner | Creation | |
 | ROAM Response | Risk only | Owner | First review | At each review |
-| Dependency Type | Dependency only | Owner | Creation | |
-| Supplier Value Stream and Sub Value Stream (who must deliver) | Dependency only | Owner | Creation | |
-| Baseline End Date (date first agreed) | Dependency only | Owner | When agreed | Never changed |
+| Dependency Type | Dependency only | Whoever raises it (the receiver) | Creation | |
+| Supplier Value Stream and Sub Value Stream (who must deliver) | Dependency only | Whoever raises it (the receiver) | Creation | |
+| Baseline End Date (the date the supplier promised) | Dependency only | Supplier's product owner | When accepting the ask | Not changed once set; if the supplier's date slips, the supplier comments and the receiver changes RAG |
+| Status (Backlog = asked, not agreed; In Progress = agreed; Done = delivered and accepted) | Dependency only | Supplier moves it to In Progress; only the receiver moves it to Done | As it happens | |
 | Impact Details | Issue only | Owner | Creation | |
 | Path to Green, Date to Green | Issue only, or Amber or Red | Owner | Creation | At each review |
 | Executive Summary | When it applies | Owner | Reported to sponsors | |
 
 ## Fields the framework does not use
 
-Left exactly as the bank's standards require; nothing in the filters, dashboards or Confluence pages reads them:
+Left exactly as the organisation's standards require; nothing in the filters, dashboards or Confluence pages reads them:
 
 Region, Country, Legal Entity, Collaborators, Reporting Level, Billable Product ID, Funding B/GI, Funding Period, Funding Type, Delivery B/GI, Order Book ID, Project ID, Task ID, Change Type, Customer Impact, Operational Resilience Impact, Regulatory Impact, Span of Change Impact, Value Stream Epic Impact Rating, Cost Estimate and its confidence level, First Customer Release, Category, Thematic, RAID ID, Risk Impact Assessment ID, Security Level (used only to restrict a sensitive ticket).
 

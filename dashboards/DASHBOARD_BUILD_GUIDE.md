@@ -1,6 +1,8 @@
 # Building the dashboards in Jira Data Center
 
-This guide builds the five dashboards from the framework, top-down: value stream portfolio, Features across the value stream, Epics across applications, risks dates and releases, and the team dashboard.
+This guide builds the six dashboards from the framework: value stream portfolio, Features across the value stream, Epics across applications, risks dates and releases, the team dashboard, and dependencies. It creates the filters those dashboards need; the complete library is in FRAMEWORK.md.
+
+Plans is used for the L0 roadmap only. The PI plan, load against capacity and the dependency board are Confluence pages (recipes 4.14 to 4.16 in the Confluence guide), and each role has a Confluence page (recipe 4.17).
 
 Nothing here has been run in your Jira. Menu names differ slightly between Jira versions; where yours differs, the idea is the same. All names in the examples are placeholders.
 
@@ -82,9 +84,9 @@ Build them in this order, because later filters refer to earlier ones by name.
 | Save as | Query |
 | --- | --- |
 | `VS: PI Epics not started` | `filter = "VS: PI Epics" AND status in (Idea, Analysis, Ready)` |
-| `VS: open blockers` | `(filter = "VS: current PI Features" OR filter = "VS: PI Epics") AND issueLinkType = blocks AND status not in (Released, Done) ORDER BY duedate` |
+| `VS: open blockers` | `(filter = "VS: current PI Features" OR filter = "VS: PI Epics") AND issueLinkType = blocks AND status not in (Released, Done)` (to be tested: `issueLinkType` may not exist on this Jira version; if it fails, leave this gadget out and use the dependency board in Confluence) |
 | `VS: flagged` | `(project = CLP OR filter = "VS: PI Epics") AND Flagged = Impediment` |
-| `VS: Amber or Red without a plan` | `filter = "VS: Red and Amber" AND "Path to Green" is EMPTY` |
+| `VS: Amber or Red without a plan` | `filter = "VS: Red and Amber" AND issuetype != Epic AND "Path to Green" is EMPTY` (Epics are left out: Epic appears not to carry Path to Green, and its recovery plan is a comment starting "Path to green:") |
 | `VS: hygiene exceptions` | `project in (CA, DRAW, FL) AND issuetype = Epic AND "Parent Link" is EMPTY AND statusCategory != Done` |
 
 **E. Risks, dates, releases**
@@ -93,11 +95,11 @@ Build them in this order, because later filters refer to earlier ones by name.
 | --- | --- |
 | `VS: open RAID` | `project = CLP AND issuetype = "Delivery RAID" AND statusCategory != Done` |
 | `VS: open Red and Amber RAID` | `filter = "VS: open RAID" AND "RAG Status" in (Red, Amber) ORDER BY duedate` |
-| `VS: cross-stream dependencies` | `filter = "VS: open RAID" AND "RAID Type" = Dependency ORDER BY duedate` |
 | `VS: risks not reviewed` | `filter = "VS: open RAID" AND "RAID Type" = Risk AND "ROAM Response" is EMPTY` |
 | `VS: RAID past its date` | `filter = "VS: open RAID" AND duedate < now()` |
 | `VS: Milestones next 90 days and overdue` | `project = CLP AND issuetype = Milestone AND statusCategory != Done AND duedate <= endOfDay("+90d") ORDER BY duedate` |
 | `Release: scope` | `fixVersion = "CLP 2027.03"` |
+| `Release: not finished` | `fixVersion = "CLP 2027.03" AND statusCategory != Done` |
 | `Release: open bugs` | `fixVersion = "CLP 2027.03" AND issuetype = Bug AND statusCategory != Done` |
 
 **F. Team (one set per application project; `DRAW` is the example)**
@@ -107,9 +109,21 @@ Build them in this order, because later filters refer to earlier ones by name.
 | `Team DRAW: flagged in sprint` | `project = DRAW AND sprint in openSprints() AND Flagged = Impediment` |
 | `Team DRAW: carried over` | `project = DRAW AND sprint in openSprints() AND sprint in closedSprints() AND statusCategory != Done` |
 | `Team DRAW: open Epics` | `project = DRAW AND issuetype = Epic AND statusCategory != Done` |
-| `Team DRAW: Epics blocked by others` | `project = DRAW AND issuetype = Epic AND issueLinkType = "is blocked by" AND statusCategory != Done` |
+| `Team DRAW: Epics blocked by others` | `project = DRAW AND issuetype = Epic AND issueLinkType = "is blocked by" AND statusCategory != Done` (to be tested, as for `VS: open blockers`) |
 | `Team DRAW: open bugs` | `project = DRAW AND issuetype = Bug AND statusCategory != Done` |
 | `Team DRAW: Epics without Feature` | `project = DRAW AND issuetype = Epic AND "Parent Link" is EMPTY AND statusCategory != Done` |
+| `Team DRAW: Stories without Epic` | `project = DRAW AND issuetype in (Story, Task) AND "Epic Link" is EMPTY AND statusCategory != Done` |
+
+**G. Dependencies** (the method is section 12 of the white paper)
+
+| Save as | Query |
+| --- | --- |
+| `VS: open dependencies` | `filter = "VS: open RAID" AND "RAID Type" = Dependency ORDER BY duedate` |
+| `VS: dependencies not agreed` | `filter = "VS: open dependencies" AND status = Backlog ORDER BY duedate` |
+| `VS: dependencies agreed` | `filter = "VS: open dependencies" AND status = "In Progress"` |
+| `VS: dependencies late or due soon` | `filter = "VS: open dependencies" AND duedate <= endOfDay("+28d") ORDER BY duedate` |
+| `VS: dependencies at risk` | `filter = "VS: open dependencies" AND "RAG Status" in (Amber, Red)` |
+| `VS: dependencies without an owner or date` | `filter = "VS: open dependencies" AND (assignee is EMPTY OR duedate is EMPTY)` |
 
 If a query fails, the usual causes are, in order: a field name that differs by a letter; a value that differs (for example `Amber` against `AMBER`); a field that is not on that issue type; `Flagged` not existing yet because nobody has ever flagged an issue.
 
@@ -162,7 +176,7 @@ This gadget accepts dropdown fields, project, status, assignee, labels and versi
 
 Other gadgets used: **Created vs Resolved Chart** (filter, period, days back), **Sprint Health** and **Sprint Burndown** (pick the team's board).
 
-## Step 6: The five dashboards
+## Step 6: The six dashboards
 
 Build each from its table. "2D" means Two Dimensional Filter Statistics.
 
@@ -201,8 +215,8 @@ Build each from its table. "2D" means Two Dimensional Filter Statistics.
 | 2D | VS: PI Epics | Y = Project, X = Status |
 | 2D | VS: PI Epics | Y = Project, X = RAG Status |
 | 2D | VS: spillover | Y = Project, X = Target PI |
-| Filter Results | VS: PI Epics not started | Columns: Key, Summary, Project, Parent Link, Due date |
-| Filter Results | VS: open blockers | Columns: Key, Summary, Project, Status, Due date, Linked issues |
+| Filter Results | VS: PI Epics not started | Columns: Key, Summary, Project, Parent Link, End Date |
+| Filter Results | VS: open blockers (if the query works on this version) | Columns: Key, Summary, Project, Status, End Date, Linked issues |
 | Filter Results | VS: flagged | Columns: Key, Summary, Project, Assignee |
 | Filter Results | VS: Amber or Red without a plan | Columns: Key, Summary, RAG Status, Assignee |
 | Filter Results | VS: hygiene exceptions | Columns: Key, Summary, Project, Assignee |
@@ -212,7 +226,7 @@ Build each from its table. "2D" means Two Dimensional Filter Statistics.
 | Gadget | Filter | Settings |
 | --- | --- | --- |
 | Filter Results | VS: open Red and Amber RAID | Columns: Key, Summary, RAID Type, RAG Status, ROAM Response, Due date |
-| Filter Results | VS: cross-stream dependencies | Columns: Key, Summary, sub value stream, Supplier Value Stream and Sub Value Stream, Due date |
+| Filter Results | VS: open dependencies | Columns: Key, Summary, sub value stream, Supplier Value Stream and Sub Value Stream, Status, Due date |
 | Filter Results | VS: risks not reviewed | Columns: Key, Summary, Assignee |
 | Filter Results | VS: RAID past its date | Columns: Key, Summary, RAID Type, Due date |
 | Filter Results | VS: Milestones next 90 days and overdue | Columns: Key, Summary, Baseline End Date, Due date, RAG Status |
@@ -228,40 +242,25 @@ Build each from its table. "2D" means Two Dimensional Filter Statistics.
 | Filter Results | Team: flagged in sprint | Columns: Key, Summary, Assignee |
 | Filter Results | Team: carried over | Columns: Key, Summary, Sprint |
 | 2D | Team: open Epics | Y = Status, X = Fix Version |
-| Filter Results | Team: Epics blocked by others | Columns: Key, Summary, Linked issues |
+| Filter Results | Team: Epics blocked by others (if the query works on this version) | Columns: Key, Summary, Linked issues |
 | Pie Chart | Team: open bugs | Statistic: Priority |
 | Filter Results | Team: Epics without Feature | Columns: Key, Summary |
 
 To make the team dashboard for a second team: **Dashboards > Manage dashboards**, find the first one, **...** > **Copy dashboard**, then point each gadget at that team's filters.
 
-## Step 6b: Dashboard 6, Dependencies
-
-Added on 27 November 2026. For delivery leads and product owners; it opens the weekly delivery sync. The method behind it is section 12 of the white paper.
-
-Create these filters first (they build on `VS: open RAID`):
-
-| Save as | Query |
-| --- | --- |
-| VS: open dependencies | `filter = "VS: open RAID" AND "RAID Type" = Dependency ORDER BY duedate` |
-| VS: dependencies not agreed | `filter = "VS: open dependencies" AND status = Backlog ORDER BY duedate` |
-| VS: dependencies agreed | `filter = "VS: open dependencies" AND status = "In Progress"` |
-| VS: dependencies late or due soon | `filter = "VS: open dependencies" AND duedate <= endOfDay("+28d") ORDER BY duedate` |
-| VS: dependencies at risk | `filter = "VS: open dependencies" AND "RAG Status" in (Amber, Red)` |
-| VS: dependencies without an owner or date | `filter = "VS: open dependencies" AND (assignee is EMPTY OR duedate is EMPTY)` |
+**6. Dependencies** (for delivery leads and product owners; it opens the weekly delivery sync)
 
 | Gadget | Filter | Settings |
 | --- | --- | --- |
 | Filter Results | VS: dependencies not agreed | Columns: Key, Summary, Linked Issues, Supplier Value Stream and Sub Value Stream, Assignee, Due date, Created |
-| Two Dimensional Filter Statistics | VS: open dependencies | X axis Status, Y axis Supplier Value Stream and Sub Value Stream |
-| Two Dimensional Filter Statistics | VS: open dependencies | X axis RAG Status, Y axis Value Stream and Sub-Value Stream |
+| 2D | VS: open dependencies | Y = Supplier Value Stream and Sub Value Stream, X = Status |
+| 2D | VS: open dependencies | Y = Value Stream and Sub-Value Stream, X = RAG Status |
 | Filter Results | VS: dependencies late or due soon | Columns: Key, Summary, Due date, Baseline End Date, RAG Status, Assignee |
 | Filter Results | VS: flagged | Columns: Key, Summary, Project, Assignee, Updated |
 | Filter Results | VS: dependencies at risk | Columns: Key, Summary, RAG Status, Path to Green, Due date |
 | Filter Results | VS: dependencies without an owner or date | Columns: Key, Summary, Reporter |
 
-If a two-step dropdown is refused as a gadget axis, use recipe 4.16 in the Confluence guide for those two panels.
-
-**A change to how Plans is used.** Plans is now used for the L0 roadmap only. The PI plan, capacity and the dependency board are Confluence pages (recipes 4.14 to 4.16 in the Confluence guide), and there is a Confluence page for each role (recipe 4.17). Where this guide mentions a plan view other than the roadmap, use those pages.
+On a dependency ticket, Due date is the date the receiver needs it and Baseline End Date is the date the supplier promised. If a two-step dropdown is refused as a gadget axis, use recipe 4.16 in the Confluence guide for the two 2D panels.
 
 ## Step 7: Two boards for the meetings
 

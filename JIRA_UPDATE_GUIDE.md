@@ -79,7 +79,7 @@ If you only remember three things: **status is true today, blocked means flagged
 **Daily**
 
 - [ ] The board shows what was said at stand-up. Fix it in the meeting.
-- [ ] Every flag is still true. Ask about any flag older than three days.
+- [ ] Every flag is still true. A flag that has been on for two working days becomes a Delivery RAID ticket, linked to the Epic.
 
 **Sprint planning**
 
@@ -108,7 +108,7 @@ You own the Epics. Your Epics are how your application shows up in the portfolio
 | --- | --- | --- |
 | Summary and Epic Name | The capability plus your application: "M&P for Drawdowns" | People outside the team read it |
 | Parent Link | The Feature it delivers | Without it the Epic is invisible to the portfolio and is not planned |
-| Value Stream and Sub-Value Stream | Same as the parent Feature | So the Feature's work is found across applications |
+| Value Stream and Sub-Value Stream | Copied from the parent Feature by automation (rule 1). Set by hand, to the same value as the Feature, only until the rule exists. | So the Feature's work is found across applications |
 | Story Points | A planning estimate from the team | Used for capacity and for sizing the VS Epic |
 | Component | The module | |
 
@@ -117,11 +117,11 @@ You own the Epics. Your Epics are how your application shows up in the portfolio
 | Field | What to put |
 | --- | --- |
 | Target PI | The PI you are taking the Epic into. Setting it is your acceptance of the work. |
-| Label | `pi-committed` if you are promising it, `pi-stretch` if you are not |
+| Label | `pi-committed` if you are promising it and every dependency it waits on is agreed and dated before you need it; otherwise `pi-stretch` |
 | End Date | The date you expect it live |
 | RAG Status | Green |
 | Fix versions | The release it is aimed at, if known |
-| Links | **blocks** or **is blocked by**, to any Epic in another application it depends on |
+| Links | **blocks** or **is blocked by**, to an Epic under the same Feature in another application. For work from outside the Feature, raise an ask (see below). |
 
 After planning is locked, do not change Target PI or the commitment label. If the plan has to change, talk to your product lead and delivery lead; they record the decision.
 
@@ -150,7 +150,7 @@ If the work is another application's share of the same Feature, there is no ask 
 - [ ] Each Epic in progress: is the status right? Move it if not.
 - [ ] Each Epic in progress: is RAG still true? Change it today, not at the sync.
 - [ ] Amber or Red: the recovery plan is written as a comment starting "Path to green:", with the date. (If your Epic screen has Path to Green and Date to Green fields, use those.)
-- [ ] Any new dependency on another application is linked.
+- [ ] Any new dependency inside the Feature is linked with blocks; one from outside the Feature has an ask raised, and asks addressed to me are answered.
 - [ ] Any Epic that will not finish in its PI has been raised with the product lead.
 - [ ] No open Epic is without a Parent Link.
 
@@ -158,7 +158,7 @@ If the work is another application's share of the same Feature, there is no ask 
 
 | Choose | When |
 | --- | --- |
-| Green | You expect to hit the Due date and need no help |
+| Green | You expect to hit the date (End Date on an Epic) and need no help |
 | Amber | The date is at risk and you have a plan. Write the plan down (see the weekly check above). |
 | Red | You will miss the date unless someone outside the team does something. Say what and who. |
 
@@ -210,7 +210,9 @@ After early-life support, move the Epic to Done.
 | Actual PI | Epic, Feature | Automation | At Released |
 | Everything on a Feature | Feature | Product lead | Weekly |
 | Everything on a VS Epic | VS Epic | Value stream lead | Fortnightly |
-| Delivery RAID, Milestones, release versions | | Delivery lead | At each review |
+| A dependency ticket: need-by date (Due date), RAG, closing it | Delivery RAID | Product owner of the waiting team | When raised; weekly |
+| A dependency ticket: the answer, the promised date (Baseline End Date), the link to their own work | Delivery RAID | Product owner of the supplying team | Within five working days of the ask |
+| The RAID register, Milestones, release versions | | Delivery lead | Triage within two working days; at each review |
 | `unplanned`, `pi-descoped` labels | Feature, Epic | Delivery lead | When a change is decided |
 
 ## 7. Common mistakes, and the fix
