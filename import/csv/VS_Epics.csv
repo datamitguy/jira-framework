@@ -1,0 +1,5 @@
+Summary,Issue Type,Project Key,Status,Description,Value Stream and Sub-Value Stream,RAG Status,Start Date,End Date,Due Date,Labels,User/Business Value Score,Time Criticality Score,Risk Reduction / Opportunity Enablement Score,Job Size Score,WSJF (check only)
+Avoid audit risk through access control,VS Epic,CLP,Implementing,"Access to every credit decision step is controlled and evidenced, closing the open audit points.",Credit and Lending -> Governance and Conditions,Green,2027-01-04,2027-12-17,2027-12-17,regulatory,13,13,8,8,
+One view of conditions from approval to drawdown,VS Epic,CLP,Implementing,Conditions set at approval are visible and enforced at drawdown without re-keying.,Credit and Lending -> Drawdown,Amber,2027-01-04,2027-09-24,2027-09-24,,8,5,5,13,
+Earlier warning on deteriorating exposures,VS Epic,CLP,Implementing,Relationship managers see watch-list triggers a month sooner.,Credit and Lending -> Monitoring,Green,2027-01-04,2028-03-31,2028-03-31,,8,8,5,8,
+Run and improve 2027,VS Epic,CLP,Implementing,"Standing home for upkeep work. No Target PI, no commitment.",Credit and Lending -> Underwriting,Green,2027-01-04,2027-12-31,2027-12-31,,1,1,1,1,

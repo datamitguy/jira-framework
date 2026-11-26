@@ -1,0 +1,9 @@
+Summary,Issue Type,Project Key,Epic Link,Story Points
+Second approver must differ from first approver,Story,CA,M&P for Credit Application,5
+Approval history shows both approvers,Story,CA,M&P for Credit Application,3
+Reject own submission at approval step,Story,CA,M&P for Credit Application,3
+Drawdown request needs a second approver,Story,DRAW,M&P for Drawdowns,8
+Approver cannot edit amount after first approval,Story,DRAW,M&P for Drawdowns,5
+Second approver sees stale amount after edit,Bug,DRAW,M&P for Drawdowns,3
+Trigger fires when covenant test fails,Story,WWM,Covenant breach trigger in Watch and Worry Monitor,8
+Trigger suppressed for waived covenants,Story,WWM,Covenant breach trigger in Watch and Worry Monitor,5

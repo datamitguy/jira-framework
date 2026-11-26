@@ -1,0 +1,5 @@
+Summary,Issue Type,Project Key,Value Stream and Sub-Value Stream,Due Date,Baseline End Date,RAG Status,Labels,"Blocked by (summary, helper)",Blocked by (key)
+Audit point AP-12 remediation due,Milestone,CLP,Credit and Lending -> Governance and Conditions,2027-06-30,2027-06-30,Green,ms-regulatory,Avoid audit risk through access control,
+M&P live in all origination applications,Milestone,CLP,Credit and Lending -> Governance and Conditions,2027-03-26,2027-03-26,Amber,ms-golive,M&P across the platform,
+Covenant triggers live for pilot business line,Milestone,CLP,Credit and Lending -> Monitoring,2027-04-09,2027-03-26,Red,ms-golive,Watch-list triggers from covenant breaches,
+PI 2027.2 planning,Milestone,CLP,Credit and Lending -> Underwriting,2027-03-22,2027-03-22,Green,ms-pi,,

@@ -1,0 +1,6 @@
+Summary,Issue Type,Project Key,RAID Type,Value Stream and Sub-Value Stream,Supplier Value Stream and Sub Value Stream,RAG Status,Probability,Impact,ROAM Response,Due Date,"Relates to (summary, helper)",Relates to (key)
+Drawdowns team loses two engineers in February,Delivery RAID,CLP,Risk,Credit and Lending -> Drawdown,,Amber,High,High,Owned,2027-01-29,M&P for Drawdowns,
+Conditions API needed by Drawdowns before sprint 3,Delivery RAID,CLP,Dependency,Credit and Lending -> Drawdown,Credit and Lending -> Governance and Conditions,Amber,,High,,2027-02-12,Drawdown pre-checks read conditions,
+Covenant data quality is unknown for legacy facilities,Delivery RAID,CLP,Assumption,Credit and Lending -> Monitoring,,Amber,,Medium,,2027-01-22,Watch-list triggers from covenant breaches,
+Covenant feed test environment not available,Delivery RAID,CLP,Issue,Credit and Lending -> Monitoring,Credit and Lending -> Governance and Conditions,Red,,High,,2027-01-15,Covenant breach trigger in Watch and Worry Monitor,
+Audit may widen scope of AP-12 to drawdown approvals,Delivery RAID,CLP,Risk,Credit and Lending -> Governance and Conditions,,Green,Low,High,Accepted,2027-03-05,Avoid audit risk through access control,
