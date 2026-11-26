@@ -127,6 +127,52 @@ For Jira: `LEFT JOIN T2 ON T2.'Parent Link' = T1.'Key'`; use `T2.'Project'` for 
 
 Answers: for each Feature, how many applications are involved and how far each has got. This is the cross-application view Jira cannot produce.
 
+### 4.2a The matrix in figure 9 of the white paper: one row per Feature, one column per application
+
+There are two ways. Build the first in five minutes to see the shape; move to the second when you want the progress and "still open in" columns.
+
+**Way 1: Pivot Table, no SQL**
+
+1. Insert the **Pivot Table** macro.
+2. Inside it, insert the **Jira Issues** macro on `filter = "VS: PI Epics"`, with the columns Key, Summary, Project, Status, Parent Link. In the playground, paste the Epics sheet of the workbook instead.
+3. Save the page. In the Pivot Table settings set **Row labels** = Parent Link (playground: `Parent summary (helper)`), **Column labels** = Project (playground: `Project Key`), **Calculated column** = Status, **Operation** = Literal.
+4. Switch off the totals row and column.
+
+Each cell now shows the status of that application's Epic for that Feature, and is empty where the application is not involved.
+
+**Way 2: Table Transformer, with progress and the late application**
+
+For the playground (T1 = the Epics sheet pasted as a table):
+
+```sql
+SELECT T1.'Parent summary (helper)' AS 'Feature',
+  GROUP_CONCAT(IF(T1.'Project Key' = "CA", T1.'Status', NULL)) AS 'CA',
+  GROUP_CONCAT(IF(T1.'Project Key' = "DRAW", T1.'Status', NULL)) AS 'DRAW',
+  GROUP_CONCAT(IF(T1.'Project Key' = "FL", T1.'Status', NULL)) AS 'FL',
+  GROUP_CONCAT(IF(T1.'Project Key' = "GC", T1.'Status', NULL)) AS 'GC',
+  GROUP_CONCAT(IF(T1.'Project Key' = "WWM", T1.'Status', NULL)) AS 'WWM',
+  GROUP_CONCAT(IF(T1.'Project Key' = "PEM", T1.'Status', NULL)) AS 'PEM',
+  GROUP_CONCAT(IF(T1.'Project Key' = "FORB", T1.'Status', NULL)) AS 'FORB',
+  SUM(IF(T1.'Status' = "Released" OR T1.'Status' = "Done", 1, 0)) AS 'Released',
+  COUNT(*) AS 'Epics',
+  GROUP_CONCAT(IF(T1.'Status' = "Released" OR T1.'Status' = "Done", NULL, T1.'Project Key')) AS 'Still open in'
+FROM T1
+GROUP BY T1.'Parent summary (helper)'
+ORDER BY T1.'Parent summary (helper)'
+```
+
+For live Jira, put two Jira Issues macros inside the Table Transformer: T1 = `VS: PI Epics` (Key, Summary, Project, Status, Parent Link) and T2 = `VS: current PI Features` (Key, Summary). Then:
+
+- change `FROM T1` to `FROM T1 JOIN T2 ON T1.'Parent Link' = T2.'Key'`
+- change `T1.'Parent summary (helper)'` to `T2.'Summary'` in all three places
+- change `T1.'Project Key' = "CA"` to `T1.'Project' = "Credit Application"`, and likewise for each application, using the project names exactly as the macro shows them
+
+A Feature is "waiting for one application" when Released is above zero and below Epics; the last column then names the application.
+
+**Colour.** Use the conditional formatting option of the table macros if your version has it: Released blue, Implementing light blue, Ready or Analysis grey. If it does not, the table is still readable without colour.
+
+**If it goes wrong.** An empty result usually means the join found nothing: look at what the Parent Link column actually shows in the Jira Issues macro. If it shows a key and a summary together, join on the Summary instead (`T1.'Parent Link' = T2.'Summary'`), or show only the key. If a cell shows two statuses, that application has two Epics under the Feature, which is allowed. This recipe has not been run on real data.
+
 ### 4.3 Features waiting on one late application
 
 Same tables as 4.2. Add this at the end, before `ORDER BY` (untested pattern):
@@ -457,7 +503,7 @@ Always look at the table before the chart. If the table is wrong, the chart will
 | 6 | WSJF ranking | Yes | `VS: Ready, no Target PI` with Summary and Weighted Shortest Job First Score | No SQL; the filter is already sorted | Bar; Labels = Summary; Values = the score |
 | 7 | PI calendar | Image | `24_pi_calendar.png` | Attach the image | |
 | 8 | Load against capacity | Yes | `VS: PI Epics` with Story Points and Labels; typed capacity table | Recipe 4.15 | Stacked Bar; Labels = Application; Values = Committed, Stretch. Show Capacity as a column beside the chart. |
-| 9 | Feature progress across applications | Yes, as a table | `VS: PI Epics` with Parent Link, Project, Status | Recipe 4.2, or Pivot Table: rows = Parent Link, columns = Project, operation = Literal on Status | None; colour cells with conditional formatting |
+| 9 | Feature progress across applications | Yes, as a table | `VS: PI Epics` with Parent Link, Project, Status | Recipe 4.2a (Pivot Table first, then Table Transformer) | None; colour cells with conditional formatting |
 | 10 | PI scorecard | Yes | The pasted baseline table, and that PI's own filter | Recipe 4.7 | Stacked Bar; Labels = Application; Values = Delivered, Spilled, Descoped, Stopped |
 | 11 | Predictability trend | Yes | Committed Features and Epics with Target PI and Actual PI | Recipe 4.8 | Line; Labels = Target PI; Values = the three percentages |
 | 12 | Spillover reasons | Yes | The scorecard table, with its Reason column | Pivot Table: rows = Reason, operation = Count | Bar; Labels = Reason; Values = Count |

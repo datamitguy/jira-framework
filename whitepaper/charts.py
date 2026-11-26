@@ -109,9 +109,11 @@ box(ax, 88, 49, 20, 7, "MILESTONE\nAudit point AP-12\nremediation due", "white",
 box(ax, 88, 36, 20, 7, "DELIVERY RAID\nRisk: audit may widen\nthe scope of AP-12", "white", ec=ORANGE, fs=8.3)
 dl = dict(color=ORANGE, lw=1.3, ls=(0, (3, 2)))
 ax.plot([64, 88], [52.5, 52.5], **dl); ax.plot([82, 88], [39.5, 39.5], **dl); ax.plot([82, 88], [41, 49], **dl)
+box(ax, 88, 19, 20, 9, "DELIVERY RAID\nIssue: test environment\nnot available\n(kept in the portfolio project)", "white", ec=ORANGE, fs=7.9)
+ax.plot([86, 88], [23.5, 23.5], **dl)
 ax.text(4, 46, "Parent Link", fontsize=8.5, color=T2, style="italic")
-ax.text(1, 3.2, "Solid line = parent and child (one parent, many children): Parent Link above Epic, Epic Link below.     "
-        "Dashed line = issue link (many to many): blocks, relates to.", fontsize=8.5, color=T2)
+ax.text(1, 4.6, "Solid line = parent and child: Parent Link above Epic, Epic Link below.     Dashed line = issue link (many to many): blocks, relates to.", fontsize=8.5, color=T2)
+ax.text(1, 2.0, "A Delivery RAID ticket is kept in the portfolio project and can be linked to an Epic, a Feature, a VS Epic or a Milestone.", fontsize=8.5, color=T2)
 ax.text(42, 31.5, "Parent Link, across projects", fontsize=8.5, color=T2, style="italic")
 ax.text(15, 16.4, "Epic Link", fontsize=8.5, color=T2, style="italic")
 save(f, "01_hierarchy", "One line of work from the value stream to the story",

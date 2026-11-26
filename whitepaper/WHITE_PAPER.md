@@ -193,7 +193,7 @@ The project has its own measures. The starting figures have not been counted yet
 
 ![Figure 2: The hierarchy](charts/01_hierarchy.png)
 
-*Figure 2. The hierarchy with a worked example. The Feature "M&P across the platform" is delivered by two applications; each has its own Epic under the same Feature.*
+*Figure 2. The hierarchy with a worked example. The Feature "M&P across the platform" is delivered by two applications; each has its own Epic under the same Feature. Delivery RAID tickets are kept in the portfolio project and linked to the work they affect at any level: here one to a Feature and one to an Epic.*
 
 **Portfolio layer: one Jira project for the whole value stream.** It holds only VS Epics, Features, Milestones and Delivery RAID. No team does sprint work here.
 
