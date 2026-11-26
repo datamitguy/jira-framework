@@ -55,6 +55,8 @@ Five rules:
 | Delivery RAID | RAID Type, owner, Due date, RAG, a link to the work it affects. Risks: Probability, Impact, ROAM Response. | At each review |
 | Milestone | Due date, Baseline End Date, kind label, links to what must finish for it. | When anything changes |
 
+The shortlist of fields for each issue type, with who fills each one in and when, is in [FIELDS.md](FIELDS.md).
+
 Summaries are written so a stranger understands them: VS Epics as outcomes ("Avoid audit risk through access control"), Features as capabilities ("M&P across the platform"), Epics as capability plus application ("M&P for Drawdowns").
 
 ## 5. The rhythm

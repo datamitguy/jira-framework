@@ -1,4 +1,4 @@
-Summary,Epic Name,Issue Type,Project Key,Status,Parent summary (helper),Parent Link,Value Stream and Sub-Value Stream,Target PI,Actual PI,RAG Status,Story Points,Labels,Component,Fix Version,Due Date
+Summary,Epic Name,Issue Type,Project Key,Status,Parent summary (helper),Parent Link,Value Stream and Sub-Value Stream,Target PI,Actual PI,RAG Status,Story Points,Labels,Component,Fix Version,End Date
 M&P for Credit Application,M&P for Credit Application,Epic,CA,Released,M&P across the platform,,Credit and Lending -> Governance and Conditions,PI 2027.1,PI 2027.1,Green,40,pi-committed,Approval,CA 2027.03,2027-03-12
 M&P for Drawdowns,M&P for Drawdowns,Epic,DRAW,Implementing,M&P across the platform,,Credit and Lending -> Governance and Conditions,PI 2027.1,,Amber,55,pi-committed,Drawdown Request,DRAW 2027.03,2027-03-19
 M&P for Facility Letter,M&P for Facility Letter,Epic,FL,Released,M&P across the platform,,Credit and Lending -> Governance and Conditions,PI 2027.1,PI 2027.1,Green,21,pi-committed,Letter Generation,FL 2027.03,2027-03-19

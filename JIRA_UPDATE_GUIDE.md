@@ -117,7 +117,7 @@ You own the Epics. Your Epics are how your application shows up in the portfolio
 | --- | --- |
 | Target PI | The PI you are taking the Epic into. Setting it is your acceptance of the work. |
 | Label | `pi-committed` if you are promising it, `pi-stretch` if you are not |
-| Due date | The date you expect it live |
+| End Date | The date you expect it live |
 | RAG Status | Green |
 | Fix versions | The release it is aimed at, if known |
 | Links | **blocks** or **is blocked by**, to any Epic in another application it depends on |
@@ -128,7 +128,7 @@ After planning is locked, do not change Target PI or the commitment label. If th
 
 - [ ] Each Epic in progress: is the status right? Move it if not.
 - [ ] Each Epic in progress: is RAG still true? Change it today, not at the sync.
-- [ ] Amber or Red: Path to Green and Date to Green are filled in.
+- [ ] Amber or Red: the recovery plan is written as a comment starting "Path to green:", with the date. (If your Epic screen has Path to Green and Date to Green fields, use those.)
 - [ ] Any new dependency on another application is linked.
 - [ ] Any Epic that will not finish in its PI has been raised with the product lead.
 - [ ] No open Epic is without a Parent Link.
@@ -138,7 +138,7 @@ After planning is locked, do not change Target PI or the commitment label. If th
 | Choose | When |
 | --- | --- |
 | Green | You expect to hit the Due date and need no help |
-| Amber | The date is at risk and you have a plan. Write the plan in Path to Green. |
+| Amber | The date is at risk and you have a plan. Write the plan down (see the weekly check above). |
 | Red | You will miss the date unless someone outside the team does something. Say what and who. |
 
 Raising Amber early is the right thing to do. Staying Green until the last week is the thing to avoid.
@@ -182,7 +182,7 @@ After early-life support, move the Epic to Done.
 | Status | Epic | Product owner | Weekly, or the day it changes |
 | Parent Link | Epic | Product owner | At creation |
 | Target PI, commitment label | Epic | Product owner | At PI planning only |
-| RAG Status, Path to Green, Date to Green | Epic | Product owner | Weekly |
+| RAG Status, End Date, recovery plan when Amber or Red | Epic | Product owner | Weekly |
 | Story Points | Epic | Product owner, from the team | In analysis; revised when stories are estimated |
 | Fix versions | Epic, Story, Bug | Product owner | Sprint planning |
 | Change Request ID | Epic | Product owner | At release |
@@ -212,5 +212,6 @@ After early-life support, move the Epic to Done.
 ## 8. Where to ask
 
 - A field or rule is unclear: your scrum master or product owner first, then the framework owner.
+- The complete list of fields per issue type is in [FIELDS.md](FIELDS.md).
 - Jira will not let you do something this guide says to do: the framework owner, with the ticket key and what you tried.
 - You think a rule is wrong or wasteful: say so. Proposals go to the framework owner and are decided monthly.

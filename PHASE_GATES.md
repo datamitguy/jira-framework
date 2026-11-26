@@ -119,7 +119,7 @@ A Feature that is not Ready by week 9 does not enter planning.
 2. Each product owner sets **Target PI** on the Epics they can take, and drags stories into sprints up to capacity.
 3. For each Feature, the product lead checks every Epic has the Target PI. If one application cannot take its share: move the Feature, cut it down, or plan it over two PIs on purpose.
 4. New dependencies are linked in the room. Unresolved ones become Delivery RAID tickets with an owner.
-5. Each Epic that stays, then each Feature, gets `pi-committed` or `pi-stretch`, a Due date, and RAG Status Green.
+5. Each Epic that stays, then each Feature, gets `pi-committed` or `pi-stretch`, a date (End Date on an Epic, Due date on a Feature), and RAG Status Green.
 
 **Exit (the lock)**
 
@@ -140,7 +140,7 @@ After the lock, Target PI and the commitment labels change only by decision.
 | --- | --- |
 | **Enter when** | The PI has started and the Epic has Target PI, commitment label, RAG and Parent Link. |
 | **On entry, in Jira** | Product owner moves the Epic to **Implementing** when its first story starts. The Feature moves to **Implementing** when its first Epic does. |
-| **What you do in Jira** | Teams: story status daily, flags when stopped. Product owners weekly: Epic status, RAG, Path to Green and Date to Green if Amber or Red, Fix version. Product leads weekly: Feature RAG. Delivery lead: blockers, RAID, Milestones. |
+| **What you do in Jira** | Teams: story status daily, flags when stopped. Product owners weekly: Epic status, RAG, End Date, Fix versions, and a recovery plan if Amber or Red. Product leads weekly: Feature RAG. Delivery lead: blockers, RAID, Milestones. |
 | **Changes to the plan** | Only by decision of the product lead and delivery lead. In: Target PI plus `unplanned`. Out: `pi-descoped` plus a reason. |
 | **Exit when** | Every story in the Epic is Done and deployed to the test environment. |
 | **How to see it** | Dashboards 2 and 3. `VS: PI Epics not started` from week 5. `VS: open blockers`. `VS: Red and Amber`. |
@@ -197,7 +197,45 @@ A Feature is never Released while one of its Epics is still open. If one applica
 | **What you do in Jira and Confluence** | Score every committed line of the baseline: delivered, spilled, descoped, or stopped. Report the three figures (Features, Epics, story points). Give each spillover a reason and a decision: carry on, stop or split. Move unfinished stretch and unplanned work to the next PI or back to Ready. Record up to five improvement actions as tasks. |
 | **Exit when** | The scorecard is complete, every spillover has a decision, and on day 1 of the new PI the four filter and rule edits in section 2 are done. |
 
-## 4. One-page summary of the gates
+## 4. What is kept up to date, from Epic level upward
+
+The stage tables above say what must be true to move on. This section says what is maintained while work sits in a stage, and how often. Stories and below are covered in [JIRA_UPDATE_GUIDE.md](JIRA_UPDATE_GUIDE.md). The full list of fields per issue type is in [FIELDS.md](FIELDS.md).
+
+### By rhythm
+
+| How often | Epic (product owner) | Feature (product lead) | VS Epic (value stream lead) | Milestone and Delivery RAID (delivery lead) |
+| --- | --- | --- | --- | --- |
+| **The same day** | Flag on or off when actually stopped or freed. Status when it changes. A new dependency: tell the other product owner and link the Epics. | Flag. Management Attention when a decision is needed now. | Flag. | A new risk, issue or outside dependency raised as a ticket with an owner. |
+| **Weekly, before the delivery sync** | Status. RAG Status. End Date still true. Fix versions. Recovery plan if Amber or Red. Links to other Epics. | Status against its Epics. RAG Status. Path to Green and Date to Green if Amber or Red. Due date still true. Executive Summary if Amber, Red or on the watch list. | | Blockers past their date chased. Flags reviewed. |
+| **Fortnightly, before the portfolio sync** | | | Status. RAG Status. Executive Summary. Path to Green and Date to Green if Amber or Red. Rank order. | Every Red and Amber RAID ticket: RAG, Due date, a comment. Milestones: Due date, RAG. |
+| **Monthly** | Hygiene check: no Epic without Parent Link; nothing open with a resolution. | Hygiene check: no Feature without parent, sub value stream or Enabler Type. | Work in progress against the limit. | Every open RAID ticket reviewed or closed. Risks: Probability, Impact, ROAM Response. |
+| **Each sprint** | Fix versions on what is going into the next release. Story Points on the Epic revised once its stories are estimated. | | | Release versions and dates. |
+| **Each PI, at planning** | Target PI. `pi-committed` or `pi-stretch`. End Date. RAG set to Green. Story Points. | Target PI. `pi-committed` or `pi-stretch`. Due date. RAG set to Green. Scores re-checked for anything still waiting. | Start date and End Date for the roadmap. Scores re-checked for anything still waiting. | Planning Milestone. Dependencies from the room. |
+| **Each PI, at the close** | Reason for any spillover, as a comment. | Change Reason for anything descoped, split or carried over. | Executive Summary reflects the PI result. | Scorecard completed. `unplanned` and `pi-descoped` labels checked. |
+| **Once, then left alone** | Parent Link, Epic Name, Components, Team. | Parent Link, sub value stream, Enabler Type, Acceptance Criteria, Business Benefits, T-Shirt Size. | Objective ID, Business Benefits, sub value stream. | Baseline End Date. RAID Type. Kind label on a Milestone. |
+| **Never typed** | Actual PI; sub value stream (copied from the Feature once rule 1 exists). | Actual PI; Weighted Shortest Job First Score. | Weighted Shortest Job First Score. | |
+
+Nothing at Epic level or above needs a daily update unless something actually changed that day. The daily habit belongs to stories.
+
+### By stage
+
+What is being maintained while a ticket sits in each stage.
+
+| Stage | On the Epic | On the Feature | On the VS Epic |
+| --- | --- | --- | --- |
+| 2 Triage | | Set once: Parent Link, sub value stream, Enabler Type, Assignee. | Review: Assignee, Objective ID, sub value stream. |
+| 3 Design | Set once: Parent Link, Epic Name, Components, Team, Story Points. Links as dependencies are found. | Built up weekly: Acceptance Criteria, Business Benefits, T-Shirt Size, the four scores, design link, sign-off tasks, links. | Analysis: Business Benefits, the four scores, case linked, first Features created. |
+| 4 Ready | Nothing, unless the estimate changes. | Rank order on the board. Scores re-checked each PI. | Rank order. Start date and End Date. |
+| 5 PI planning | Target PI, commitment label, End Date, RAG to Green. | Target PI, commitment label, Due date, RAG to Green. | Start date, End Date and Due date confirmed. |
+| 6 Delivery | Weekly: Status, RAG, End Date, Fix versions, links, recovery plan if needed. Same day: flag. | Weekly: Status, RAG, Path to Green, Date to Green, Due date, Management Attention. | Fortnightly: Status, RAG, Executive Summary, Path to Green, Date to Green. |
+| 7 Testing and acceptance | Weekly: RAG, Fix versions. Bugs raised under it carry Severity, Testing Phase, Environment. | Weekly: Status (Testing, then Validation), RAG, sign-off tasks closing. | Fortnightly, as above. |
+| 8 Release | Fix versions final. Change Request ID. Status to Released. Actual PI appears. | Status to Released once every Epic is. Actual PI appears. | Status to Released once every planned Feature is. |
+| 9 Early life and close | Status to Done when all child tickets are closed. | Business Benefits reviewed. Status to Done. | Business Benefits and any Financial Benefit recorded against what was promised. Status to Done. |
+| 10 PI close | Spillover reason as a comment. Target PI left alone. | Change Reason if descoped, split or carried over. Target PI left alone for committed work. | Executive Summary updated with the PI result. |
+
+**One note on Epics.** From the standards page, an Epic does not appear to have Path to Green, Date to Green or Due date. Until that is confirmed or the fields are added: the Epic's expected go-live date is its **End Date**, and the recovery plan for an Amber or Red Epic is a comment that starts "Path to green:".
+
+## 5. One-page summary of the gates
 
 | To move a Feature | From | To | You need |
 | --- | --- | --- | --- |

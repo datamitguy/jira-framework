@@ -215,6 +215,29 @@ Issue links, three types only:
 - **relates to**: ties a Delivery RAID ticket or a Milestone to the work it concerns.
 - **duplicates**: used at intake to close repeat requests.
 
+## Field shortlist per issue type
+
+Each issue type offers between 18 and 60 fields; the framework reads only the ones below. Core fields are always filled in. The others are filled in only when the situation applies. Any field not listed is left as the bank's standards require and is read by no filter, dashboard or report here.
+
+| Issue type | Core fields | Filled in only when it applies | Set by Jira or automation |
+| --- | --- | --- | --- |
+| VS Epic (16 core) | Summary, Description, Assignee, Value Stream and Sub-Value Stream, Objective ID, Business Benefits, the four scores, Start date, End Date, Due date, RAG Status, Executive Summary, Linked work items | Path to Green, Date to Green, Financial Benefit (USD), Regulatory or Control ID, Change Reason, Flagged | Weighted Shortest Job First Score |
+| Feature (17 core) | Summary, Description, Assignee, Parent Link, Value Stream and Sub-Value Stream, Enabler Type, Acceptance Criteria, Business Benefits, T-Shirt Size, the four scores, Target PI, Labels, Due date, RAG Status | Start date, End Date, Path to Green, Date to Green, Management Attention, Executive Summary, Regulatory or Control Change Type, Regulatory or Control ID, Architectural Governance, Contains Resiliency Work, Change Reason, Linked work items, Flagged | Actual PI, Weighted Shortest Job First Score |
+| Epic (14 core) | Summary, Epic Name, Description, Assignee, Parent Link, Components, Team, Story Points, Target PI, Labels, End Date, RAG Status, Fix versions, Linked work items | Start date, Change Request ID, Regulatory or Control Change Type, Flagged | Actual PI, Value Stream and Sub-Value Stream |
+| Story (8 core) | Summary, Description, Epic Link, Acceptance Criteria, Story Points, Assignee, Sprint, Components | Fix versions, Story Type, Flagged | Status, Resolution |
+| Task (6 core) | Summary, Description, Epic Link, Assignee, Sprint, Story Points | Acceptance Criteria, Flagged | Status, Resolution |
+| Sub-task (3 core) | Summary, Assignee, Parent | Flagged | Status |
+| Bug (11 core) | Summary, Description, Epic Link, Severity, Priority, Testing Phase, Environment, Affects versions, Assignee, Sprint, Components | Fix versions, Root cause category, Root cause analysis, Flagged | Status, Resolution |
+| Test (7 core) | Summary, Description, Epic Link, Testing Phase, Environments, Assignee, Sprint | Fix versions | Status, Resolution |
+| Milestone (9 core) | Summary, Description, Assignee, Value Stream and Sub-Value Stream, Due date, Baseline End Date, RAG Status, Labels, Linked work items | Path to Green, Date to Green, Executive Summary, Regulatory or Control ID, Fix versions |  |
+| Delivery RAID (9 core) | Summary, Description, RAID Type, Assignee, Value Stream and Sub-Value Stream, RAG Status, Due date, Impact, Linked work items | Risk: Probability, Risk Trigger Event, ROAM Response. Dependency: Dependency Type, Supplier Value Stream and Sub Value Stream, Baseline End Date. Issue: Impact Details, Path to Green, Date to Green. Any: Executive Summary |  |
+
+Who fills in each field, and when, is set out field by field in [FIELDS.md](FIELDS.md).
+
+**A gap on Epic.** From the standards page, Epic does not appear to carry Path to Green, Date to Green or Due date. Until that is confirmed or the fields are added, an Epic's expected go-live date is its End Date, and the recovery plan for an Amber or Red Epic is a comment starting "Path to green:". Filters that test Path to Green therefore apply to Features, VS Epics, Milestones and Delivery RAID, not to Epics.
+
+Two rules keep the list short. A field joins it only when a filter, dashboard, report or decision reads it. And when one is added, another is reviewed for removal.
+
 ## Workflows and gates
 
 Your existing statuses are enough. What is missing today is a shared meaning for each one and a rule for entering it. The tables give both.

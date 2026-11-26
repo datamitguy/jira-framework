@@ -134,7 +134,7 @@ To list the late Epics themselves (T1 = Features, T2 = Epics):
 
 ```sql
 SELECT T1.'Summary' AS 'Feature', T2.'Summary' AS 'Epic still open',
-  T2.'Project Key' AS 'Application', T2.'Status', T2.'RAG Status', T2.'Due Date'
+  T2.'Project Key' AS 'Application', T2.'Status', T2.'RAG Status', T2.'End Date'
 FROM T2
 JOIN T1 ON T2.'Parent summary (helper)' = T1.'Summary'
 WHERE T2.'Status' != "Released" AND T2.'Status' != "Done"
