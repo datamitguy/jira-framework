@@ -11,6 +11,7 @@ All project keys, names, dates and numbers in these files are placeholders or mo
 | File | What it is for | Read it when |
 | --- | --- | --- |
 | [FRAMEWORK.md](FRAMEWORK.md) | The framework itself: structure, fields, workflows, RAID and milestones, portfolio practices, governance, operating rhythm, intake, PI planning, delivery control, release planning, dashboards, filter library, automation rules. | First. Everything else builds on it. |
+| [WAYS_OF_WORKING.md](WAYS_OF_WORKING.md) | What people do day to day: principles, who owns what, the weekly and PI rhythm, how work flows from demand to done, RAG rules, decisions, a weekly hygiene check and a 30-day start list. | To share with teams. It is the short companion to the framework. |
 | [dashboards/DASHBOARD_BUILD_GUIDE.md](dashboards/DASHBOARD_BUILD_GUIDE.md) | Click-by-click steps to create the saved filters, the five dashboards and the two boards. | When you sit down to build in Jira. |
 | [confluence/CONFLUENCE_PORTFOLIO_GUIDE.md](confluence/CONFLUENCE_PORTFOLIO_GUIDE.md) | The Confluence page tree and the SQL for each portfolio page, using the Jira Issues macro, Table Transformer, Pivot Table and Chart from Table. Includes a playground that works with mock tables and no Jira. | When you build the portfolio pages. |
 | [import/IMPORT_GUIDE.md](import/IMPORT_GUIDE.md) | How to load a spreadsheet of summaries into Jira as a joined hierarchy, with the issue type mapping. | When you load real or mock data. |
