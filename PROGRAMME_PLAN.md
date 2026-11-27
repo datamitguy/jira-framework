@@ -49,7 +49,7 @@ Write the answers before the first briefing. If an answer is "not decided yet", 
 | A sponsor who is seen to back it | One senior name on the message, present at the first PI planning, and using the dashboard in their own meetings |
 | A named framework owner | One person with time set aside, not a committee |
 | Champions | One person in each sub value stream who knows the rules well and is the first place colleagues ask |
-| A stakeholder map | Who must agree (sponsors, product leads, delivery leads), who must be consulted (Jira admin, architecture, risk and control, audit, the DDT owner, the Cloud migration team), who must be told (teams) |
+| A stakeholder map | Who must agree (sponsors, product leads, delivery leads), who must be consulted (Jira admin, architecture, risk and control, audit, the DDT chair, the Cloud migration team), who must be told (teams) |
 | A feedback route | One place to raise problems, reviewed monthly, with what was changed published |
 | Leaders using it | The fastest way to make the data good is for leaders to run their meetings from the dashboards. The fastest way to kill it is to keep asking for slides. |
 
@@ -59,7 +59,7 @@ Write the answers before the first briefing. If an answer is "not decided yet", 
 | --- | --- | --- |
 | Agreement from the Jira admin team, in writing, on the eight requests | Five of them (1 to 4 and 7) block the start | Framework owner |
 | Agreement with the owner of the Jira standards on Target PI, Actual PI and RAG meanings | The framework assumes meanings the standards may define differently | Framework owner |
-| Agreement with the DDT owner that the demand intake project in Jira Service Management is the one front door, and a named intake owner | Otherwise there are two front doors again | Value stream lead |
+| Agreement with the DDT chair that the demand intake project in Jira Service Management is the one front door, that the DDT decides from its queue, and a named intake owner | Otherwise demand arrives by several routes and decisions are kept in a separate list | Value stream lead |
 | A check with risk, control or audit on evidence | Sign-offs as tasks, and public or external storage of these documents, may be covered by policy | Delivery lead |
 | A baseline of today | Without "before" numbers (how many Epics have no parent, how many initiatives span applications, how long status reporting takes) you cannot show improvement | Framework owner |
 | Success measures for the project itself | See below | Sponsor |
@@ -122,7 +122,7 @@ This chunk is steps 0 to 3 of the implementation path in the white paper (sectio
 | Circulate the white paper with screenshots from the proof of concept, with a fixed comment window | Comments are in against the decisions in section 20 |
 | Hold the decision meeting: go, go with changes, or stop | The outcome is in the decision record |
 | Raise admin requests 1 to 4 and 7 | Each has a ticket and a date from the admin team |
-| Agree field meanings with the standards owner, and the front door and intake owner with the DDT owner | Written into the decision record |
+| Agree field meanings with the standards owner, and the front door, the intake owner and the decision routine with the DDT chair | Written into the decision record |
 | Count the baseline | Numbers recorded for the measures in Part 1 |
 | Write the sponsor message, glossary and questions and answers | Reviewed by two people who were not involved |
 | Meet the Cloud migration team | Their date, their licence tier, and what they will and will not carry over are known |

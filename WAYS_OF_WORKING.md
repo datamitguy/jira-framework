@@ -22,7 +22,7 @@ Four places, each with one job.
 
 | Place | Tool | Holds | Who works there |
 | --- | --- | --- | --- |
-| **Demand intake project** | Jira Service Management | Requests: what someone has asked for, and the decision on it | Requesters (through the portal), the intake owner, product leads |
+| **Demand intake project** | Jira Service Management | Requests: what someone has asked for, and the decision on it | Requesters (through the portal), the intake owner, product leads, the DDT |
 | **Portfolio project** | Jira | VS Epics, Features, Milestones, Delivery RAID | Value stream lead, product leads, delivery leads; product owners and scrum masters for RAID |
 | **Application projects**, one per application | Jira | Epics, Stories, Tasks, Bugs, Tests, Sub-tasks | Product owners and teams |
 | **Portfolio pages** | Confluence | The PI plan, the dependency board, the PI scorecard, roll-ups, and a page for each role | Everyone reads; delivery leads and the framework owner maintain |
@@ -109,7 +109,7 @@ The shortlist of fields for each issue type is in [FIELDS.md](FIELDS.md).
 
 ### The front door
 
-New demand comes in through one door: a request in the **demand intake project in Jira Service Management**. It is used only for demand that is in nobody's backlog yet. Existing Epic lists do not go through it; they are stitched up to Features and VS Epics.
+New demand comes in through one door: a request in the **demand intake project in Jira Service Management**. Requests are decided at the **DDT**, the advisory board forum that reviews new demand. The project is where a request is recorded; the DDT is where it is decided. The front door is used only for demand that is in nobody's backlog yet. Existing Epic lists do not go through it; they are stitched up to Features and VS Epics.
 
 A request and the work that follows are **two tickets on purpose**:
 
@@ -131,7 +131,7 @@ What makes two tickets painless: **nothing is typed twice.** The Feature is crea
 | 1 | **Raise** | Anyone with a need | A request through the portal form (below) | Any time; the cut-off for the next PI is week 7 of the current one |
 | 2 | **Screen** | Intake owner | Checks the form is complete and looks for a duplicate. Routes it (table below). Assigns it to the product lead of the sub value stream that would be accountable. | Within 5 working days |
 | 3 | **Assess** | Product lead, with the product owners likely to be involved | Adds to the request: which VS Epic it would serve, a T-Shirt Size, the applications likely to change, and a proposed PI | Within 10 working days of screening |
-| 4 | **Decide** | Value stream lead and product leads, at the fortnightly portfolio sync, working from the intake queue | Approve, decline, park, or merge with another request. Recorded as the approval on the request, with a one-line reason. | At the next portfolio sync |
+| 4 | **Decide** | The DDT, working from the intake queue on screen | Approve, decline, park, or merge with another request. Recorded as the approval on the request, with a one-line reason, in the meeting. | At the next DDT after assessment |
 | 5 | **Hand over** | Automation, then the product lead | On approval, a Feature is created in the portfolio project in status Idea, with the summary, description and sponsor copied and a link back to the request. The request moves to its "approved" status and the requester is notified. | The same day |
 | 6 | **Triage** | Product lead | On the Feature: sets Parent Link to the VS Epic, sub value stream and Enabler Type; moves it to Analysis when there is capacity to shape it | Weekly triage |
 | 7 | **Close the loop** | Automation | When the Feature reaches Released, a comment is added to the request and it is closed | At release |
@@ -177,16 +177,16 @@ An urgent request after PI planning has closed still starts as a request. The pr
 | --- | --- |
 | Waiting for screening | Received |
 | Under assessment | A product lead is sizing it |
-| Waiting for decision | On the agenda of the next portfolio sync |
+| Waiting for decision | On the agenda of the next DDT |
 | Approved, in delivery | Accepted; the linked Feature shows progress |
 | Declined, parked or routed | With the reason, or where it went |
 | Closed | Delivered, or finished as above |
 
-The exact status names are those of the demand intake project; the meanings are what matter. The intake queue is reviewed at every portfolio sync: nothing waits for screening more than 5 working days, and nothing waits for a decision more than two syncs.
+The exact status names are those of the demand intake project; the meanings are what matter. The intake queue is the DDT's agenda: nothing waits for screening more than 5 working days, and nothing that has been assessed waits for more than one DDT. The portfolio sync sees the queue and its ages, but does not decide requests.
 
 ### To settle before intake goes live
 
-- Whether the demand intake project replaces the DDT used until now, or sits in front of it. There must be one front door, not two.
+- How often the DDT sits, and who chairs it. If it sits less often than fortnightly, the 20 working days from request to decision cannot be kept, and regulatory items need a decision between sittings.
 - Whether the Jira administrator will build the cross-project automation that creates the Feature and closes the loop. Until then, the product lead uses "Create linked issue" on the approved request, which also copies the text and links the two.
 - Whether requesters need a Jira licence to use the portal. They normally do not.
 - The approval step and the status names in the demand intake project's workflow.
@@ -312,7 +312,8 @@ Commitment is made twice. Each product owner commits the Epic for their applicat
 | Before the weekly sync | Product lead | Feature status against its Epics; RAG; Path to Green and Date to Green if Amber or Red |
 | Weekly delivery sync | Product leads, delivery leads, product owners | Opens on the dependency dashboard and the delivery lead page: what is blocked, which asks are unanswered, what is late. Then Features and Epics that are Red or Amber. Tickets are updated in the room. |
 | From week 5 | Delivery lead | Reads out committed Epics that have not started |
-| Fortnightly portfolio sync | Value stream lead, product and delivery leads | The intake queue; VS Epics; Red items needing a decision; Milestones; work in progress against the limit |
+| The DDT, as it sits | Its members, with the intake owner presenting | Decides every assessed request in the intake queue, on screen |
+| Fortnightly portfolio sync | Value stream lead, product and delivery leads | VS Epics; Red items needing a decision; Milestones; work in progress against the limit; the age of the intake queue |
 | Monthly | Delivery leads, framework owner | Every open RAID ticket reviewed or closed; the hygiene count published |
 
 Meeting rules: start from the board, dashboard or page, not from slides. Walk exceptions first (Red, Amber, flagged, overdue), then the rest only if time allows. Update the ticket in the room. End with the decisions read back.
@@ -367,7 +368,8 @@ A split never improves a score: the baseline line stays as it was.
 | Weekly | Intake screening | Intake owner | Intake queue |
 | Weekly | Backlog triage, 30 minutes | Product lead, delivery lead | Feature board, Idea column |
 | Weekly | Delivery sync | Product leads, delivery leads, product owners | Dashboard 6 and the delivery lead page, then dashboards 2 and 3 |
-| Fortnightly | Portfolio sync, including intake decisions | Value stream lead, product and delivery leads | Intake queue; dashboard 1; the portfolio pages |
+| As it sits | DDT: decisions on new demand | Its members; the intake owner presents | Intake queue |
+| Fortnightly | Portfolio sync | Value stream lead, product and delivery leads | Dashboard 1; the portfolio pages |
 | Monthly | RAID review and hygiene check | Delivery leads, framework owner | Dashboard 4 and the hygiene filters |
 | Every 12 weeks | PI review, then PI planning | Everyone | PI scorecard, then the PI plan page |
 
@@ -416,7 +418,7 @@ Approvals are recorded as a task assigned to and closed by the approver, not as 
 | Question | Who decides | If not settled, goes to |
 | --- | --- | --- |
 | Is this request complete, and where is it routed? | Intake owner | Product lead |
-| Do we take on this new demand? | Value stream lead and product leads, at the portfolio sync | Sponsor |
+| Do we take on this new demand? | The DDT | Value stream lead, then the sponsor |
 | Which VS Epic comes first? | Value stream lead | Sponsor |
 | Which Feature comes first? | Product lead, from the scores | Value stream lead |
 | Will this application take the Epic this PI? | Its product owner | Product lead of the Feature |
@@ -453,7 +455,7 @@ Each role runs its own short check before the weekly sync.
 
 **Intake owner**
 - [ ] Nothing has waited for screening more than five working days
-- [ ] Every request waiting for a decision is on the next portfolio sync agenda
+- [ ] Every assessed request is on the agenda of the next DDT, with its assessment filled in
 
 **Value stream lead (fortnightly)**
 - [ ] Each VS Epic's Executive Summary says something new

@@ -49,7 +49,7 @@ The reference is written for Jira Data Center and for the field list in the orga
 - [ ] 6. Each base filter run once on real data and checked by hand.
 - [ ] 7. The Jira version, and whether the Parent Link column shows correctly in the Confluence Jira Issues macro.
 - [ ] 8. Whether project admins may create automation rules.
-- [ ] 9. Whether the demand intake project in Jira Service Management replaces the DDT or sits in front of it.
+- [ ] 9. How often the DDT sits, and that it will decide from the intake queue and record its decisions on the request.
 - [ ] 10. One dependency run end to end (ask, accept, link, plan) and shown on the Confluence dependency board with a correct margin. Whether the `issueLinkType` query field works, and whether Parent Link can be set by bulk edit.
 - [ ] 11. A product owner can create and move a Delivery RAID ticket in the portfolio project.
 - [ ] 12. One real request put through intake: raised in the portal, approved, and a linked Feature created from it. Whether the approval step and "Create linked issue" are available in the demand intake project.

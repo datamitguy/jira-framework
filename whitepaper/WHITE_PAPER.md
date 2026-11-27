@@ -4,7 +4,7 @@
 
 | | |
 | --- | --- |
-| Status | Draft 0.5 for review and comment |
+| Status | Draft 0.6 for review and comment |
 | Date | 27 November 2026 |
 | Applies to | Jira Data Center, and Confluence with Table Transformer and Chart from Table. Plans is used for the roadmap only. A Cloud edition follows the migration. |
 | Audience | Value stream lead, head of product, head of technology, product leads, delivery leads, product owners, business analysts, scrum masters, engineers, testers, Jira administrators |
@@ -423,7 +423,7 @@ The existing statuses are enough. What is missing today is a shared meaning for 
 
 New demand has one front door: a request in the **demand intake project in Jira Service Management**. It is used for nothing else. Next year's existing Epic lists do not go through it; they are stitched (section 4). Delivery is never tracked there.
 
-Until now the front door has been called the DDT. Whether the demand intake project replaces the DDT or sits in front of it is decision 18 in section 20; either way there is one front door, not two.
+Requests are decided at the **DDT**, the advisory board forum that reviews new demand. The two fit together: the demand intake project is where a request is recorded and followed, and the DDT is where it is decided. The DDT works from the intake queue on screen and records each decision on the request in the meeting, so there is no separate list.
 
 ### Why a request and a Feature are two tickets
 
@@ -454,7 +454,7 @@ Starting in the demand intake project and continuing in the portfolio project me
 | 1 | **Raise** | Anyone with a need | A request through the portal form | Any time; the cut-off for the next PI is week 7 |
 | 2 | **Screen** | Intake owner, in the platform team | Checks the form is complete; looks for a duplicate; routes it (table below); assigns it to the product lead of the accountable sub value stream | Within 5 working days |
 | 3 | **Assess** | Product lead, with the product owners likely to be involved | Adds the VS Epic it would serve, a T-Shirt Size, the applications likely to change and a proposed PI | Within 10 working days of screening |
-| 4 | **Decide** | Value stream lead and product leads, at the fortnightly portfolio sync | Approve, decline, park or merge, recorded as the approval on the request with a one-line reason | At the next portfolio sync |
+| 4 | **Decide** | The DDT, from the intake queue | Approve, decline, park or merge, recorded as the approval on the request with a one-line reason | At the next DDT after assessment |
 | 5 | **Hand over** | Automation, then the product lead | A Feature is created in the portfolio project in status Idea, linked to the request. The requester is notified. | The same day |
 | 6 | **Close the loop** | Automation | When the Feature reaches Released, the request is commented on and closed | At release |
 
@@ -1269,6 +1269,7 @@ The views are only as good as the tickets. Six hygiene filters are reviewed mont
 | **Delivery leads** | Assembling status by hand; keeping a private list of what was committed | Owning the dependency and RAID register and its process (triage in two working days, weekly review, the dependency sweep at PI planning); owning Milestones, release versions and the per-PI filter edits; pasting the baseline at the lock; running the PI scorecard | Running delivery and release governance |
 | **Application product owners** | Planning their application in isolation; asking other teams for work by message or by creating tickets in their projects | Giving every Epic a parent Feature; setting Target PI and the commitment label at PI planning; raising asks to other teams as dependency tickets, and answering asks addressed to them within five working days; ten minutes weekly on status, RAG, date and release | Ownership of the application backlog and its Epics |
 | **Requesters** | Asking a team or a lead directly | Raising a request through the portal, and following it there | Sponsorship and acceptance of the result |
+| **DDT members** | Deciding from papers or slides prepared for the meeting | Deciding from the intake queue on screen, with each request already assessed; recording the decision on the request in the meeting | The authority to take on, decline or park new demand |
 | **Intake owner (platform team)** | Demand arriving by many routes | Screening every request within 5 working days; routing it; keeping the intake queue honest | |
 | **Business analysts, designers** | Design decisions living only in documents | Building the Feature in Analysis: Acceptance Criteria, design link, the list of applications, sign-off tasks | Analysis and design work itself |
 | **Scrum masters, team leads** | Rolling every unfinished story over by default | Sprint naming to the convention; checking every story has an Epic; closing sprints on the last day | Running the team's sprint events |
@@ -1310,7 +1311,7 @@ Nothing at Epic level or above needs a daily update unless something actually ch
 
 ## 16. Operating rhythm and governance
 
-### Eight recurring meetings
+### Nine recurring meetings
 
 Each is held on a named Jira board or dashboard, so the ticket is updated in the room and not afterwards.
 
@@ -1321,7 +1322,8 @@ Each is held on a named Jira board or dashboard, so the ticket is updated in the
 | Intake screening | Weekly | Intake owner | Intake queue in the demand intake project | Requests checked, routed and assigned for assessment |
 | Backlog triage | Weekly, 30 minutes | Product lead, delivery lead | Feature board, Idea column | New Features accepted into Analysis, merged or closed |
 | Delivery sync | Weekly | Product lead, delivery lead, product owners | Dashboard 6 first, then 2 and 3 | Feature status checked against Epics; RAG and recovery plans refreshed; flags and links reviewed |
-| Portfolio sync | Fortnightly | Value stream lead, product and delivery leads | Intake queue, VS Epic board and dashboard 1 | Requests approved, declined, parked or merged; VS Epics move through the pipeline; Red and Amber RAID reviewed; Milestone dates confirmed |
+| DDT | As it sits | Its members; the intake owner presents | Intake queue in the demand intake project | Requests approved, declined, parked or merged, recorded on the request in the meeting |
+| Portfolio sync | Fortnightly | Value stream lead, product and delivery leads | VS Epic board and dashboard 1 | VS Epics move through the pipeline; Red and Amber RAID reviewed; Milestone dates confirmed; the age of the intake queue looked at |
 | RAID review | Monthly | Delivery leads | Dashboard 4 | Every open RAID ticket gets a comment and a new review date, or is closed |
 | PI planning and PI review | Every 12 weeks | Everyone | The PI plan page and the PI scorecard | Target PI set for the next PI; the closing PI scored |
 
@@ -1330,7 +1332,7 @@ Each is held on a named Jira board or dashboard, so the ticket is updated in the
 | Decision | Decided by | Where | Escalates to |
 | --- | --- | --- | --- |
 | Whether a request is complete, and where it is routed | Intake owner | Weekly screening | Product lead |
-| Whether new demand is taken on | Value stream lead and product leads | Portfolio sync, from the intake queue | Sponsor |
+| Whether new demand is taken on | The DDT | DDT, from the intake queue | Value stream lead, then the sponsor |
 | Order of VS Epics | Value stream lead | Portfolio sync | Sponsor |
 | Order of Features in a sub value stream | Product lead, from the scores | Scoring session | Value stream lead |
 | Whether an application takes an Epic into a PI | That application's product owner | PI planning | Product lead of the Feature |
@@ -1536,7 +1538,7 @@ Two consequences for sequencing. Before the migration, the full set of rules and
 | 6 | Each base filter returns the right tickets | Checked by hand against the slice |
 | 7 | The Jira version, and the Parent Link column in Confluence | One Confluence page shows the parent correctly |
 | 8 | Whether project administrators may create automation rules | Rule 3 built and fired once |
-| 9 | Whether the demand intake project replaces the DDT or sits in front of it | Agreed with the DDT owner; decision 18 |
+| 9 | How often the DDT sits, and that it will decide from the intake queue and record decisions on the request | Agreed with the DDT chair |
 | 10 | One dependency run end to end: ask, accept, link, plan | The dependency shows on the Confluence dependency board with a correct margin; it is known whether `issueLinkType` works and whether Parent Link can be set by bulk edit |
 | 11 | A product owner can create and move a Delivery RAID ticket in the portfolio project | Done once by a real product owner |
 | 12 | One real request put through intake: raised in the portal, approved, and a linked Feature created from it | The Feature carries the request's text and link; it is known whether the approval step and "Create linked issue" are available |
@@ -1620,7 +1622,7 @@ Please comment against the number.
 | 3 | Adopt the RAG rules in section 5 at every level | Yes | Value stream lead |
 | 4 | Commitment is made twice (Epic, then Feature), and the baseline is the table pasted at the lock | Yes | Product leads, delivery leads |
 | 5 | Target PI is not edited for committed work; Actual PI is set at Released | Yes, subject to the standards owner | Standards owner |
-| 6 | There is one front door for new demand, used for nothing else | Yes | Value stream lead |
+| 6 | There is one front door for new demand, used for nothing else, and one forum that decides it, the DDT | Yes | Value stream lead, DDT chair |
 | 7 | Epic: add Path to Green, Date to Green and Due date to the screen, or keep End Date and a comment | Add them if they exist as fields | Jira administrator |
 | 8 | Approve administrator requests 1 to 4 and 7 now, and 5, 6 and 8 after the proof of concept | Yes | Head of technology, Jira administrator |
 | 9 | The starting capacity split in section 13 | As a starting point for two PIs | Head of technology, head of product |
@@ -1632,8 +1634,8 @@ Please comment against the number.
 | 15 | Responsibilities for dependencies and RAID as in section 12: delivery leads own the register and process, product owners own asks and promises, product leads own trade-offs | Yes | Value stream lead |
 | 16 | An ask is answered within five working days; a flag older than two working days becomes a RAID ticket | Yes, to be tuned after one PI | Delivery leads |
 | 17 | Plans is used for the roadmap only. The PI plan, capacity, dependencies and roll-ups are Confluence pages; live lists are Jira dashboards | Yes | Value stream lead, head of technology |
-| 18 | The demand intake project in Jira Service Management is the one front door: a request there, and on approval a linked Feature in the portfolio project. It replaces the DDT, or the DDT is kept only as the name of the decision meeting. | Yes | Value stream lead, DDT owner |
-| 19 | Name the intake owner; screening within 5 working days, assessment within 10, decision at the next portfolio sync | Yes, to be tuned after one PI | Value stream lead |
+| 18 | The demand intake project in Jira Service Management is the one front door: a request there, decided at the DDT, and on approval a linked Feature in the portfolio project | Yes | Value stream lead, DDT chair |
+| 19 | Name the intake owner; screening within 5 working days, assessment within 10, decision at the next DDT | Yes, to be tuned after one PI | Value stream lead, DDT chair |
 
 ### Open questions
 
@@ -1683,7 +1685,7 @@ Comment against a decision number or a section number. Say whether the point blo
 | Need-by date | The date the receiver needs the dependency delivered; the Due date on the dependency ticket |
 | Lock rule | An Epic that waits on an unagreed dependency is not labelled committed |
 | Milestone | A ticket for a date that people outside the teams care about |
-| DDT | The name used until now for the demand front door |
+| DDT | The advisory board forum that reviews new demand and decides whether to take it on |
 | Request | A ticket in the demand intake project: what someone has asked for, and the decision on it |
 | Demand intake project | The Jira Service Management project that is the one front door for new demand |
 | Intake owner | The person in the platform team who screens and routes requests |
