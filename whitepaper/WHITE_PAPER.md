@@ -4,7 +4,7 @@
 
 | | |
 | --- | --- |
-| Status | Draft 0.6 for review and comment |
+| Status | Draft 0.7 for review and comment |
 | Date | 27 November 2026 |
 | Applies to | Jira Data Center, and Confluence with Table Transformer and Chart from Table. Plans is used for the roadmap only. A Cloud edition follows the migration. |
 | Audience | Value stream lead, head of product, head of technology, product leads, delivery leads, product owners, business analysts, scrum masters, engineers, testers, Jira administrators |
@@ -181,6 +181,7 @@ The project has its own measures. The starting figures have not been counted yet
 | Constraint | Consequence in the design |
 | --- | --- |
 | Jira Data Center today; Jira Cloud next year | Built on standard fields and links, not scripts. Section 17 lists what survives the move and what is redone. |
+| On today's Data Center the two top issue types are named **Capability** and **Initiative**, and there is no Milestone issue type yet | This paper uses the names from the Cloud standards: VS Epic and Feature. Until the move, read VS Epic as Capability and Feature as Initiative. A Milestone is a Task with the labels `milestone` and `ms-...` until the Milestone type exists; its slippage cannot be measured until then. |
 | Jira administration is central | No new fields or statuses. Eight requests to the administrator, none structural. |
 | No ScriptRunner | No scripted queries or calculated fields. A few standard automation rules instead. |
 | Plans (Advanced Roadmaps) is available, but few people use it because its views are hard to read | Plans is used for one thing people look at: the L0 roadmap. It also provides the Parent Link field, which is set on the ticket screen without opening a plan. The PI plan, capacity, dependencies and progress roll-ups are Confluence pages. |
@@ -1542,6 +1543,8 @@ Two consequences for sequencing. Before the migration, the full set of rules and
 | 10 | One dependency run end to end: ask, accept, link, plan | The dependency shows on the Confluence dependency board with a correct margin; it is known whether `issueLinkType` works and whether Parent Link can be set by bulk edit |
 | 11 | A product owner can create and move a Delivery RAID ticket in the portfolio project | Done once by a real product owner |
 | 12 | One real request put through intake: raised in the portal, approved, and a linked Feature created from it | The Feature carries the request's text and link; it is known whether the approval step and "Create linked issue" are available |
+
+**A mock-up first.** Before the slice in real projects, the whole set of dashboards can be tried in one test project with 38 mock tickets; the list of tickets, the filters and what each panel should show are in the [mock-up guide](../mockup/MOCKUP_GUIDE.md).
 
 **What it must produce.** Dashboard 1 for the slice; the dependency dashboard with at least one real ask on it; the "Feature progress across applications" page in Confluence; the starting counts for the success measures; and a list of what did not work.
 

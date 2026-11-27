@@ -31,6 +31,7 @@ The reference is written for Jira Data Center and for the field list in the orga
 | --- | --- |
 | The hierarchy VS Epic > Feature > Epic > Story exists, and VS Epic and Feature sit in one project. | That project is the portfolio project. A Feature is the parent of Epics in application projects through Parent Link. |
 | Each application has its own Jira project. | Application is read from the project. Component is free for modules. |
+| On today's Data Center the two top issue types are named Capability and Initiative, and there is no Milestone issue type. | In every query here, write `Capability` for `"VS Epic"` and `Initiative` for `Feature` until the move to Cloud. A Milestone is a Task with the labels `milestone` and `ms-...`; the Milestone filters then use `labels = milestone` in place of `issuetype = Milestone`. |
 | Plans (Advanced Roadmaps) is available, but few people use it. | Plans is used for the L0 roadmap only. It also provides the Parent Link field, which is set on the ticket screen. |
 | A PI is 12 weeks. | Five two-week sprints and one planning sprint. |
 | Existing fields cover sub value stream, PI, status colour and prioritisation. | They are used as they are: Value Stream and Sub-Value Stream, Target PI, Actual PI, RAG Status, Path to Green, Date to Green, Executive Summary, the four scoring fields, Enabler Type, Team. |
