@@ -10,7 +10,7 @@ All names are placeholders.
 
 | # | Stage | Feature status | Epic status | Who leads |
 | --- | --- | --- | --- | --- |
-| 1 | New demand (DDT) | not yet in Jira | | Owner of the DDT decision |
+| 1 | New demand (a request in the demand intake project) | not yet a Feature | | Intake owner, then the portfolio sync |
 | 2 | Triage | Idea | | Product lead |
 | 3 | Design | Analysis | Idea, Analysis | Product lead, product owners |
 | 4 | Ready, waiting for a PI | Ready | Ready | Product lead |
@@ -62,21 +62,23 @@ You create it once. At each PI you change only the name inside part 1. Parts 2 a
 
 ## 3. Stage by stage
 
-### Stage 1: New demand (DDT)
+### Stage 1: New demand
+
+The front door is the demand intake project in Jira Service Management. The full steps are in WAYS_OF_WORKING.md, section 5.
 
 | | |
 | --- | --- |
 | **Enter when** | Someone wants something that is in nobody's backlog. Work already on a team's Epic list does not come here; it is stitched to a Feature. |
-| **What happens** | In the DDT: the need is described, discussed, and a decision is made on whether to do it, with a rough timeline and a proposed PI. Nothing is created in Jira yet. |
-| **Exit when** | The demand is agreed (or declined) by the owner of the DDT decision. |
-| **On exit, in Jira** | The product lead creates a **Feature** in the portfolio project, status **Idea**, with the DDT reference, sponsor, problem and outcome, any hard date, and the applications likely to change. If it is clearly larger than one PI, a **VS Epic** is created instead. The DDT entry is closed. |
-| **How to see it** | `VS: intake waiting` lists everything in Idea. |
+| **What happens** | A request is raised through the portal. The intake owner screens and routes it within 5 working days. A product lead assesses it within 10: the VS Epic it would serve, a rough size, the applications likely to change, a proposed PI. |
+| **Exit when** | The value stream lead and product leads approve, decline, park or merge it at the portfolio sync, recorded on the request. |
+| **On exit, in Jira** | On approval, a **Feature** is created in the portfolio project, status **Idea**, linked to the request, with its text copied (by automation, or by the product lead with "Create linked issue"). If it is clearly larger than one PI, the value stream lead creates a **VS Epic** and the request is linked to that. The requester is notified on the request. |
+| **How to see it** | The intake queue in the demand intake project; `VS: intake waiting` lists every Feature in Idea. |
 
 ### Stage 2: Triage
 
 | | |
 | --- | --- |
-| **Enter when** | A Feature exists in status Idea (from the DDT, or created during stitching). |
+| **Enter when** | A Feature exists in status Idea (from an approved request, or created during stitching). |
 | **What you do in Jira** | Set Value Stream and Sub-Value Stream, Enabler Type, and Parent Link to the VS Epic. Assign the product lead. |
 | **Exit when** | The product lead has capacity to shape it, and the three fields above are set. |
 | **On exit, in Jira** | Move the Feature to **Analysis**. Or close it as a duplicate or Won't Do with a reason. |
@@ -241,7 +243,7 @@ What is being maintained while a ticket sits in each stage.
 
 | To move a Feature | From | To | You need |
 | --- | --- | --- | --- |
-| Into Jira | DDT | Idea | Demand agreed; DDT reference on the Feature |
+| Into the portfolio | Request | Idea | Request approved at the portfolio sync; the Feature is linked to it |
 | Into design | Idea | Analysis | Parent VS Epic, sub value stream, Enabler Type |
 | Out of design | Analysis | Ready | Definition of ready |
 | Into a PI | Ready | Implementing | Target PI, commitment label, RAG; all Epics have Target PI; plan locked |

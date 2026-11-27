@@ -59,7 +59,7 @@ The field names were read from a photo of the standards page. Check each against
 | Field | Group | Filled in by | When | Kept current |
 | --- | --- | --- | --- | --- |
 | Summary | Core | Product lead | Idea | |
-| Description (with DDT reference) | Core | Product lead | Idea | |
+| Description (copied from the approved request, which is linked) | Core | Automation or product lead | Idea | |
 | Assignee | Core | Product lead | Idea | |
 | Parent Link (the VS Epic) | Core | Product lead | Triage | |
 | Value Stream and Sub-Value Stream | Core | Product lead | Triage | |

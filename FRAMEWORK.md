@@ -12,9 +12,9 @@ This file is the build reference: the set-up assumed, the complete saved filter 
 | Hierarchy, the two layers, stitching, relationships | White paper, section 4 |
 | Fields, RAG rules, labels, links | White paper, section 5; [FIELDS.md](FIELDS.md) for who fills in what |
 | Status meanings, gates, definition of done | White paper, section 6; [PHASE_GATES.md](PHASE_GATES.md) for entry and exit by stage |
-| Intake and the DDT, definition of ready | White paper, section 7 |
+| Intake through the demand intake project, who creates which ticket, definition of ready | White paper, section 7; [WAYS_OF_WORKING.md](WAYS_OF_WORKING.md), section 5 |
 | Roadmap, sizing, prioritisation | White paper, section 8 |
-| PI planning, commitment, the baseline | White paper, section 9 |
+| PI planning, commitment, the baseline | White paper, section 9; WAYS_OF_WORKING.md, section 7, for the step-by-step |
 | Spillover, partial delivery, the PI scorecard | White paper, section 10 |
 | Releases | White paper, section 11 |
 | Dependencies, Delivery RAID, Milestones, who is responsible | White paper, section 12 |
@@ -39,7 +39,7 @@ The reference is written for Jira Data Center and for the field list in the orga
 | No ScriptRunner. Project automation is available. | No scripted queries. A few automation rules keep fields in step. |
 | Confluence has the Jira Issues macro, Table Transformer, Pivot Table and Chart from Table. | The PI plan, the dependency board, roll-ups, trends and the role pages are built there. |
 
-**Eleven checks for the proof of concept.** Nothing here has yet been run on real data.
+**Twelve checks for the proof of concept.** Nothing here has yet been run on real data.
 
 - [ ] 1. Field names match the standards page letter for letter. They were read from a photo of that page.
 - [ ] 2. All of those fields are live in today's Data Center projects. The standards page is titled for Jira Cloud.
@@ -49,9 +49,10 @@ The reference is written for Jira Data Center and for the field list in the orga
 - [ ] 6. Each base filter run once on real data and checked by hand.
 - [ ] 7. The Jira version, and whether the Parent Link column shows correctly in the Confluence Jira Issues macro.
 - [ ] 8. Whether project admins may create automation rules.
-- [ ] 9. What the DDT records and which Jira field holds its reference.
+- [ ] 9. Whether the demand intake project in Jira Service Management replaces the DDT or sits in front of it.
 - [ ] 10. One dependency run end to end (ask, accept, link, plan) and shown on the Confluence dependency board with a correct margin. Whether the `issueLinkType` query field works, and whether Parent Link can be set by bulk edit.
 - [ ] 11. A product owner can create and move a Delivery RAID ticket in the portfolio project.
+- [ ] 12. One real request put through intake: raised in the portal, approved, and a linked Feature created from it. Whether the approval step and "Create linked issue" are available in the demand intake project.
 
 ## Saved filter library
 
@@ -282,7 +283,7 @@ Three limits to plan around. The Jira Issues macro shows about 1,000 issues at m
 
 ## Automation rules
 
-Seven automation rules keep the fields in step and chase missing updates, so that people are not asked to type the same thing twice or to police each other.
+Nine automation rules keep the fields in step, chase missing updates and join intake to delivery, so that people are not asked to type the same thing twice or to police each other.
 
 | # | Rule | When it runs | What it does | Who can build it |
 | --- | --- | --- | --- | --- |
@@ -293,12 +294,14 @@ Seven automation rules keep the fields in step and chase missing updates, so tha
 | 5 | Chase stale trouble | Every Monday | Emails the assignee of each Amber or Red ticket not updated in 14 days. Green tickets are not chased. | Project admin, one rule per project |
 | 6 | Chase overdue RAID | Every Monday | Comments on each ticket in "VS: RAID past its date", naming the assignee. | Portfolio project admin |
 | 7 | Keep Parent Link clean | An issue changes type | Clears Parent Link, which otherwise keeps a stale value and corrupts the hierarchy queries. This is Atlassian's own recommended fix. | Jira admin |
+| 8 | Create the Feature from a request | A request in the demand intake project is approved | Creates a Feature in the portfolio project in status Idea, copies summary, description and sponsor, links the two, and comments on the request. | Jira admin: it spans projects |
+| 9 | Close the loop | A Feature with a linked request moves to Released | Comments on the request and closes it. | Jira admin: it spans projects |
 
 Build rules 3 to 6 first; they sit inside one project each. Whether a project admin may create rules is a setting the Jira admin controls, so confirm it. Rule 1 is the one to test carefully: Atlassian documents copying from a parent down to its children when the parent changes, and this rule works from the child's side, for which no published example was found. Until rule 1 exists, product owners set the sub value stream on Epics by hand, and the hygiene filter catches the gaps.
 
 ## What to ask the Jira admin for
 
-Seven requests, none of which adds a field or a status. Requests 1 to 4 and 7 are needed to start; 5 and 6 can follow the proof of concept.
+Eight requests, none of which adds a field or a status. Requests 1 to 4 and 7 are needed to start; 5, 6 and 8 can follow the proof of concept.
 
 | # | Request | Why | Without it |
 | --- | --- | --- | --- |
@@ -309,6 +312,7 @@ Seven requests, none of which adds a field or a status. Requests 1 to 4 and 7 ar
 | 5 | For the roadmap only: make RAG Status and the sub value stream field available for colour and grouping in Plans. | The roadmap can be coloured by RAG and grouped by sub value stream. | The roadmap shows dates and hierarchy only. |
 | 6 | Workflow checks: a Feature cannot leave Analysis without Parent Link, sub value stream and Enabler Type, and cannot enter Implementing without Target PI and RAG Status. | The definition of ready enforces itself. | Product leads check by hand, using "VS: Features with gaps". |
 | 7 | In the portfolio project: let product owners and scrum masters create issues, comment, link and move Delivery RAID tickets between statuses; and create one Component per application. | Teams can raise and answer asks on neutral ground, and RAID can be listed by application. | Asks go through the delivery lead, who becomes a bottleneck. |
+| 8 | Two automation rules across the demand intake project and the portfolio project (rules 8 and 9). | Nothing is typed twice at intake, and the requester is told the outcome. | The product lead uses "Create linked issue" on each approved request, and closes requests by hand. |
 
 Jira grants the right to create issues for a whole project, not for one issue type. Product owners and scrum masters will therefore also be able to create a Feature in the portfolio project; the weekly triage of the Idea column catches anything raised by mistake.
 

@@ -4,13 +4,15 @@
 
 | | |
 | --- | --- |
-| Status | Draft 0.4 for review and comment |
+| Status | Draft 0.5 for review and comment |
 | Date | 27 November 2026 |
 | Applies to | Jira Data Center, and Confluence with Table Transformer and Chart from Table. Plans is used for the roadmap only. A Cloud edition follows the migration. |
 | Audience | Value stream lead, head of product, head of technology, product leads, delivery leads, product owners, business analysts, scrum masters, engineers, testers, Jira administrators |
 | What is asked of the reader | Read the parts marked for your role in the reading guide, then comment against the decisions in section 20 |
 
 > **About the figures.** Every chart in this paper uses illustrative mock data and placeholder names. The charts show what each view will look like once the framework is running; they are not measurements of today. Project keys (`CLP`, `CA`, `DRAW`, `FL`, `GC`, `WWM`, `PEM`, `FORB`), PI names and dates are placeholders.
+
+> **About "Hosted in".** Under each figure, one word says where the live version of that view is kept: **Jira** (a dashboard or board), **Confluence** (a page built with the Jira Issues macro, Table Transformer, Pivot Table and Chart from Table), **Plans** (the roadmap only), or **Diagram** (an explanatory picture, not built from data).
 
 > **About what has been tested.** The design has been reviewed for contradictions and its technical claims checked against Atlassian and add-on vendor documentation. No query, import or Confluence recipe has yet been run in the live Jira or Confluence. The proof of concept in section 18 exists to close that gap before anything is rolled out.
 
@@ -89,6 +91,7 @@ The paper is long on purpose: it is the full reference, and it will be split int
 - A Feature is the parent of one Epic in each application that must change to deliver it. That parent link is the join between applications.
 - Fields that already exist (sub value stream, Target PI, Actual PI, RAG Status) carry planning and status. A few labels cover what no field does.
 - Views start at the value stream, then show Features across the whole value stream, then Epics across applications.
+- New demand comes in through one front door, a request in the Jira Service Management demand intake project. On approval a linked Feature is created from it, so nothing is typed twice (section 7).
 - What teams need from each other is raised as an ask on neutral ground, agreed by the supplier, and shown in the PI plan before anything is committed (section 12). This is expected to be the largest single benefit.
 
 **What is not asked for.** No new issue type, no new field, no new status, no scripting add-on, and no re-entry of existing Epics. Existing Epics are joined upward to Features and VS Epics, a step this paper calls stitching.
@@ -103,7 +106,7 @@ The paper is long on purpose: it is the full reference, and it will be split int
 | Delivery leads | One register of dependencies and risks with an owner and a date on each; spillover, blockers and release readiness from live filters in place of spreadsheets |
 | Product owners | Credit for what their own application delivered, even when another application is late |
 | Teams | No extra daily work. The daily habit stays with stories; everything above is updated weekly or less often |
-| Jira administrators | Seven requests, none of which adds a field or a status |
+| Jira administrators | Eight requests, none of which adds a field or a status |
 
 **What it costs.**
 
@@ -112,7 +115,7 @@ The paper is long on purpose: it is the full reference, and it will be split int
 | Stitching existing Epics to Features and VS Epics | Two half-day sessions per sub value stream, with its product owners |
 | Weekly upkeep by a product owner | About ten minutes before the delivery sync |
 | Building filters, dashboards and Confluence pages | A few days for the minimum set; done once by the framework owner |
-| Jira administrator time | Seven requests (section 17), five needed to start |
+| Jira administrator time | Eight requests (section 17), five needed to start |
 | Per-PI upkeep | Four small filter and rule edits by the delivery lead on set days |
 | A named framework owner | Part of one person's time, ongoing |
 
@@ -147,7 +150,7 @@ The project has its own measures. The starting figures have not been counted yet
 
 ![Figure 1: Success measures](charts/02_success_measures.png)
 
-*Figure 1. Success measures for the project. Starting points are examples; targets are proposals.*
+*Figure 1. Success measures for the project. Starting points are examples; targets are proposals.* **Hosted in: Confluence.**
 
 | Measure | Target after two PIs |
 | --- | --- |
@@ -178,7 +181,7 @@ The project has its own measures. The starting figures have not been counted yet
 | Constraint | Consequence in the design |
 | --- | --- |
 | Jira Data Center today; Jira Cloud next year | Built on standard fields and links, not scripts. Section 17 lists what survives the move and what is redone. |
-| Jira administration is central | No new fields or statuses. Seven requests to the administrator, none structural. |
+| Jira administration is central | No new fields or statuses. Eight requests to the administrator, none structural. |
 | No ScriptRunner | No scripted queries or calculated fields. A few standard automation rules instead. |
 | Plans (Advanced Roadmaps) is available, but few people use it because its views are hard to read | Plans is used for one thing people look at: the L0 roadmap. It also provides the Parent Link field, which is set on the ticket screen without opening a plan. The PI plan, capacity, dependencies and progress roll-ups are Confluence pages. |
 | Each application has its own project | The application is read from the project. Component is free for modules. |
@@ -193,7 +196,7 @@ The project has its own measures. The starting figures have not been counted yet
 
 ![Figure 2: The hierarchy](charts/01_hierarchy.png)
 
-*Figure 2. The hierarchy with a worked example. The Feature "M&P across the platform" is delivered by two applications; each has its own Epic under the same Feature. Delivery RAID tickets are kept in the portfolio project and linked to the work they affect at any level: here one to a Feature and one to an Epic.*
+*Figure 2. The hierarchy with a worked example. The Feature "M&P across the platform" is delivered by two applications; each has its own Epic under the same Feature. Delivery RAID tickets are kept in the portfolio project and linked to the work they affect at any level: here one to a Feature and one to an Epic.* **Hosted in: Diagram.**
 
 **Portfolio layer: one Jira project for the whole value stream.** It holds only VS Epics, Features, Milestones and Delivery RAID. No team does sprint work here.
 
@@ -320,7 +323,7 @@ Each issue type offers between about 18 and 60 fields on its screen. The framewo
 
 ![Figure 3: Field shortlist](charts/19_fields_per_issue_type.png)
 
-*Figure 3. Fields the framework uses, against fields offered on the screen. Screen totals are approximate.*
+*Figure 3. Fields the framework uses, against fields offered on the screen. Screen totals are approximate.* **Hosted in: Confluence.**
 
 | Issue type | Core fields (always) | Only when it applies | Set by Jira or automation |
 | --- | --- | --- | --- |
@@ -345,7 +348,7 @@ The existing statuses are enough. What is missing today is a shared meaning for 
 
 ![Figure 4: Feature lifecycle](charts/23_feature_lifecycle.png)
 
-*Figure 4. The life of a Feature. The same pattern, with fewer statuses, applies to VS Epics and Epics.*
+*Figure 4. The life of a Feature. The same pattern, with fewer statuses, applies to VS Epics and Epics.* **Hosted in: Diagram.**
 
 ### VS Epic
 
@@ -418,25 +421,80 @@ The existing statuses are enough. What is missing today is a shared meaning for 
 
 ### One front door for new demand
 
-New demand has one front door, the DDT, and the DDT is used for nothing else. Next year's existing Epic lists do not go through it; they are stitched (section 4). Delivery is never tracked in the DDT.
+New demand has one front door: a request in the **demand intake project in Jira Service Management**. It is used for nothing else. Next year's existing Epic lists do not go through it; they are stitched (section 4). Delivery is never tracked there.
 
-| | In the DDT | In Jira |
+Until now the front door has been called the DDT. Whether the demand intake project replaces the DDT or sits in front of it is decision 18 in section 20; either way there is one front door, not two.
+
+### Why a request and a Feature are two tickets
+
+Starting in the demand intake project and continuing in the portfolio project means one piece of demand has two tickets. That is deliberate, and it is the better design, on one condition: nothing is typed twice.
+
+| | The request | The Feature |
 | --- | --- | --- |
-| What it holds | Demand that is not yet in anyone's backlog | Everything agreed, and everything being delivered |
-| What is decided there | Whether to do it, the rough timeline, the proposed PI | Scope detail, the application split, the commitment, progress |
-| What comes out | An agreed demand with a proposed PI | A Feature (or VS Epic) carrying the DDT reference, then its Epics |
-| Who looks at it | Requesters, product leads, the value stream lead | Teams, product owners, delivery leads, sponsors |
+| Belongs to | The requester | The product lead |
+| Says | What was asked for, and why | What will be built, across which applications |
+| Ends when | A decision is made and the requester has been told the outcome | The capability is live and its benefit looked at |
+| Lives in | Demand intake project (Jira Service Management) | Portfolio project |
+| Seen by | Requesters, through the portal, without access to the delivery projects | Teams, product owners, delivery leads, sponsors |
 
-The Idea status in Jira is therefore not a second front door. Only two things arrive there: candidate Features created during stitching, and demand already agreed in the DDT. A proposed PI from the DDT is a proposal: it becomes Target PI only at PI planning.
+| With one ticket for both | With two linked tickets |
+| --- | --- |
+| A declined request stays in the delivery backlog as a dead Feature | A declined request is closed where it was raised |
+| One request that needs three Features, or three requests that are one Feature, cannot be represented | One request links to several Features; several requests link to one |
+| The requester needs access to the portfolio project to follow it | The requester follows the request in the portal |
+| Intake age and delivery progress are mixed in one status | Each ticket has a status that means one thing |
+| The Idea column fills with unscreened demand | Only approved demand reaches the Idea column |
 
-### From agreed demand to a Ready Feature
+**What removes the cost of two tickets.** On approval, automation creates the Feature from the request, copies the summary, description and sponsor, and links the two. When the Feature is released, automation comments on the request and closes it. Until that automation exists, the product lead uses "Create linked issue" on the approved request, which copies the text and links the tickets in one step.
+
+### From a request to a Feature in Idea
+
+| # | Step | Who | In Jira | By when |
+| --- | --- | --- | --- | --- |
+| 1 | **Raise** | Anyone with a need | A request through the portal form | Any time; the cut-off for the next PI is week 7 |
+| 2 | **Screen** | Intake owner, in the platform team | Checks the form is complete; looks for a duplicate; routes it (table below); assigns it to the product lead of the accountable sub value stream | Within 5 working days |
+| 3 | **Assess** | Product lead, with the product owners likely to be involved | Adds the VS Epic it would serve, a T-Shirt Size, the applications likely to change and a proposed PI | Within 10 working days of screening |
+| 4 | **Decide** | Value stream lead and product leads, at the fortnightly portfolio sync | Approve, decline, park or merge, recorded as the approval on the request with a one-line reason | At the next portfolio sync |
+| 5 | **Hand over** | Automation, then the product lead | A Feature is created in the portfolio project in status Idea, linked to the request. The requester is notified. | The same day |
+| 6 | **Close the loop** | Automation | When the Feature reaches Released, the request is commented on and closed | At release |
+
+The request form asks for: the problem and for whom; what should be true when it is solved; the sponsor; any fixed date and where it comes from; what happens if it is not done; the users affected; whether it is regulatory, audit or control related; and anything already known.
+
+### Routing at screening
+
+Not everything needs a Feature.
+
+| The request is | Route |
+| --- | --- |
+| A defect or a production problem | The incident tool, or a Bug in the application project |
+| A small change to one application, about a sprint or less | Straight to that application's product owner, as a Story or Epic under "Run and improve" |
+| A new capability, one PI or less, in one or more applications | Assessment, then a Feature |
+| An outcome larger than one PI, or across sub value streams | Assessment, then a VS Epic created by the value stream lead, with Features to follow |
+| Regulatory, audit or control work with a fixed date | Fast path: assessed within 5 working days; a Feature plus a Milestone |
+| A duplicate | Linked to the earlier request and closed |
+
+The Idea status in the portfolio project is therefore not a second front door. Only two things arrive there: candidate Features created during stitching, and Features created from approved requests. A proposed PI on a request is a proposal: it becomes Target PI only at PI planning.
+
+### Who creates which ticket
+
+| Ticket | Created by | Where |
+| --- | --- | --- |
+| Request | Anyone with a need, through the portal | Demand intake project |
+| Feature | Automation, from an approved request; owned from then on by the product lead. During stitching, the product lead. | Portfolio project |
+| VS Epic | Value stream lead | Portfolio project |
+| Epic | The product owner of the application that will do the work; never the requester, and never someone from another team | That application's project |
+| Story, Task, Test | The team | Application project |
+| Bug | Whoever finds it | Application project |
+| Delivery RAID | Product owner, scrum master, delivery lead or product lead | Portfolio project |
+| Milestone, release version | Delivery lead | Portfolio project; each application project |
+
+### From a Feature in Idea to a Ready Feature
 
 | Step | What happens | In Jira |
 | --- | --- | --- |
-| 1. Hand over | The demand is agreed in the DDT | Product lead creates a Feature in status Idea with the DDT reference, sponsor, problem and outcome, any hard date, and the applications likely to change. The DDT entry is closed. |
-| 2. Triage, weekly | The product lead decides when there is capacity to shape it | Sets sub value stream, Enabler Type and parent VS Epic; moves the Feature to Analysis, or closes it as a duplicate or Won't Do |
-| 3. Analyse and design | Scope, design and the application split are worked out | Acceptance Criteria and Business Benefits; design page linked; sign-off tasks raised; one placeholder Epic per application with an estimate; blocks links; Delivery RAID for outside dependencies |
-| 4. Score and rank | The sub value stream scores its Features together | The four scores filled in; the Feature placed in order on the board |
+| 1. Triage, weekly | The product lead decides when there is capacity to shape it | Sets sub value stream, Enabler Type and parent VS Epic; moves the Feature to Analysis, or closes it as a duplicate or Won't Do |
+| 2. Analyse and design | Scope, design and the application split are worked out | Acceptance Criteria and Business Benefits; design page linked; sign-off tasks raised; each application's product owner creates an Epic with an estimate; blocks links inside the Feature; asks raised for work from outside it (section 12) |
+| 3. Score and rank | The sub value stream scores its Features together | The four scores filled in; the Feature placed in order on the board |
 
 ### Definition of ready for a Feature
 
@@ -451,7 +509,7 @@ A Feature moves to Ready only when all of these are true:
 
 ### Unplanned work
 
-An urgent request after PI planning has closed still comes through the DDT. It enters the PI only by a decision of the product lead and delivery lead together (the value stream lead if it touches more than one sub value stream), and the decision names what moves out. What comes in gets Target PI and the `unplanned` label; what goes out gets `pi-descoped`. Production incidents stay in the incident tool; the fix becomes a Bug carrying the incident reference.
+An urgent request after PI planning has closed still comes through the front door. It enters the PI only by a decision of the product lead and delivery lead together (the value stream lead if it touches more than one sub value stream), and the decision names what moves out. What comes in gets Target PI and the `unplanned` label; what goes out gets `pi-descoped`. Production incidents stay in the incident tool; the fix becomes a Bug carrying the incident reference.
 
 ## 8. Roadmap, sizing and prioritisation
 
@@ -467,7 +525,7 @@ An urgent request after PI planning has closed still comes through the DDT. It e
 
 ![Figure 5: L0 roadmap](charts/03_l0_roadmap.png)
 
-*Figure 5. The L0 roadmap. This is the one view kept in Plans; it reads the same tickets as every other page, so it cannot drift from them.*
+*Figure 5. The L0 roadmap. This is the one view kept in Plans; it reads the same tickets as every other page, so it cannot drift from them.* **Hosted in: Plans.**
 
 How it is built:
 
@@ -483,7 +541,7 @@ The size firms up in three stages, and the roadmap says which stage a number is 
 
 | Stage | When | Source of the number | Accuracy |
 | --- | --- | --- | --- |
-| 1. Rough | Stitching, or DDT agreement | T-Shirt Size on each Feature, turned into points with one conversion table calibrated from finished Features | Within a factor of two |
+| 1. Rough | Stitching, or assessment of a request | T-Shirt Size on each Feature, turned into points with one conversion table calibrated from finished Features | Within a factor of two |
 | 2. Planned | Feature in Analysis | Story Points on each Epic, given by the team that will build it | Good enough to commit a PI |
 | 3. Detailed | Epic in Implementing | Sum of Story Points on its stories | Good enough to forecast a date |
 
@@ -493,7 +551,7 @@ Features and VS Epics already carry four scores: User/Business Value, Time Criti
 
 ![Figure 6: WSJF ranking](charts/17_wsjf_ranking.png)
 
-*Figure 6. Ready Features in score order. The list above the line is the proposal for the next PI.*
+*Figure 6. Ready Features in score order. The list above the line is the proposal for the next PI.* **Hosted in: Jira.**
 
 Two rules make scores comparable: each sub value stream scores its Features together in one session, against each other; and scores use one short scale (1, 2, 3, 5, 8, 13, 20). Regulatory work with a fixed date is not argued through the score: it gets a Milestone, and the date decides.
 
@@ -503,7 +561,7 @@ Planning a PI means deciding which Ready Features, and which of their Epics, get
 
 ![Figure 7: PI calendar](charts/24_pi_calendar.png)
 
-*Figure 7. The PI calendar, with the Jira actions that fall on fixed days.*
+*Figure 7. The PI calendar, with the Jira actions that fall on fixed days.* **Hosted in: Diagram.**
 
 ### Before (weeks 7 to 10 of the current PI)
 
@@ -527,7 +585,7 @@ A Feature that is not Ready by week 9 does not enter planning.
 
 ![Figure 8: Capacity against demand](charts/11_capacity_vs_demand.png)
 
-*Figure 8. Load against capacity. The Drawdowns team is over capacity before stretch work is counted, which is settled in the room, not discovered in week 10.*
+*Figure 8. Load against capacity. The Drawdowns team is over capacity before stretch work is counted, which is settled in the room, not discovered in week 10.* **Hosted in: Confluence.**
 
 ### What goes into a PI plan, in this order
 
@@ -607,7 +665,7 @@ Four questions matter most in delivery, and each has one field, link or label th
 
 ![Figure 9: Feature progress across applications](charts/04_feature_by_application.png)
 
-*Figure 9. One row per Feature, one column per application. This view does not exist today; it is the main reason for the Feature-to-Epic join.*
+*Figure 9. One row per Feature, one column per application. This view does not exist today; it is the main reason for the Feature-to-Epic join.* **Hosted in: Confluence.**
 
 ### Spillover
 
@@ -643,17 +701,17 @@ For every committed line in the baseline, the scorecard shows one of four result
 
 ![Figure 10: PI scorecard](charts/07_pi_scorecard.png)
 
-*Figure 10. The PI scorecard by application.*
+*Figure 10. The PI scorecard by application.* **Hosted in: Confluence.**
 
 Three figures are reported side by side: committed Features delivered, committed Epics delivered, and the same weighted by story points. Stretch and unplanned results are listed beneath them, not hidden.
 
 ![Figure 11: Predictability trend](charts/06_predictability_trend.png)
 
-*Figure 11. Predictability across PIs. Around 80% is a healthy level to learn from, not a target; a figure that sits at 100% usually means too little was committed.*
+*Figure 11. Predictability across PIs. Around 80% is a healthy level to learn from, not a target; a figure that sits at 100% usually means too little was committed.* **Hosted in: Confluence.**
 
 ![Figure 12: Spillover reasons](charts/08_spillover_reasons.png)
 
-*Figure 12. Spillover reasons. Five words are enough to show a pattern after two PIs; here, dependencies would be the thing to fix first.*
+*Figure 12. Spillover reasons. Five words are enough to show a pattern after two PIs; here, dependencies would be the thing to fix first.* **Hosted in: Confluence.**
 
 ### Dependencies
 
@@ -661,7 +719,7 @@ How dependencies are raised, agreed, linked, shown in the PI plan and chased is 
 
 ![Figure 13: Dependency matrix](charts/15_dependency_matrix.png)
 
-*Figure 13. Open dependencies, by receiver and supplier. Each side sees the same ticket from its own end: "what we are waiting for" and "what we owe".*
+*Figure 13. Open dependencies, by receiver and supplier. Each side sees the same ticket from its own end: "what we are waiting for" and "what we owe".* **Hosted in: Confluence.**
 
 ## 11. Release planning
 
@@ -691,7 +749,7 @@ A release is a version in an application project. A PI is a planning window; a r
 
 ![Figure 14: Release readiness](charts/22_release_readiness.png)
 
-*Figure 14. Release readiness two sprints before go-live.*
+*Figure 14. Release readiness two sprints before go-live.* **Hosted in: Jira.**
 
 **Two limits to know.** A released version in one project does not release the same-named version in another; each is marked. And version charts treat same-named versions in different projects as separate, so cross-application release views use filters on the shared name.
 
@@ -733,7 +791,7 @@ A team that is blocked during development should be able to raise the problem at
 
 ![Figure 15: Escalation ladder](charts/28_escalation_ladder.png)
 
-*Figure 15. The four steps. Each one adds visibility to the one below; none replaces it.*
+*Figure 15. The four steps. Each one adds visibility to the one below; none replaces it.* **Hosted in: Diagram.**
 
 | Step | Use it when | Who | By when |
 | --- | --- | --- | --- |
@@ -746,7 +804,7 @@ A team that is blocked during development should be able to raise the problem at
 
 ![Figure 16: Dependency linking](charts/32_dependency_linking.png)
 
-*Figure 16. One dependency, three tickets, three projects. Each product owner touches only their own ticket and the shared dependency ticket.*
+*Figure 16. One dependency, three tickets, three projects. Each product owner touches only their own ticket and the shared dependency ticket.* **Hosted in: Diagram.**
 
 | # | Step | Who | In Jira |
 | --- | --- | --- | --- |
@@ -795,7 +853,7 @@ A ticket first linked to an Epic is linked upward by the delivery lead when the 
 
 ![Figure 17: PI dependency board](charts/29_pi_dependency_board.png)
 
-*Figure 17. The PI plan page in Confluence: Epics by application and sprint, and the dependency board beneath. A card wall with arrows between cards is not possible on a Confluence page; the margin column does that job.*
+*Figure 17. The PI plan page in Confluence: Epics by application and sprint, and the dependency board beneath. A card wall with arrows between cards is not possible on a Confluence page; the margin column does that job.* **Hosted in: Confluence.**
 
 **Two dates on one ticket make a dependency checkable.** On every dependency ticket, **Due date** is the date the receiver needs it, and **Baseline End Date** is the date the supplier has promised. The page subtracts one from the other. A positive margin is safe; a negative margin is a conflict; no promised date means the ask is not yet agreed. Because both dates sit on the dependency ticket, the board needs no join across projects and works for dependencies on outside parties too.
 
@@ -839,7 +897,7 @@ Dashboard 6, for delivery leads and product owners. It is the opening screen of 
 
 ![Figure 18: Dependency dashboard mock-up](charts/31_dependency_dashboard_mockup.png)
 
-*Figure 18. Mock-up of the dependency dashboard.*
+*Figure 18. Mock-up of the dependency dashboard.* **Hosted in: Jira.**
 
 | # | Gadget | Filter | Question answered |
 | --- | --- | --- | --- |
@@ -854,7 +912,7 @@ Dashboard 6, for delivery leads and product owners. It is the opening screen of 
 
 ![Figure 19: Dependencies by supplier](charts/30_dependencies_by_supplier.png)
 
-*Figure 19. What each sub value stream owes, by state. The same tickets grouped by receiver give "what we wait for".*
+*Figure 19. What each sub value stream owes, by state. The same tickets grouped by receiver give "what we wait for".* **Hosted in: Jira.**
 
 **The filters**
 
@@ -915,7 +973,7 @@ ROAM Response on a risk means: **R**esolved, **O**wned (a named person is acting
 
 ![Figure 20: RAID overview](charts/14_raid_overview.png)
 
-*Figure 20. Open Delivery RAID by type and RAG, and open risks by Probability and Impact.*
+*Figure 20. Open Delivery RAID by type and RAG, and open risks by Probability and Impact.* **Hosted in: Jira.**
 
 ### Milestones
 
@@ -933,7 +991,7 @@ ROAM Response on a risk means: **R**esolved, **O**wned (a named person is acting
 
 ![Figure 21: Milestone slippage](charts/13_milestone_slippage.png)
 
-*Figure 21. Milestone slippage, read from two existing date fields.*
+*Figure 21. Milestone slippage, read from two existing date fields.* **Hosted in: Confluence.**
 
 ## 13. Managing the portfolio
 
@@ -950,7 +1008,7 @@ A large portfolio goes wrong in a few predictable ways: too much is started, nob
 
 ![Figure 22: WIP limits](charts/21_wip_limits.png)
 
-*Figure 22. Work-in-progress limits on the VS Epic board. Limits start from the number of people able to lead an analysis and the number of VS Epics the teams can carry in parallel.*
+*Figure 22. Work-in-progress limits on the VS Epic board. Limits start from the number of people able to lead an analysis and the number of VS Epics the teams can carry in parallel.* **Hosted in: Jira.**
 
 ### Investment mix and capacity split
 
@@ -968,7 +1026,7 @@ The shares are a proposal, not a finding (decision 9 in section 20).
 
 ![Figure 23: Investment mix](charts/12_investment_mix.png)
 
-*Figure 23. Intended split against what was actually done.*
+*Figure 23. Intended split against what was actually done.* **Hosted in: Confluence.**
 
 ### Size and forecast of a VS Epic
 
@@ -976,11 +1034,11 @@ For each application under a VS Epic: remaining points divided by that team's PI
 
 ![Figure 24: Story points per VS Epic](charts/09_points_per_vs_epic.png)
 
-*Figure 24. One line per VS Epic: total, done, remaining, PIs to go, and the application that limits it.*
+*Figure 24. One line per VS Epic: total, done, remaining, PIs to go, and the application that limits it.* **Hosted in: Confluence.**
 
 ![Figure 25: VS Epic burn-up](charts/20_vs_epic_burnup.png)
 
-*Figure 25. Burn-up of one VS Epic. Scope growth is shown separately from progress, so a moving target is not mistaken for slow delivery.*
+*Figure 25. Burn-up of one VS Epic. Scope growth is shown separately from progress, so a moving target is not mistaken for slow delivery.* **Hosted in: Confluence.**
 
 ### Velocity above the team
 
@@ -993,11 +1051,11 @@ For each application under a VS Epic: remaining points divided by that team's PI
 
 ![Figure 26: PI velocity](charts/10_pi_velocity.png)
 
-*Figure 26. PI velocity by application. Story points mean different things in different teams, so this chart compares each application with its own past only.*
+*Figure 26. PI velocity by application. Story points mean different things in different teams, so this chart compares each application with its own past only.* **Hosted in: Confluence.**
 
 ![Figure 27: Created versus resolved](charts/16_created_vs_resolved.png)
 
-*Figure 27. Features created against Features finished. A widening gap means the value stream is taking on more than it finishes.*
+*Figure 27. Features created against Features finished. A widening gap means the value stream is taking on more than it finishes.* **Hosted in: Jira.**
 
 ### Twelve questions the value stream lead answers every month
 
@@ -1047,15 +1105,15 @@ Each dashboard uses ten gadgets or fewer, all standard: Filter Results, Pie Char
 
 ![Figure 28: Dashboard 1 mock-up](charts/27_dashboard_mockup.png)
 
-*Figure 28. Mock-up of dashboard 1. The real page is assembled from standard gadgets; the layout will differ in detail.*
+*Figure 28. Mock-up of dashboard 1. The real page is assembled from standard gadgets; the layout will differ in detail.* **Hosted in: Jira.**
 
 ![Figure 29: Features by sub value stream and RAG](charts/26_features_rag_by_svs.png)
 
-*Figure 29. Dashboard 2: Features across the value stream, grouped by sub value stream.*
+*Figure 29. Dashboard 2: Features across the value stream, grouped by sub value stream.* **Hosted in: Jira.**
 
 ![Figure 30: Epics by application and status](charts/05_epics_by_application.png)
 
-*Figure 30. Dashboard 3: Epics across applications.*
+*Figure 30. Dashboard 3: Epics across applications.* **Hosted in: Jira.**
 
 ### One page for each role
 
@@ -1065,7 +1123,7 @@ The dashboards above are organised by level of the hierarchy. Three roles asked 
 
 ![Figure 31: Delivery lead view](charts/33_view_delivery_lead.png)
 
-*Figure 31. Delivery lead view.*
+*Figure 31. Delivery lead view.* **Hosted in: Confluence.**
 
 | Panel | Question | Source |
 | --- | --- | --- |
@@ -1081,7 +1139,7 @@ The dashboards above are organised by level of the hierarchy. Three roles asked 
 
 ![Figure 32: Platform owner view](charts/34_view_platform_owner.png)
 
-*Figure 32. Platform owner view.*
+*Figure 32. Platform owner view.* **Hosted in: Confluence.**
 
 | Panel | Question | Source |
 | --- | --- | --- |
@@ -1099,7 +1157,7 @@ Jira records when a ticket was created, resolved and last changed status, so cou
 
 ![Figure 33: Product owner view](charts/35_view_product_owner.png)
 
-*Figure 33. Product owner view. One page per application, copied from a template with the project key changed.*
+*Figure 33. Product owner view. One page per application, copied from a template with the project key changed.* **Hosted in: Confluence.**
 
 | Panel | Question | Source |
 | --- | --- | --- |
@@ -1193,7 +1251,7 @@ The views are only as good as the tickets. Six hygiene filters are reviewed mont
 
 ![Figure 34: Hygiene trend](charts/18_hygiene_trend.png)
 
-*Figure 34. Hygiene exceptions over the first six months. The expected shape: a steep fall during stitching, then a low level held by the monthly check.*
+*Figure 34. Hygiene exceptions over the first six months. The expected shape: a steep fall during stitching, then a low level held by the monthly check.* **Hosted in: Confluence.**
 
 ---
 
@@ -1210,10 +1268,12 @@ The views are only as good as the tickets. Six hygiene filters are reviewed mont
 | **Head of technology** | Receiving capacity and dependency news late and by word of mouth | Reading capacity against demand, investment mix and dependency views from one place; sponsoring the administrator requests; holding technology leads to the definition of done | Accountability for engineering capacity, quality and the platform |
 | **Delivery leads** | Assembling status by hand; keeping a private list of what was committed | Owning the dependency and RAID register and its process (triage in two working days, weekly review, the dependency sweep at PI planning); owning Milestones, release versions and the per-PI filter edits; pasting the baseline at the lock; running the PI scorecard | Running delivery and release governance |
 | **Application product owners** | Planning their application in isolation; asking other teams for work by message or by creating tickets in their projects | Giving every Epic a parent Feature; setting Target PI and the commitment label at PI planning; raising asks to other teams as dependency tickets, and answering asks addressed to them within five working days; ten minutes weekly on status, RAG, date and release | Ownership of the application backlog and its Epics |
+| **Requesters** | Asking a team or a lead directly | Raising a request through the portal, and following it there | Sponsorship and acceptance of the result |
+| **Intake owner (platform team)** | Demand arriving by many routes | Screening every request within 5 working days; routing it; keeping the intake queue honest | |
 | **Business analysts, designers** | Design decisions living only in documents | Building the Feature in Analysis: Acceptance Criteria, design link, the list of applications, sign-off tasks | Analysis and design work itself |
 | **Scrum masters, team leads** | Rolling every unfinished story over by default | Sprint naming to the convention; checking every story has an Epic; closing sprints on the last day | Running the team's sprint events |
 | **Engineers, testers** | Nothing | Using the flag when blocked, and removing it the same day; raising Bugs under the right Epic with Severity, Testing Phase and Environment | Daily story updates, as now |
-| **Jira administrators** | Fielding one-off requests from each team | Seven requests (section 17); a single framework owner as the point of contact | Central control of fields, statuses and schemes |
+| **Jira administrators** | Fielding one-off requests from each team | Eight requests (section 17); a single framework owner as the point of contact | Central control of fields, statuses and schemes |
 
 ### The one-minute card for working-level people
 
@@ -1250,7 +1310,7 @@ Nothing at Epic level or above needs a daily update unless something actually ch
 
 ## 16. Operating rhythm and governance
 
-### Seven recurring meetings
+### Eight recurring meetings
 
 Each is held on a named Jira board or dashboard, so the ticket is updated in the room and not afterwards.
 
@@ -1258,9 +1318,10 @@ Each is held on a named Jira board or dashboard, so the ticket is updated in the
 | --- | --- | --- | --- | --- |
 | Team daily and sprint events | Daily, per sprint | Application team | Team board | Stories move; blockers flagged |
 | Backlog refinement | Weekly | Product owner, team | Team backlog | Epics move Analysis to Ready; stories estimated |
+| Intake screening | Weekly | Intake owner | Intake queue in the demand intake project | Requests checked, routed and assigned for assessment |
 | Backlog triage | Weekly, 30 minutes | Product lead, delivery lead | Feature board, Idea column | New Features accepted into Analysis, merged or closed |
 | Delivery sync | Weekly | Product lead, delivery lead, product owners | Dashboard 6 first, then 2 and 3 | Feature status checked against Epics; RAG and recovery plans refreshed; flags and links reviewed |
-| Portfolio sync | Fortnightly | Value stream lead, product and delivery leads | VS Epic board and dashboard 1 | VS Epics move through the pipeline; Red and Amber RAID reviewed; Milestone dates confirmed |
+| Portfolio sync | Fortnightly | Value stream lead, product and delivery leads | Intake queue, VS Epic board and dashboard 1 | Requests approved, declined, parked or merged; VS Epics move through the pipeline; Red and Amber RAID reviewed; Milestone dates confirmed |
 | RAID review | Monthly | Delivery leads | Dashboard 4 | Every open RAID ticket gets a comment and a new review date, or is closed |
 | PI planning and PI review | Every 12 weeks | Everyone | The PI plan page and the PI scorecard | Target PI set for the next PI; the closing PI scored |
 
@@ -1268,7 +1329,8 @@ Each is held on a named Jira board or dashboard, so the ticket is updated in the
 
 | Decision | Decided by | Where | Escalates to |
 | --- | --- | --- | --- |
-| Whether new demand is taken on | Owner of the DDT decision | DDT | Value stream lead |
+| Whether a request is complete, and where it is routed | Intake owner | Weekly screening | Product lead |
+| Whether new demand is taken on | Value stream lead and product leads | Portfolio sync, from the intake queue | Sponsor |
 | Order of VS Epics | Value stream lead | Portfolio sync | Sponsor |
 | Order of Features in a sub value stream | Product lead, from the scores | Scoring session | Value stream lead |
 | Whether an application takes an Epic into a PI | That application's product owner | PI planning | Product lead of the Feature |
@@ -1333,12 +1395,12 @@ This section is for the head of technology, architecture, and the Jira and Confl
 | Dashboards | 5 for the value stream, 1 per team | Standard gadgets only |
 | Boards | 2 in the portfolio project | Team boards unchanged |
 | Plans | 1 plan | Roadmap only: one saved view |
-| Automation rules | 7 | Four of them inside a single project each |
+| Automation rules | 9 | Four of them inside a single project each; four need the administrator |
 | Confluence pages | About 16, plus one PI plan page and one scorecard per PI | Includes one page per role, and one product owner page per application |
 
-### Seven requests to the Jira administrator
+### Eight requests to the Jira administrator
 
-None adds a field or a status. Requests 1 to 4 and 7 are needed to start; 5 and 6 can follow the proof of concept.
+None adds a field or a status. Requests 1 to 4 and 7 are needed to start; 5, 6 and 8 can follow the proof of concept.
 
 | # | Request | Why | Without it |
 | --- | --- | --- | --- |
@@ -1349,6 +1411,7 @@ None adds a field or a status. Requests 1 to 4 and 7 are needed to start; 5 and 
 | 5 | For the roadmap only: make RAG Status and the sub value stream field available for colour and grouping in Plans | The roadmap can be coloured by RAG and grouped by sub value stream | The roadmap shows dates and hierarchy only |
 | 6 | Workflow checks: a Feature cannot leave Analysis without Parent Link, sub value stream and Enabler Type, and cannot enter Implementing without Target PI and RAG Status | The definition of ready enforces itself | Product leads check by hand |
 | 7 | In the portfolio project: let product owners and scrum masters create issues, comment, link and move Delivery RAID tickets between statuses; and create one Component per application | Teams can raise and answer asks on neutral ground, and RAID can be listed by application | Asks go through the delivery lead, who becomes a bottleneck |
+| 8 | Two automation rules across the demand intake project and the portfolio project: create a linked Feature when a request is approved; comment on and close the request when its Feature is Released | Nothing is typed twice, and the requester is told the outcome | The product lead uses "Create linked issue" on each approved request, and closes requests by hand |
 
 Jira grants the right to create issues for a whole project, not for one issue type. Product owners and scrum masters will therefore also be able to create a Feature there; the weekly triage of the Idea column catches anything raised by mistake.
 
@@ -1365,6 +1428,8 @@ One decision for the administrator, not a request: Released on Feature and Epic 
 | 5 | Chase stale trouble | Every Monday | Emails the assignee of each Amber or Red ticket not updated in 14 days | One project |
 | 6 | Chase overdue RAID | Every Monday | Comments on each overdue RAID ticket | Portfolio project |
 | 7 | Keep Parent Link clean | An issue changes type | Clears Parent Link, which otherwise keeps a stale value | Administrator |
+| 8 | Create the Feature from a request | A request in the demand intake project is approved | Creates a Feature in the portfolio project in status Idea, copies summary, description and sponsor, links the two, and comments on the request | Across projects (administrator) |
+| 9 | Close the loop | A Feature with a linked request moves to Released | Comments on the request and closes it | Across projects (administrator) |
 
 Rules 3 to 6 are built first; each sits inside one project. Rule 1 is the one to test carefully: vendor documentation describes copying from a parent to its children when the parent changes, and this rule works from the child's side.
 
@@ -1445,21 +1510,21 @@ Two consequences for sequencing. Before the migration, the full set of rules and
 
 ![Figure 35: Rollout plan](charts/25_rollout_plan.png)
 
-*Figure 35. The proposed path. Week numbers are relative; the last step should land on a PI planning date.*
+*Figure 35. The proposed path. Week numbers are relative; the last step should land on a PI planning date.* **Hosted in: Confluence.**
 
 ### Step 0: Before anything is circulated (days 1 to 2)
 
 | Action | Why |
 | --- | --- |
 | Agree who approves this paper, and by when | Without a named approver and a closing date, review does not end |
-| Brief the Jira administrator and the sponsor in person | The seven requests are the longest wait, and are better heard first in conversation than in a paper sent to everyone |
+| Brief the Jira administrator and the sponsor in person | The eight requests are the longest wait, and are better heard first in conversation than in a paper sent to everyone |
 | Tell the Cloud migration team this is coming | So this work and theirs do not undo each other |
 
 ### Step 1: Proof of concept (weeks 1 to 2)
 
 **Scope.** One real slice: one VS Epic, two or three Features, two or three applications. The access-control example in section 4 fits. It is run in the live Jira or a test project, with real field names.
 
-**What it must prove.** These are the eleven checks the framework depends on.
+**What it must prove.** These are the twelve checks the framework depends on.
 
 | # | Check | Pass when |
 | --- | --- | --- |
@@ -1471,9 +1536,10 @@ Two consequences for sequencing. Before the migration, the full set of rules and
 | 6 | Each base filter returns the right tickets | Checked by hand against the slice |
 | 7 | The Jira version, and the Parent Link column in Confluence | One Confluence page shows the parent correctly |
 | 8 | Whether project administrators may create automation rules | Rule 3 built and fired once |
-| 9 | What the DDT records and which Jira field holds its reference | Agreed with the DDT owner |
+| 9 | Whether the demand intake project replaces the DDT or sits in front of it | Agreed with the DDT owner; decision 18 |
 | 10 | One dependency run end to end: ask, accept, link, plan | The dependency shows on the Confluence dependency board with a correct margin; it is known whether `issueLinkType` works and whether Parent Link can be set by bulk edit |
 | 11 | A product owner can create and move a Delivery RAID ticket in the portfolio project | Done once by a real product owner |
+| 12 | One real request put through intake: raised in the portal, approved, and a linked Feature created from it | The Feature carries the request's text and link; it is known whether the approval step and "Create linked issue" are available |
 
 **What it must produce.** Dashboard 1 for the slice; the dependency dashboard with at least one real ask on it; the "Feature progress across applications" page in Confluence; the starting counts for the success measures; and a list of what did not work.
 
@@ -1554,9 +1620,9 @@ Please comment against the number.
 | 3 | Adopt the RAG rules in section 5 at every level | Yes | Value stream lead |
 | 4 | Commitment is made twice (Epic, then Feature), and the baseline is the table pasted at the lock | Yes | Product leads, delivery leads |
 | 5 | Target PI is not edited for committed work; Actual PI is set at Released | Yes, subject to the standards owner | Standards owner |
-| 6 | The DDT is the only front door for new demand, and is used for nothing else | Yes | DDT owner, value stream lead |
+| 6 | There is one front door for new demand, used for nothing else | Yes | Value stream lead |
 | 7 | Epic: add Path to Green, Date to Green and Due date to the screen, or keep End Date and a comment | Add them if they exist as fields | Jira administrator |
-| 8 | Approve administrator requests 1 to 4 and 7 now, and 5 and 6 after the proof of concept | Yes | Head of technology, Jira administrator |
+| 8 | Approve administrator requests 1 to 4 and 7 now, and 5, 6 and 8 after the proof of concept | Yes | Head of technology, Jira administrator |
 | 9 | The starting capacity split in section 13 | As a starting point for two PIs | Head of technology, head of product |
 | 10 | No views or filter sets per sub value stream; everything starts from the value stream | Yes | Value stream lead |
 | 11 | Name the framework owner, the sponsor and the approver of this paper | Names to be given | Sponsor |
@@ -1566,6 +1632,8 @@ Please comment against the number.
 | 15 | Responsibilities for dependencies and RAID as in section 12: delivery leads own the register and process, product owners own asks and promises, product leads own trade-offs | Yes | Value stream lead |
 | 16 | An ask is answered within five working days; a flag older than two working days becomes a RAID ticket | Yes, to be tuned after one PI | Delivery leads |
 | 17 | Plans is used for the roadmap only. The PI plan, capacity, dependencies and roll-ups are Confluence pages; live lists are Jira dashboards | Yes | Value stream lead, head of technology |
+| 18 | The demand intake project in Jira Service Management is the one front door: a request there, and on approval a linked Feature in the portfolio project. It replaces the DDT, or the DDT is kept only as the name of the decision meeting. | Yes | Value stream lead, DDT owner |
+| 19 | Name the intake owner; screening within 5 working days, assessment within 10, decision at the next portfolio sync | Yes, to be tuned after one PI | Value stream lead |
 
 ### Open questions
 
@@ -1576,7 +1644,7 @@ Please comment against the number.
 | 3 | Which plan tier will the Cloud site be on, and does it include levels above Epic and Plans? | Cloud migration team |
 | 4 | What is the Cloud cut-over date, and can it fall in a planning sprint? | Cloud migration team |
 | 5 | Is recording sign-offs as Jira tasks acceptable evidence, or must another system hold it? | Risk, control, audit |
-| 6 | What does the DDT record, and which Jira field holds its reference? | DDT owner |
+| 6 | Does the demand intake project have an approval step, and which statuses does its workflow use? Do requesters need a licence to use the portal? | Jira administrator |
 | 7 | What is the date of the next PI planning? | Delivery leads |
 | 8 | What early-life support period applies before a Feature moves to Done? | Head of technology |
 
@@ -1615,7 +1683,10 @@ Comment against a decision number or a section number. Say whether the point blo
 | Need-by date | The date the receiver needs the dependency delivered; the Due date on the dependency ticket |
 | Lock rule | An Epic that waits on an unagreed dependency is not labelled committed |
 | Milestone | A ticket for a date that people outside the teams care about |
-| DDT | The tool where new demand is raised and agreed before it enters Jira |
+| DDT | The name used until now for the demand front door |
+| Request | A ticket in the demand intake project: what someone has asked for, and the decision on it |
+| Demand intake project | The Jira Service Management project that is the one front door for new demand |
+| Intake owner | The person in the platform team who screens and routes requests |
 | WSJF | Weighted Shortest Job First: a score that puts high-value, small jobs first |
 | L0 roadmap | The 12 to 18 month view of VS Epics, their Features and Milestones |
 | Plans | Jira's planning tool (formerly Advanced Roadmaps). Used here for the roadmap only; it also provides the Parent Link field |
@@ -1639,7 +1710,7 @@ Comment against a decision number or a section number. Say whether the point blo
 | 7 | What happens if we miss a committed Epic? | It shows as spilled, gets a reason and a decision at the PI review, and is planned first in the next PI. Around 80% delivered is a healthy level. |
 | 8 | Is RAG going to be used against me? | The rule works the other way: an early Amber with a plan is the right behaviour, and a late Red is the failure. |
 | 9 | We have our own board and labels. Do we lose them? | Team boards stay. Team labels stay, but the eight framework labels are reserved and no filter reads any other. |
-| 10 | How does this relate to the DDT? | The DDT is where new demand is agreed. Jira is where agreed work is planned and delivered. |
+| 10 | Why do I raise a request and then see a second ticket? | The request is yours: what you asked for and what was decided. The Feature is the delivery team's: what will be built. They are linked, nothing is typed twice, and you are told on your request when it is delivered. |
 | 11 | What changes when we move to Cloud? Will we do this twice? | The structure, rules and habits carry over. Filters, dashboards and the roadmap are rebuilt once, which is why only the minimum is built before the move. |
 | 12 | Who do I tell if a rule does not work for my team? | The framework owner. Proposals are decided monthly, and what changed is published. |
 

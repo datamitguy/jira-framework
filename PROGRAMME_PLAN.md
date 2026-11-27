@@ -18,7 +18,7 @@ The framework explains *how*. Nothing yet explains *why now*, *what changes for 
 | 4 | One-page picture | Everyone | The line VS Epic > Feature > Epic > Story with one real example from your platform | One slide | The diagram exists; needs a real example |
 | 5 | Timeline | Everyone | The chunks below, with dates, and when each team is affected | One slide | Draft in Part 2 |
 | 6 | Decision record | Leads, auditors | What was decided, by whom, when: hierarchy, field meanings, RAG rules, commitment rules | One page, kept current | No |
-| 7 | Glossary | Everyone | Twenty terms at most: VS Epic, Feature, Epic, PI, Target PI, Actual PI, spillover, committed, stretch, RAG, RAID, DDT | One page | No |
+| 7 | Glossary | Everyone | Twenty terms at most: VS Epic, Feature, Epic, PI, Target PI, Actual PI, spillover, committed, stretch, RAG, RAID, request, ask | One page | No |
 | 8 | Questions and answers | Everyone | The awkward questions answered plainly (list below) | Two pages | No |
 | 9 | Quick reference card | Working level | The one-minute card from the update guide | Half a page | Yes |
 | 10 | Training | By role | Three short sessions: working level (30 min), product owners (60 min), leads (90 min), each ending in a hands-on exercise with the mock data | Slides plus exercise | No |
@@ -38,7 +38,7 @@ Write the answers before the first briefing. If an answer is "not decided yet", 
 7. What happens if we miss a committed Epic?
 8. Is RAG going to be used against me?
 9. We already have our own board and labels. Do we lose them?
-10. How does this relate to the DDT?
+10. Why do I raise a request and then see a second ticket, the Feature?
 11. What changes when we move to Jira Cloud? Will we do this twice?
 12. Who do I tell if a rule does not work for my team?
 
@@ -57,9 +57,9 @@ Write the answers before the first briefing. If an answer is "not decided yet", 
 
 | Gap | Why it matters | Suggested owner |
 | --- | --- | --- |
-| Agreement from the Jira admin team, in writing, on the seven requests | Five of them (1 to 4 and 7) block the start | Framework owner |
+| Agreement from the Jira admin team, in writing, on the eight requests | Five of them (1 to 4 and 7) block the start | Framework owner |
 | Agreement with the owner of the Jira standards on Target PI, Actual PI and RAG meanings | The framework assumes meanings the standards may define differently | Framework owner |
-| Agreement with the DDT owner on the hand-off point | Otherwise there are two front doors again | Value stream lead |
+| Agreement with the DDT owner that the demand intake project in Jira Service Management is the one front door, and a named intake owner | Otherwise there are two front doors again | Value stream lead |
 | A check with risk, control or audit on evidence | Sign-offs as tasks, and public or external storage of these documents, may be covered by policy | Delivery lead |
 | A baseline of today | Without "before" numbers (how many Epics have no parent, how many initiatives span applications, how long status reporting takes) you cannot show improvement | Framework owner |
 | Success measures for the project itself | See below | Sponsor |
@@ -118,11 +118,11 @@ This chunk is steps 0 to 3 of the implementation path in the white paper (sectio
 | --- | --- |
 | Agree who approves the white paper and by when; brief the Jira administrator and the sponsor in person | Names and a closing date are written down |
 | Name the sponsor and the framework owner; choose the proof-of-concept slice (one VS Epic, two or three Features, two or three applications) | Agreed |
-| Run the two-week proof of concept and its eleven checks (white paper, section 18) | Each check is ticked or has an owner and date; dashboard 1, the dependency dashboard and the Feature progress page exist for the slice |
+| Run the two-week proof of concept and its twelve checks (white paper, section 18) | Each check is ticked or has an owner and date; dashboard 1, the dependency dashboard and the Feature progress page exist for the slice |
 | Circulate the white paper with screenshots from the proof of concept, with a fixed comment window | Comments are in against the decisions in section 20 |
 | Hold the decision meeting: go, go with changes, or stop | The outcome is in the decision record |
 | Raise admin requests 1 to 4 and 7 | Each has a ticket and a date from the admin team |
-| Agree field meanings with the standards owner and the hand-off with the DDT owner | Written into the decision record |
+| Agree field meanings with the standards owner, and the front door and intake owner with the DDT owner | Written into the decision record |
 | Count the baseline | Numbers recorded for the measures in Part 1 |
 | Write the sponsor message, glossary and questions and answers | Reviewed by two people who were not involved |
 | Meet the Cloud migration team | Their date, their licence tier, and what they will and will not carry over are known |
