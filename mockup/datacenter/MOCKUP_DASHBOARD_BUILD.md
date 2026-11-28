@@ -1,6 +1,6 @@
 # Building the dashboards and Confluence pages on the mock tickets
 
-> **Data Center edition.** This copy uses the field names and values of today's Jira: Target PI values `PI 5` and `PI 4`, WSJF, Enabler, Is it Regulatory, RAG Description, Risk Probability, Priority and Baseline End. What changed and why is in [FIELD_MAPPING.md](FIELD_MAPPING.md).
+> **Data Center edition.** This copy uses the field names and values of today's Jira: Target PI values `PI 5` and `PI 4`, WSJF, Enabler, Is it Regulatory, RAG Description, Risk Probability, Priority and Baseline End. "Needs management attention" is the label `mgmt-attention`. What changed and why is in [FIELD_MAPPING.md](FIELD_MAPPING.md).
 
 Step-by-step instructions for building every Jira dashboard and every Confluence page from the white paper, using the 38 mock tickets in [MOCKUP_GUIDE.md](MOCKUP_GUIDE.md). Each step says what you should see when it works.
 
@@ -45,12 +45,12 @@ Create them in this order.
 | 10 | `MOCK: open Capabilities` | `filter = "MOCK: all" AND issuetype = Capability AND status not in (Idea, Done) ORDER BY Rank` | 3 |
 | 11 | `MOCK: all Initiatives` | `filter = "MOCK: all" AND issuetype = Initiative` | 8 |
 | 12 | `MOCK: Red and Amber` | `(filter = "MOCK: current PI Initiatives" OR filter = "MOCK: PI Epics" OR filter = "MOCK: open Capabilities") AND "RAG Status" in (Red, Amber) AND status not in (Released, Done)` | 8 |
-| 13 | `MOCK: Regulatory and Red` | `filter = "MOCK: all" AND issuetype in (Initiative, Capability) AND status not in (Released, Done) AND ("Is it Regulatory" = Yes OR "RAG Status" = Red)` | 3 |
+| 13 | `MOCK: Management Attention and Red` | `filter = "MOCK: all" AND issuetype in (Initiative, Capability) AND status not in (Released, Done) AND (labels = mgmt-attention OR "RAG Status" = Red)` | 2 |
 | 14 | `MOCK: Amber or Red without a plan` | `filter = "MOCK: Red and Amber" AND issuetype != Epic AND "RAG Description" is EMPTY` | 1 |
 | 15 | `MOCK: intake waiting` | `filter = "MOCK: all" AND issuetype in (Initiative, Capability) AND status = Idea ORDER BY created` | 1 |
 | 16 | `MOCK: Ready, no Target PI` | `filter = "MOCK: all" AND issuetype = Initiative AND status = Ready AND "Target PI" is EMPTY ORDER BY WSJF DESC` | 1 |
 | 17 | `MOCK: Initiatives with gaps` | `filter = "MOCK: all" AND issuetype = Initiative AND status not in (Idea, Analysis, Done) AND ("Parent Link" is EMPTY OR "RAG Status" is EMPTY OR "Value Stream and Sub-Value Stream" is EMPTY)` | 1 |
-| 18 | `MOCK: regulatory Initiatives` | `filter = "MOCK: all" AND issuetype = Initiative AND "Is it Regulatory" = Yes AND status not in (Released, Done)` | 2 |
+| 18 | `MOCK: regulatory Initiatives` | `filter = "MOCK: all" AND issuetype = Initiative AND "Is it Regulatory" = Yes AND status not in (Released, Done)` | 1 |
 | 19 | `MOCK: PI Epics not started` | `filter = "MOCK: PI Epics" AND status in (Idea, Analysis, Ready)` | 1 |
 | 20 | `MOCK: flagged` | `filter = "MOCK: all" AND Flagged = Impediment` | 2 |
 | 21 | `MOCK: hygiene exceptions` | `filter = "MOCK: all" AND issuetype = Epic AND "Parent Link" is EMPTY AND statusCategory != Done` | 1 |
@@ -107,7 +107,7 @@ Open `MOCK: all`, click **Columns**, and tick: Key, Issue Type, Summary, Status,
 | 1 | Filter Results | MOCK: open Capabilities | Columns: Key, Summary, Status, RAG Status, Due date | 3: C1, C2, C3 |
 | 2 | Pie Chart | MOCK: open Capabilities | Statistic type: RAG Status | Three equal slices: Green, Amber, Red |
 | 3 | 2D | MOCK: open Capabilities | X axis: RAG Status. Y axis: Status. | Implementing: Amber 1, Red 1. Analysis: Green 1. |
-| 4 | Filter Results | MOCK: Regulatory and Red | Columns: Key, Issue Type, Summary, RAG Status, RAG Description | 3: C2, I1, I3 |
+| 4 | Filter Results | MOCK: Management Attention and Red | Columns: Key, Issue Type, Summary, RAG Status, RAG Description | 2: C2, I3 |
 | 5 | Filter Results | MOCK: milestones next 90 days and overdue | Columns: Key, Summary, Due date, RAG Status | 2: M1, M2. M2 is overdue. |
 | 6 | 2D | MOCK: open RAID | X axis: RAG Status. Y axis: RAID Type. | Dependency: Green 1, Amber 2, Red 1. Risk: Green 1, Amber 1. Issue: Red 1. Assumption: Green 1. |
 | 7 | Filter Results | MOCK: intake waiting | Columns: Key, Summary, Created | 1: I6 |
@@ -122,7 +122,7 @@ Open `MOCK: all`, click **Columns**, and tick: Key, Issue Type, Summary, Status,
 | 3 | Pie Chart | MOCK: committed Initiatives | Statistic type: Status | Implementing 3, Released 1 |
 | 4 | Filter Results | MOCK: Red and Amber | Columns: Key, Issue Type, Summary, RAG Status, RAG Description | 8: C1, C2, I1, I3, I7, E2, E4, E7 |
 | 5 | Filter Results | MOCK: Ready, no Target PI | Columns: Key, Summary, WSJF | 1: I8 |
-| 6 | Filter Results | MOCK: regulatory Initiatives | Columns: Key, Summary, Due date | 2: I1, I3 |
+| 6 | Filter Results | MOCK: regulatory Initiatives | Columns: Key, Summary, Due date | 1: I1 |
 | 7 | Filter Results | MOCK: unplanned in PI | Columns: Key, Summary | 1: I5 |
 | 8 | Filter Results | MOCK: Initiatives with gaps | Columns: Key, Summary | 1: I5 |
 | 9 | 2D | MOCK: current PI Initiatives | X axis: RAG Status. Y axis: Value Stream and Sub-Value Stream. | Governance and Conditions: Green 1, Amber 1. Monitoring: Red 1. Drawdown: Green 1, Amber 1. None: Green 1. **If the gadget refuses this field, note it (check 4).** |

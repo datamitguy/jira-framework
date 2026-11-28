@@ -1,6 +1,6 @@
 # Mock-up in one Jira project
 
-> **Data Center edition.** This copy uses the field names and values of today's Jira: Target PI values `PI 5` and `PI 4`, WSJF, Enabler, Is it Regulatory, RAG Description, Risk Probability, Priority and Baseline End. What changed and why is in [FIELD_MAPPING.md](FIELD_MAPPING.md).
+> **Data Center edition.** This copy uses the field names and values of today's Jira: Target PI values `PI 5` and `PI 4`, WSJF, Enabler, Is it Regulatory, RAG Description, Risk Probability, Priority and Baseline End. "Needs management attention" is the label `mgmt-attention`. What changed and why is in [FIELD_MAPPING.md](FIELD_MAPPING.md).
 
 A small set of tickets, all in one project, that is enough to build and check every dashboard and Confluence page in the white paper. Nothing here creates tickets for you: this page lists the tickets to create, the fields to fill in on each, the saved filters for a single project, and what every dashboard panel should then show.
 
@@ -61,7 +61,7 @@ Fields: Summary, Parent Link, Status, Target PI, Actual PI, RAG Status, Labels, 
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | I1 | M&P across the platform | C1 Avoid audit risk through access control | Implementing | PI 5 |  | Amber | `mock`, `pi-committed` | 2027-01-11 | Governance and Conditions | WSJF 5.2; Is it Regulatory: Yes; RAG Description: Drawdowns to borrow one engineer in January |
 | I2 | Access review evidence pack | C1 Avoid audit risk through access control | Released | PI 5 | PI 5 | Green | `mock`, `pi-committed` | 2026-11-22 | Governance and Conditions | WSJF 5.3 |
-| I3 | Watch-list triggers from covenant breaches | C2 Earlier warning on deteriorating exposures | Implementing | PI 5 |  | Red | `mock`, `pi-committed` | 2026-12-27 | Monitoring | WSJF 3.6; Is it Regulatory: Yes |
+| I3 | Watch-list triggers from covenant breaches | C2 Earlier warning on deteriorating exposures | Implementing | PI 5 |  | Red | `mock`, `pi-committed`, `mgmt-attention` | 2026-12-27 | Monitoring | WSJF 3.6 |
 | I4 | Conditions carried into drawdown checks | C3 One view of conditions from approval to drawdown | Implementing | PI 5 |  | Green | `mock`, `pi-committed` | 2027-01-16 | Drawdown | WSJF 3.6 |
 | I5 | Covenant breach alerts by email | C2 Earlier warning on deteriorating exposures | Implementing | PI 5 |  | Green | `mock`, `pi-stretch`, `unplanned` | 2027-01-21 |  | WSJF 3.3; Enabler: Yes |
 | I6 | Exposure roll-up by client group | none (on purpose) | Idea |  |  |  | `mock` |  |  |  |
@@ -216,12 +216,12 @@ Create them in this order; later ones refer to earlier ones by name. The last tw
 | `MOCK: open Capabilities` | `filter = "MOCK: all" AND issuetype = Capability AND status not in (Idea, Done) ORDER BY Rank` | 3 | C1, C2, C3 |
 | `MOCK: all Initiatives` | `filter = "MOCK: all" AND issuetype = Initiative` | 8 | I1, I2, I3, I4, I5, I6, I7, I8 |
 | `MOCK: Red and Amber` | `(filter = "MOCK: current PI Initiatives" OR filter = "MOCK: PI Epics" OR filter = "MOCK: open Capabilities") AND "RAG Status" in (Red, Amber) AND status not in (Released, Done)` | 8 | C1, C2, I1, I3, I7, E2, E4, E7 |
-| `MOCK: Regulatory and Red` | `filter = "MOCK: all" AND issuetype in (Initiative, Capability) AND status not in (Released, Done) AND ("Is it Regulatory" = Yes OR "RAG Status" = Red)` | 3 | C2, I1, I3 |
+| `MOCK: Management Attention and Red` | `filter = "MOCK: all" AND issuetype in (Initiative, Capability) AND status not in (Released, Done) AND (labels = mgmt-attention OR "RAG Status" = Red)` | 2 | C2, I3 |
 | `MOCK: Amber or Red without a plan` | `filter = "MOCK: Red and Amber" AND issuetype != Epic AND "RAG Description" is EMPTY` | 1 | I3 |
 | `MOCK: intake waiting` | `filter = "MOCK: all" AND issuetype in (Initiative, Capability) AND status = Idea ORDER BY created` | 1 | I6 |
 | `MOCK: Ready, no Target PI` | `filter = "MOCK: all" AND issuetype = Initiative AND status = Ready AND "Target PI" is EMPTY ORDER BY WSJF DESC` | 1 | I8 |
 | `MOCK: Initiatives with gaps` | `filter = "MOCK: all" AND issuetype = Initiative AND status not in (Idea, Analysis, Done) AND ("Parent Link" is EMPTY OR "RAG Status" is EMPTY OR "Value Stream and Sub-Value Stream" is EMPTY)` | 1 | I5 |
-| `MOCK: regulatory Initiatives` | `filter = "MOCK: all" AND issuetype = Initiative AND "Is it Regulatory" = Yes AND status not in (Released, Done)` | 2 | I1, I3 |
+| `MOCK: regulatory Initiatives` | `filter = "MOCK: all" AND issuetype = Initiative AND "Is it Regulatory" = Yes AND status not in (Released, Done)` | 1 | I1 |
 | `MOCK: PI Epics not started` | `filter = "MOCK: PI Epics" AND status in (Idea, Analysis, Ready)` | 1 | E5 |
 | `MOCK: flagged` | `filter = "MOCK: all" AND Flagged = Impediment` | 2 | E4, S1 |
 | `MOCK: hygiene exceptions` | `filter = "MOCK: all" AND issuetype = Epic AND "Parent Link" is EMPTY AND statusCategory != Done` | 1 | E8 |
@@ -257,7 +257,7 @@ Two filters from the white paper are left out because they depend on the `issueL
 | Filter Results (RAG Status, Due date) | MOCK: open Capabilities | 3 (C1, C2, C3) |
 | Pie Chart by RAG Status | MOCK: open Capabilities | 1 Green, 1 Amber, 1 Red |
 | 2D, Status by RAG Status | MOCK: open Capabilities | Implementing: 1 Amber, 1 Red. Analysis: 1 Green. |
-| Filter Results (RAG Description) | MOCK: Regulatory and Red | 3 (C2, I1, I3) |
+| Filter Results (RAG Description) | MOCK: Management Attention and Red | 2 (C2, I3) |
 | Filter Results, by Due date | MOCK: milestones next 90 days and overdue | 2 (M1, M2); M2 is overdue |
 | 2D, RAID Type by RAG Status | MOCK: open RAID | Dependency: 1 Green, 2 Amber, 1 Red. Risk: 1 Green, 1 Amber. Issue: 1 Red. Assumption: 1 Green. |
 | Filter Results | MOCK: intake waiting | 1 (I6) |
@@ -272,7 +272,7 @@ Two filters from the white paper are left out because they depend on the `issueL
 | Pie Chart by Status | MOCK: committed Initiatives | 4 (I1, I2, I3, I4): 3 Implementing, 1 Released |
 | Filter Results (RAG Description) | MOCK: Red and Amber, with issuetype = Initiative | I1, I3, I7 |
 | Filter Results, by score | MOCK: Ready, no Target PI | 1 (I8) |
-| Filter Results | MOCK: regulatory Initiatives | 2 (I1, I3) |
+| Filter Results | MOCK: regulatory Initiatives | 1 (I1) |
 | Filter Results | MOCK: unplanned in PI | 1 (I5) |
 | Filter Results | MOCK: Initiatives with gaps | 1 (I5) |
 

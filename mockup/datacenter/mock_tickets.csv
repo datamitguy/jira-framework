@@ -4,7 +4,7 @@ C2,Capability,Earlier warning on deteriorating exposures,Implementing,,,mock,,,R
 C3,Capability,One view of conditions from approval to drawdown,Analysis,,,mock,,,Green,2027-12-12,,,Credit and Lending -> Drawdown,,,,,,,,,,,,,,,,,,,
 I1,Initiative,M&P across the platform,Implementing,,,mock pi-committed,PI 5,,Amber,2027-01-11,,,Credit and Lending -> Governance and Conditions,,5.2,Yes,Drawdowns to borrow one engineer in January,,,,,,,,,,C1: Avoid audit risk through access control,,,,,
 I2,Initiative,Access review evidence pack,Released,,,mock pi-committed,PI 5,PI 5,Green,2026-11-22,,,Credit and Lending -> Governance and Conditions,,5.3,,,,,,,,,,,Done,C1: Avoid audit risk through access control,,,,,
-I3,Initiative,Watch-list triggers from covenant breaches,Implementing,,,mock pi-committed,PI 5,,Red,2026-12-27,,,Credit and Lending -> Monitoring,,3.6,Yes,,,,,,,,,,,C2: Earlier warning on deteriorating exposures,,,,,
+I3,Initiative,Watch-list triggers from covenant breaches,Implementing,,,mock pi-committed mgmt-attention,PI 5,,Red,2026-12-27,,,Credit and Lending -> Monitoring,,3.6,,,,,,,,,,,,C2: Earlier warning on deteriorating exposures,,,,,
 I4,Initiative,Conditions carried into drawdown checks,Implementing,,,mock pi-committed,PI 5,,Green,2027-01-16,,,Credit and Lending -> Drawdown,,3.6,,,,,,,,,,,,C3: One view of conditions from approval to drawdown,,,,,
 I5,Initiative,Covenant breach alerts by email,Implementing,,,mock pi-stretch unplanned,PI 5,,Green,2027-01-21,,,,Yes,3.3,,,,,,,,,,,,C2: Earlier warning on deteriorating exposures,,,,,
 I6,Initiative,Exposure roll-up by client group,Idea,,,mock,,,,,,,,,,,,,,,,,,,,,,,,,,
